@@ -86,5 +86,5 @@ pps. 小程序相关：https://juejin.im/post/5b0ccd4e51882515861d2347
 ## 4. 前端mock数据
 
 json-server：https://github.com/typicode/json-server
-![mock-pic1](https://github.com/cwzp990/summary/images/mock1.jpg)
-![mock-pic2](https://github.com/cwzp990/summary/images/mock2.png)
+![mock-pic1](https://github.com/cwzp990/summary/blob/master/images/mock1.jpg)
+![mock-pic2](https://github.com/cwzp990/summary/blob/master/images/mock2.png)
