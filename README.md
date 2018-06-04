@@ -88,3 +88,7 @@ pps. 小程序相关：https://juejin.im/post/5b0ccd4e51882515861d2347
 json-server：https://github.com/typicode/json-server
 ![mock-pic1](https://github.com/cwzp990/summary/blob/master/images/mock1.jpg)
 ![mock-pic2](https://github.com/cwzp990/summary/blob/master/images/mock2.png)
+
+## 5. 单页面应用加载性能优化
+
+原文地址：https://mp.weixin.qq.com/s/KxJttCVuCoIrm9RAjRBrdg?appinstall=0
