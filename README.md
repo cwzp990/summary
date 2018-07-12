@@ -154,4 +154,77 @@ https://juejin.im/post/5b0033c9518825056508075f
 
 ### 1. 和布局相关的东西
 
-### 2. 
+### 2. props传值问题
+
+在项目中遇到这么一种情况，父组件向子组件传值，子组件改变了该值，并传回去...vue会报错，vue不允许子组件修改父组件的值。
+这是官方文档的原话：
+
+父级 prop 的更新会向下流动到子组件中，但是反过来则不行。这样会防止从子组件意外改变父级组件的状态，从而导致你的应用的数据流向难以理解。
+
+有两种情况：
+
+1.子组件想将其作为局部变量使用：
+
+```
+
+props: ['initialCounter'],
+data: function () {
+  return {
+    counter: this.initialCounter
+  }
+}
+
+```
+
+2.prop值需要经过转化后使用：
+
+```
+
+props: ['size'],
+computed: {
+  normalizedSize: function () {
+    return this.size.trim().toLowerCase()
+  }
+}
+
+```
+
+而我的这里确实需要改变父组件传过来的值，我想到了一种办法，亲证可行。
+
+子组件中，通过click方法派发出去一个事件(this.$emit)，父组件接受这个事件，从而在父组件里改变这个值
+
+### 3. vue-router传参
+
+params：/router1/:id ，/router1/123，/router1/789 ,这里的id叫做params
+
+query：/router1?id=123 ,/router1?id=456 ,这里的id叫做query
+
+params传参，类似于post，地址栏不显示参数
+
+```
+
+//  router/index.js
+{
+  path: '/details',
+  name: 'details',
+  component: home
+}
+
+//  vue
+this.$router.push({
+  name: 'detail',     // 如果你使用了name，就不能在这里写path了！！！另外这里是router！！！不是route！！！
+  params: {
+    name: 'xxxx',
+    code: 'xxxx'
+  }
+})
+
+//  取值
+this.$route.params.name
+
+注意 params是路由的一部分，必须要有，而query是拼接在url后面的参数，没有也没关系。
+params一旦设置在路由，params就是路由的一部分，如果这个路由有params传参，但是在跳转的时候没有传参，会导致跳转失败或页面没有内容
+
+params、query不设置也可以传参，但是params不设置的时候，刷新页面或返回参数会丢失，query不会。
+
+```
