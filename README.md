@@ -92,3 +92,66 @@ json-server：https://github.com/typicode/json-server
 ## 5. 单页面应用加载性能优化
 
 原文地址：https://mp.weixin.qq.com/s/KxJttCVuCoIrm9RAjRBrdg?appinstall=0
+
+## 6. echarts相关
+
+echarts是百度为数不多的良心产品~基本上填写一些配置项，图表就出来了
+
+echarts有好几个版本，开发模式下可以选择源代码版本，内容相当多，有9w多行，出错控制台会报错
+线上的话，可以选择常用版本和精简版本，几百k~
+
+1）首先需要准备好一个容器，这样才能存放图表：
+
+var myChart = echarts.init(document.getElementById('main'))
+
+然后是渲染图表：
+
+myChart.setOptions(option)
+
+配置都放在option里面~
+
+2）我踩过的坑
+
+### 遇到一个需求 点击饼图的某个扇区 切换相应的柱图数据
+
+给饼图扇区添加事件：
+
+```
+function eConsole(param) {
+
+  console.log(param.dataIndex)  // 当前点击的索引
+  clickFunc(param.dataIndex)    // 执行点击效果
+}
+
+myChart.on("click", eConsole);
+```
+
+### 在同一个容器中显示饼图和柱图切换，柱图切换饼图时留有坐标轴：
+
+切换option设置时，将show置为false
+
+```
+xAxis: {
+    show: false
+},
+yAxis: {
+    show: false
+}
+```
+
+### 饼图图表位置
+
+饼图图表位置是由series里的radius和center控制的，我一开始以为和柱图一样，在grid里面调了半天没反应，百度了才知道...
+
+ 
+3）关于优化
+
+https://juejin.im/post/5b0033c9518825056508075f
+
+## vue相关
+
+因为之前做了其他项目，vue有些东西就记不清了，好记性不如烂笔头，这里把一些易错点记录下来，方便以后查阅
+
+### 1. 和布局相关的东西
+
+### 2. 
