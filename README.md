@@ -228,3 +228,15 @@ params一旦设置在路由，params就是路由的一部分，如果这个路�
 params、query不设置也可以传参，但是params不设置的时候，刷新页面或返回参数会丢失，query不会。
 
 ```
+
+## jq相关
+
+今天有一个功能是jq动态添加input输入框，然后给input加焦点事件，发现普通的方法添加不了，只有第一个有事件，查了谷歌才发现，应该这样写
+
+```
+
+$('xxx').on('focus', 'input', function(event){
+  // 这里通过$(event.target)获取当前点击的对象
+})
+
+```
