@@ -24,29 +24,55 @@
 
 // xiaoming.study()
 
-class jQuery {
-  constructor(selector) {
-    let slice = Array.prototype.slice
-    let dom = slice.call(document.querySelectorAll(selector))
-    let len = dom ? dom.length : 0
-    for (var i = 0; i < len; i++) {
-      this[i] = dom[i]
-    }
-    this.length = len
-    this.selector = selector || ''
+// class jQuery {
+//   constructor(selector) {
+//     let slice = Array.prototype.slice
+//     let dom = slice.call(document.querySelectorAll(selector))
+//     let len = dom ? dom.length : 0
+//     for (var i = 0; i < len; i++) {
+//       this[i] = dom[i]
+//     }
+//     this.length = len
+//     this.selector = selector || ''
+//   }
+//   append(mode) {
+//     // ......
+//   }
+//   html(data) {
+//     // ......
+//   }
+// }
+
+// window.$ = function(selector) {
+//   return new jQuery(selector)
+// }
+
+// var $p = $('p')
+// console.log($p)
+// console.log($p.html)
+
+// 工厂模式
+class Product{
+  constructor(name) {
+    this.name = name
   }
-  append(mode) {
-    // ......
+  init() {
+    alert('init')
   }
-  html(data) {
-    // ......
+  fn1() {
+    alert('fn1')
   }
 }
 
-window.$ = function(selector) {
-  return new jQuery(selector)
+class Creator {
+  create(name) {
+    return new Product(name)
+  }
 }
 
-var $p = $('p')
-console.log($p)
-console.log($p.html)
+let creator = new Creator()
+
+let p = creator.create('tom')
+
+p.init()
+p.fn1()
