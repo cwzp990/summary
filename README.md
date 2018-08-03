@@ -229,6 +229,109 @@ params、query不设置也可以传参，但是params不设置的时候，刷新
 
 ```
 
+### router-view中的keep-alive
+
+keep-alive的作用是使被包含的组件保留状态，或避免重新渲染，因为router-view也会被渲染成一个组件，自然它也能被包裹了
+
+若我们只想匹配中router-view其中的一个组件，就需要用到下面的方法
+
+```
+
+<keep-alive include="a">            // exclude="a"  除了 name 为 a 的组件都将被缓存
+  <component>
+    <!-- name 为 a 的组件将被缓存！ -->
+  </component>
+</keep-alive>
+
+// or 使用router.meta属性
+
+export default [
+  {
+    path: '/',
+    name: 'home',
+    component: Home,
+    meta: {
+      keepAlive: true // 需要被缓存
+    }
+  }, 
+  {
+    path: '/:id',
+    name: 'edit',
+    component: Edit,
+    meta: {
+      keepAlive: false // 不需要被缓存
+    }
+  }
+]
+
+<keep-alive>
+    <router-view v-if="$route.meta.keepAlive">
+        <!-- 这里是会被缓存的视图组件，比如 Home！ -->
+    </router-view>
+</keep-alive>
+
+<router-view v-if="!$route.meta.keepAlive">
+    <!-- 这里是不被缓存的视图组件，比如 Edit！ -->
+</router-view>
+
+```
+
+这里我们需要注意，当引入keep-alive的时候，页面第一次进入，钩子的触发顺序为created->mounted->activated，退出触发deactivated。当我们再次进入（前进或者后退时，只触发activated）
+
+即keep-alive之后页面模板第一次初始化解析变成html片段后，再次进入就不再重新解析而是读取内存中的数据，即只有当数据变化时，才会使用vurtualDOM进行diff算法更新，所以一般我们不要created部分，把它的逻辑代码写进activated
+
+**地图组件的优化处理**
+
+之前是进入地图页面后进行地图渲染+线路标记，现在是清除以前的线路标记绘制新的线路，性能优化可想而知
+
+```
+
+export default {
+    name: 'transferMap',
+    data: function () {
+        return {
+            map: null,
+        }
+    },
+    methods: {
+        initData: function () {},
+        searchTransfer: function (type) {},
+        // 地图渲染 这个在transfer-map.html中使用
+        renderTransferMap: function (transferMap) {}
+    },
+    mounted () {
+        this.map = new AMap.Map("container", {
+            showBuildingBlock: true,
+            animateEnable: true,
+            resizeEnable: true,
+            zoom: 12 //地图显示的缩放级别
+        });
+    },
+    activated () {
+        let _this = this;
+        _this.initData();
+        // 设置title
+        setDocumentTitle('换乘地图');
+        _this.searchTransfer(_this.policyType).then(function (result) {
+            // 数据加载完成
+            // 换乘地图页面
+            let transferMap = result.plans[_this.activeIndex];
+            transferMap.origin = result.origin;
+            transferMap.destination = result.destination;
+            // 填数据
+            _this.transferMap = transferMap;
+            // 地图渲染
+            _this.renderTransferMap(transferMap);
+        });
+    },
+    deactivated () {
+        // 清理地图之前的标记
+        this.map.clearMap();
+    },
+}
+
+```
+
 ## jq相关
 
 今天有一个功能是jq动态添加input输入框，然后给input加焦点事件，发现普通的方法添加不了，只有第一个有事件，查了谷歌才发现，应该这样写
@@ -240,3 +343,4 @@ $('xxx').on('focus', 'input', function(event){
 })
 
 ```
+
