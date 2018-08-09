@@ -1,5 +1,5 @@
-// 引入 router
+// 引入router
 import router from './router'
 
-// 启动 router
+// 启动router
 router.start()
