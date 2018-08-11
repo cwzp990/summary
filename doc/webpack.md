@@ -101,3 +101,17 @@ new webpack.optimize.CommonsChunkPlugin('common.js')
 针对第三种情况，我们可以把react、react DOM缓存起来
 
 ![webpack](https://github.com/cwzp990/summary/blob/master/images/webpack1.png)
+
+我们在开发环境使用react的开发版本，这里包含很多注释，警告等等，部署线上的时候可以通过webpack.DefinePlugin来切换生产版本。当然我们还可以将react直接放到CDN上，以此来减少体积
+
+2. 代码压缩
+
+webpack提供的UglifyJS插件由于采用单线程压缩，速度很慢，webpack-parallel-uglify-plugin插件可以并行运行UglifyJS插件，这可以有效减少构建时间，注意，该插件应用于生产环境而非开发环境，配置如下：
+
+![webpack](https://github.com/cwzp990/summary/blob/master/images/webpack2.png)
+
+3. 缓存增量构建
+
+由于项目中主要使用的是react.js和es6，结合webpack的babel-loader加载器进行编译，每次重新构建都要重新编译一次，我们可以针对这个进行增量构建，而不需要每次都全量构建
+
+babel-loader可以缓存
