@@ -74,7 +74,7 @@ websocket连接允许客户端和服务器之间进行全双工通信，以便�
 
 客户端
 
-![mock-pic2](https://github.com/cwzp990/summary/blob/master/images/websocket1.png)
+![websocket](https://github.com/cwzp990/summary/blob/master/images/websocket1.png)
 
 服务端
 
@@ -84,7 +84,7 @@ websocket连接允许客户端和服务器之间进行全双工通信，以便�
 
 Nginx配置
 
-![mock-pic2](https://github.com/cwzp990/summary/blob/master/images/websocket2.png)
+![websocket](https://github.com/cwzp990/summary/blob/master/images/websocket2.png)
 
 ## FAQ
 

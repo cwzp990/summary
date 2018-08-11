@@ -77,3 +77,27 @@ Browserify 对其他非 js 文件的加载不够完善，因为它主要解决�
 因为上面一点 Browserify 对资源文件的加载支持不够完善，导致打包时一般都要配合 gulp 或 grunt 一块使用，无谓地增加了打包的难度。
 Browserify 只支持 CommonJS 模块规范，不支持 AMD 和 ES6 模块规范，这意味旧的 AMD 模块和将来的 ES6 模块不能使用。
 基于以上几点，Browserify 并不是一个理想的选择。那么 webpack 是否解决了以上的几个问题呢? 废话，不然介绍它干嘛。那么下面章节我们用实战的方式来说明 webpack 是怎么解决上述的问题的。
+
+## webpack性能优化
+
+1. 减少打包文件体积
+
+webpack+react的项目打包出来的文件经常有几百k甚至上M，究其原因有：
+
++ import css文件的时候，会直接作为模块一并打包到js文件中
+
+针对第一种情况，我们可以用extract-text-webpack-plugin来进行拆分，缺点是会产生更长时间的编译，也没有XMR，还会增加额外的HTTP请求。对于CSS文件不是很大的情况最好不要这样做
+
++ 所以JS模块 + 依赖 都会打包到一个文件
+
+针对第二种情况，我们可以提取公共代码：
+
+new webpack.optimize.CommonsChunkPlugin('common.js')
+
+通过这种方法，我们可以有效减少不同入口文件之间重叠的代码，对于非单页应用来说非常重要
+
++ react + react DOM文件过大
+
+针对第三种情况，我们可以把react、react DOM缓存起来
+
+![webpack](https://github.com/cwzp990/summary/blob/master/images/webpack1.png)
