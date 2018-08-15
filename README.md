@@ -266,10 +266,81 @@ created () {
     const token = this.$route.params.token;
 }
 
-/**
+```
+
 注意 params是路由的一部分，必须要有，而query是拼接在url后面的参数，没有也没关系。
 params一旦设置在路由，params就是路由的一部分，如果这个路由有params传参，但是在跳转的时候没有传参，会导致跳转失败或页面没有内容
-**/
+
+### axios统一封装和api接口管理
+
+### UI库的按需加载
+
++ 首先安装UI库： npm i element-ui -S
+
++ 安装babel-plugin-import插件使其按需加载： npm i babel-plugin-import -D
+
++ 在.babelrc文件中添加插件配置
+
+```js
+
+libraryDirectory { 
+    
+    "plugins": [ 
+        // 这里是原来的代码部分
+        // …………
+
+        // 这里是要我们配置的代码
+        ["import", 
+            { 
+                "libraryName": "vant", 
+                "libraryDirectory": "es", 
+                "style": true 
+            }
+        ] 
+    ] 
+}
+
+```
+
+### 在当前页面覆盖UI库组件的样式
+
+我们在vue文件的样式都是写在<style lang='scss' scoped></style>标签中的，加scoped是为了使得样式只在当前页面有效，那么问题来了:
+
+![scoped](https://github.com/cwzp990/summary/blob/master/images/scoped.png)
+
+我们正常写都会被加上[data-v-23d425f8]这个属性(如图1)，但是第三方组件内部并没有编译附带[data-v-23d425f8]这个属性。所以我们想要修改组件内的样式，就有点麻烦。
+
+我们可以通过深度选择器来解决：
+
+### 针对只渲染一次之后需要清除的组件
+
+摘自官网：
+
+![once](https://github.com/cwzp990/summary/blob/master/images/$once.png)
+
+这里有两点不好的地方，引用尤大的话就是：
+
++ 它需要在这个组件实例中保存这个 timer，如果可以的话最好只有生命周期钩子可以访问到它。这并不算严重的问题，但是它可以被视为杂物
+
++ 我们的建立代码独立于我们的清理代码，这使得我们比较难于程序化的清理我们建立的所有东西
+
+也就是说，这样做不方便管理，定时器是在data里申明的，却要在下面的钩子里清除，而且data里的数据都是响应式的，这样做无故增加了data的数据，浪费性能。
+
+我们应该这样做
+
+![once](https://github.com/cwzp990/summary/blob/master/images/$once-right.png)
+
+```js
+
+const timer = setInterval(() =>{                    
+    // 某些定时器操作                
+}, 500);
+
+this.$once('hook:beforeDestroy', () => {            
+    clearInterval(timer);                                    
+})
+
+```
 
 ### router-view中的keep-alive
 
