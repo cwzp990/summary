@@ -271,6 +271,28 @@ created () {
 注意 params是路由的一部分，必须要有，而query是拼接在url后面的参数，没有也没关系。
 params一旦设置在路由，params就是路由的一部分，如果这个路由有params传参，但是在跳转的时候没有传参，会导致跳转失败或页面没有内容
 
+### 4. vue里的拖拽
+**mousedown、mouseup方法**
+```js
+            oDiv.onmousedown=function(ev){
+                var disX=ev.clientX-oDiv.offsetLeft;
+                var disY=ev.clientY-oDiv.offsetTop;
+
+                document.onmousemove=function(ev){
+                    var l=ev.clientX-disX;
+                    var t=ev.clientY-disY;
+                    oDiv.style.left=l+'px';
+                    oDiv.style.top=t+'px';
+                };
+                document.onmouseup=function(){
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                };
+            };
+```
+
+需要拖拽的对象设置position属性
+
 ### axios统一封装和api接口管理
 
 ### UI库的按需加载
