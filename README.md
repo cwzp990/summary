@@ -324,6 +324,40 @@ dataTransfer 中设置的消息（ 即 setData 的第二个参数 ）只能是�
 
 @dragstart="dragstart($event, item)"
 
+```js
+<div class="item"
+     draggable="true"
+     @dragstart="dragstart($event, item)"
+     @dragend="dragend"
+     v-for="(item, index) in items" :key="index"
+>
+    {{ item.label }}
+</div>
+
+<div class="drop-field"
+     @drop="drop"
+     @dragover.prevent
+>
+    <div class="item"
+         v-if="droppedItem !== ''">
+        {{ droppedItem }}
+    </div>
+</div>
+
+
+methods: {
+    drop (event) {
+        this.droppedItem = event.dataTransfer.getData('item')
+    },
+    dragstart (event, item) {
+        event.dataTransfer.setData('item', item.label)
+    },
+    dragend (event) {
+        event.dataTransfer.clearData()
+    }
+}
+```
+
 ### axios统一封装和api接口管理
 
 ### UI库的按需加载
