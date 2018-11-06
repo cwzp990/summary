@@ -293,6 +293,37 @@ params一旦设置在路由，params就是路由的一部分，如果这个路�
 
 需要拖拽的对象设置position属性
 
+**drag方法**
+
+@dragstart：拖拽开始事件，可绑定于被拖拽元素上；
+@dragend：拖拽结束事件，可绑定于被拖拽元素上；
+@dragover：拖拽持续移动事件，建议绑定于可拖放区域（下方灰色块）；
+@dragenter：进入拖放区域，建议绑定于可拖放区域（下方灰色块），该事件仅在进入拖放区域时触发，在其内部移动时不触发，离开某一可拖放区域后再进入时会再次触发；
+
+注意事项一：不能在被拖拽对象的 dragend 事件中传递消息
+在整个拖拽过程中，事件的先后顺序为：
+
+Step1: 拖拽对象的 dropstart；
+Step2: 拖放区的 drop；
+Step3：拖拽对象的 dropend；
+因而，如果在 dragend 中传递消息，是不能被 drop 捕获的。
+
+注意事项二：不能在被拖拽对象的 dragover 事件中传递消息
+如果我们在被拖拽对象的 dragover 事件中传递消息，由于 dragover 事件的作用对象是「可拖放区」，即此时，该 dragover 中的 DragEvent 是以「可拖放区」身份施加的，故而不会传递到 drop 中。
+
+注意事项三：消息只能是 String 类型
+dataTransfer 中设置的消息（ 即 setData 的第二个参数 ）只能是字符串类型。如果想要传递对象，需要先进行序列化。
+
+注意事项四：Vue 中事件参数
+在上面的代码中，如果我们在 @dragstart 中想传递一些参数，如下：
+
+@dragstart="dragstart(item)"
+就会遇到一个问题：默认传递的 DragEvent 参数丢失了。
+
+此时，我们需要使用 Vue 的特殊变量来实现事件参数的传递：
+
+@dragstart="dragstart($event, item)"
+
 ### axios统一封装和api接口管理
 
 ### UI库的按需加载
