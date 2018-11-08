@@ -586,58 +586,310 @@ node是为了解决编程模型中阻塞I/O的性能问题的，采用了单线�
 
 ## 服务端渲染
 
-Server Side Rendering（服务端渲染）
+1.路径匹配问题：
+In Nuxt.js, the path match is as follows:
 
-SSR 目的是为了解决单页面应用的 SEO 的问题，对于一般网站影响不大，但是对于论坛类，内容类网站来说是致命的，搜索引擎无法抓取页面相关内容，也就是用户搜不到此网站的相关信息。
+@import url('~assets/css/style.css') //Error
+This path matching is an error, and writing it like this is possible:
 
-原理
-将 html 在服务端渲染，合成完整的 html 文件再输出到浏览器。
+@import url('~/assets/css/style.css') //success
+也就是说，在最新版本更新中，官方修复了路径匹配问题：
 
-适用场景
-客户端的网络比较慢
-客户端运行在老的或者直接没有 JavaScript 引擎上
-NUXT
-作用就是在 node.js 上进一步封装，然后省去我们搭建服务端环境的步骤，只需要遵循这个库的一些规则就能轻松实现 SSR。
+而官方推荐使用~/assets匹配路径，而不是使用在中文文档中的~assets去匹配路径。
 
-可以作为一个 Node.js 应用跑在服务器上，也可以把整站直接编译为静态 HTML。另外这个框架支持自动生成路由，用来写展示型的页面是非常不错的选择。
+而在中文文档中，也并未见修复及更改此问题。
 
-NUXT 能为我们做什么
-无需再为了路由划分而烦恼，你只需要按照对应的文件夹层级创建 .vue 文件就行
-无需考虑数据传输问题，nuxt 会在模板输出之前异步请求数据（需要引入 axios 库），而且对 vuex 有进一步的封装
-内置了 webpack，省去了配置 webpack 的步骤，nuxt 会根据配置打包对应的文件
-安装流程
-$ npm install -g vue-cli
+2.按需引入(UI框架等等)
+例如使用UI框架：element-ui
 
-$ vue init nuxt/starter <project-name>
-$ cd <project-name>
-$ npm install
+我找了很多相关文章，并没有详细说明该如何引入。所以我要拿出来将他说明：
 
-$ npm run dev
-Nuxt.js 会监听 pages 目录下的改变，添加新 page 的时候不需要重启服务
+先来看下，如果不按需引入vendor.js的体积大小为：
 
-Next.js
-来自Zeit的团队在React的基础和组件模型上构建了Next.js，同时还提供了一个关键扩展：通过使用名为getInitialProps()的组件生命周期钩子方法，框架能够在服务器上进行初始渲染，如果需要的话，还可以在客户端继续进行渲染。不过这个高级特性是一个很小却功能强大的框架所额外提供的。
+nuxt.js打包shi'li
 
-Next提供了非常丰富的生态环境，特别是它的example，包含了多种情况下的源码，让学习者很容易搭建起一个多功能的Next框架，客户端有的东西，服务端基本都有。
+第一步，下载依赖：
 
-webpack的各项配置，Next集成了webpack的很多配置，热更新是必备品，还支持提供next.config.js的方式导入自己定义的配置。
-你可以使用less、scss、style-in-Component、css等各种样式写法。
-支持redux、redux-saga、或者不用。
-各种图片的支持都包含在webpack中了。
-支持自定义的babelrc配置。
-对于react的版本的支持也在维护者的维护中不断更新。
-支持preact。
-简单易用，就跟写 PHP 一样一个文件一个页面了，但缺点也很明显，其实它是通过改变正常 React + webpack 的代码书写习惯来绕过前后端同构的坑，所以也引入了一些新的问题：
+# 先下载element-ui
 
-图片等静态文件只能放在 static 目录下，不能通过 require 来引入，也就是没办法通过 webpack 来进行模块化管理，如果各个组件有自身依赖的图片，也只能一股脑放 static 里，也很难实现版本管理控制浏览器缓存。
-样式同样也没办法通过 webpack 进行模块化管理，只能通过 style 标签嵌入或直接内联。
-简单地说，很适合快速搭建简单站点，但自由度不高，且带样式或图片的 React 组件无法直接使用，个人看法是一个用自由度和通用性来换取易用性的框架。
+npm install element-ui --save
 
-其他方法
-Google 可以正常爬取和渲染一个纯 js 动态生成的网站，上传 sitemap 就可以了。
+# 如果使用按需引入，必须安装babel-plugin-component(官网有需要下载说明，此插件根据官网规则不同，安装插件不同)
 
-直接生成静态页面由 CDN 分发。有些新技术还可以在 static gen 同时支持 pwa，比如 gatsbyjs。
+npm install babel-plugin-component --save-dev
+安装好以后，按照nuxt.js中的规则，你需要在 plugins/ 目录下创建相应的插件文件
 
-掘金是未登录用户使用 SSR，不错的思路。
+在文件根目录创建(或已经存在)plugins/目录，创建名为：element-ui.js的文件，内容如下：
 
-要分清楚什么时候用 mvvm，mvvm 其实就是 modelview 非常方便定义页面的各种逻辑和改变页面数据，如果是传统的网站，前端没啥逻辑，就没有必要上 mvvm
+
+import Vue from 'vue'
+
+import { Button } from 'element-ui'    //引入Button按钮
+
+export default ()=>{
+    Vue.use(Button)
+}
+第二步，引入插件
+在nuxt.config.js中，添加配置为：plugins
+
+
+css:[
+'element-ui/lib/theme-chalk/index.css'
+],
+plugins:[
+'~/plugins/element-ui'
+]
+默认为：开启SSR,采用服务端渲染，也可以手动配置关闭SSR，配置为：
+
+
+css:[
+'element-ui/lib/theme-chalk/index.css'
+],
+plugins:[
+    {
+        src:'~/plugins/element-ui',
+        ssr:false    //关闭ssr
+    }
+]
+第三步，配置babel选项
+在nuxt.config.js中，配置在build选项中，规则为官网规则：
+
+
+build: {
+      babel:{        //配置按需引入规则
+          "plugins":[
+              [
+                  "component",
+                  {
+                      "libraryName":"element-ui",
+                      "styleLibraryName":"theme-chalk"
+                  }
+              ]
+          ]
+      },
+    /*
+     ** Run ESLINT on save
+     */
+    extend (config, ctx) {
+      if (ctx.isClient) {
+        config.module.rules.push({
+           enforce: 'pre',
+           test: /\.(js|vue)$/,
+           loader: 'eslint-loader',
+           exclude: /(node_modules)/
+        })
+      }
+    }
+ }
+此时，我们在观察打包以后文件体积大小，如图：
+
+nuxt.js打包示例
+
+此时，我们成功完成了按需引入配置。
+3.初始化脚手架的选择：
+官网提供的初始化脚手架为：
+
+
+# 基本的Nuxt.js项目模板
+
+vue init nuxt/starter template
+而其实，官方也提供了更多的模板以便于我们使用，而我在中文文档并未发现有说明：
+
+nuxt/starter 基本的Nuxt.js项目模板
+nuxt/express Nuxt.js + Express
+nuxt/koa Nuxt.js + Koa2
+nuxt/adonuxt Nuxt.js + AdonisJS
+nuxt/micro Nuxt.js + Micro
+nuxt/nuxtent 适用于内容较重网站的Nuxt.js + Nuxtent模块
+而我们使用基础的模板进行初始化项目，部署方式为：
+
+第一步，打包：
+在执行npm run build的时候，nuxt会自动打包
+
+第二步，选择要部署的文件：
+.nuxt文件夹
+package.json 文件
+nuxt.config.js 文件(如果你部署一些proxy，则需要上传这个文件，个人建议把它传上去)
+第三步，启动你的nuxt（重要）
+使用pm2启动你的nuxt.js
+
+
+pm2 start npm --name "demo" -- run start
+在这里，我发现个问题，如果你使用window server 服务器，在使用pm2启动时候，会出现错误，错误如下：
+
+windows server
+
+如果在Linux服务器下启动，同样的命令，同样的执行，则不会出现错误：
+这里采用Linux CentOS 7
+CentOS 7服务器
+所以，个人建议，在采用初始化模板的时候，请选用express 或者 koa 进行初始化，理由如下：
+1.采用基础模板初始化，观察package.json的启动方式如下：
+
+"scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  }
+2.采用express/koa初始化模板，观察package.json的启动方式如下：
+
+"scripts": {
+    "dev": "backpack dev",
+    "build": "nuxt build && backpack build",
+    "start": "cross-env NODE_ENV=production node build/main.js",
+    "precommit": "npm run lint",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+  }
+在start中，对比下，个人觉得express/koa更灵活一些，它直接启动了build/main.js文件，更能直观的启动方式，而关键在于，也可以在windows server下运行起来。
+注意事项：如果采用express/koa的模板初始化，服务器部署的时候，同时要上传build/目录！！！
+4.插件中获取vue绑定
+我们需要在axios的插件中配置Loading加载效果，例如使用element-ui框架作为示例：
+
+1.创建插件
+在文件根目录创建(或已经存在)plugins/目录，创建名为：axios.js的文件，内容如下：
+
+
+import Vue from 'vue'
+
+var vm = new Vue({})    //获取vue实例
+
+export default function ({ $axios, redirect }) {
+
+  $axios.onRequest(config => {
+    if (process.browser) {    //判断是否为客户端（必须）
+        vm.$loading();
+    }
+  })
+
+  $axios.onResponse(response=>{
+      if (process.browser) {    //判断是否为客户端（必须）
+          let load = vm.$loading();
+          load.close();
+      }
+  })
+
+  $axios.onError(error => {
+    const code = parseInt(error.response && error.response.status)
+    if (code === 400) {
+      redirect('/400')
+    }
+  })
+}
+
+如官方所说，并不需要像原生axios一样，去return一个config出来。
+
+2.配置nuxt.config.js文件
+在plugins选项添加：
+
+
+ plugins:['~/plugins/axios']
+添加modules选项并添加如下示例：
+
+
+modules:['@nuxtjs/axios']
+配置防止多次打包：
+
+在build选项中(nuxt.config.js会默认配置)添加vendor配置项：
+
+
+build:{
+    vendor:['axios']
+}
+这样就可以调用loading加载方法,并且愉快的使用了。
+
+（当然还有其他的方法去调用vue实例，每个人习惯不同，使用方式不同。）
+
+5.Nuxt.js中配置代理解决跨域
+我们知道在vue-cli中配置代理很方便，只需要在config/目录下的index.js中找到proxyTable添加即可，而在nuxt中同样需要修改nuxt.config.js配置文件。
+
+1.原始配置代理方式
+使用@nuxtjs/axios和@nuxtjs/proxy进行代理解决跨域
+
+1）.下载插件
+
+# 下载插件
+
+npm install @nuxtjs/axios @nuxtjs/proxy --save
+
+2）.配置插件
+在nuxt.config.js添加配置项：modules和proxy。
+
+
+export default = {
+
+    modules:[
+        '@nuxtjs/axios',
+        '@nuxtjs/proxy'
+    ],
+    proxy:[
+        ['/json.html',{target:'http://www.xxxx.com'}]    //注意这也是一个数组
+    ]
+    
+}
+
+按照上面的方式已经完成了代理，可以进行跨域请求了。
+
+2.第二种方式的代理配置
+1）.下载插件
+这次只需要下载@nuxtjs/axios插件就可以。
+
+
+# 下载插件
+
+npm install @nuxtjs/axios --save
+2）.配置插件
+
+module.exports = {
+
+  modules: [
+    '@nuxtjs/axios',
+  ],
+  axios: {
+    proxy:true
+  },
+  proxy:{
+    '/api': 'http://api.example.com',
+    '/api2': 'http://api.another-website.com'
+  }
+
+}
+特别注意：此时，axios选项为对象(object)，proxy选项为对象(object)。
+@nuxtjs/axios的配置项
+pathRewrite选项(重写地址)
+如果配置pathRewrite选项，可以采用第二种写法如下：
+
+proxy: {
+
+  '/api/': { target: 'http://api.example.com', pathRewrite: {'^/api/': ''} }
+
+ }
+
+/api/将被添加到API端点的所有请求中。可以使用pathRewrite选项删除。
+
+因为在 ajax 的 url 中加了前缀 /api，而原本的接口是没有这个前缀的。
+
+所以需要通过 pathRewrite 来重写地址，将前缀 /api 转为 /或者是''。
+
+如果本身的接口地址就有 /api 这种通用前缀，就可以把 pathRewrite 删掉。
+
+retry选项(自动拦截失败请求)
+可以在axios选项中，配置retry配置项，自动拦截失败请求，默认为3次。
+
+
+axios: {
+  retry: { retries: 3 }
+}
+progress选项(发出请求时显示加载栏)
+与Nuxt.js进度条集成，在发出请求时显示加载栏。（仅在浏览器上，当加载栏可用时。）
+
+您还可以使用progress配置为每个请求禁用进度条。
+
+
+this.$axios.$get('URL', { progress: false })
+baseURL选项（服务器端默认请求地址）
+在服务器端使用和预先创建请求的基本URL。
+
+browserBaseURL选项（客户端默认请求地址）
+在客户端使用和预先创建请求的基本URL。
