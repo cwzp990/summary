@@ -586,6 +586,8 @@ node是为了解决编程模型中阻塞I/O的性能问题的，采用了单线�
 
 ## 服务器相关
 
+**直接部署**
+
 1.首先安装wget
 
 yum install -y wget
@@ -625,3 +627,49 @@ npm
 如果正确输出版本号，则部署OK
 
 这种安装的方法好处是比较干净，安装也比较快速。个人认为比较适合新手。但是如果遇到nodejs插件全局安装时，需要自行去创建关联，参考第4步。
+
+**编译部署**
+
+1.安装gcc，make，openssl，wget
+
+yum install -y gcc make gcc-c++ openssl-devel wget
+
+2.下载源代码包
+
+同样的，你可以在下载页面https://nodejs.org/en/download/中找到下载地址。然后执行指令
+
+wget https://nodejs.org/dist/v9.3.0/node-v9.3.0.tar.gz
+
+3.解压源代码包
+
+tar -xf node-v9.3.0.tar.gz
+
+4.编译
+
+进入源代码所在路径
+
+cd node-v9.3.0
+
+先执行配置脚本
+
+./configure
+
+编译与部署
+
+make && make install
+
+接着就是等待编译完成…
+
+5.测试
+
+node -v
+npm
+
+如果正确输出版本号，则部署OK
+
+这种方式安装，个人觉得比较有点麻烦，还有安装gcc等其他程序，对应新人来说可能比较晕。而且编译比较久，切部署完成后nodejs为分别放在好几个文件夹内：
+
+/usr/local/bin –放置nodejs 执行程序
+/usr/lib –放置了node_modules，即nodejs的各种模块
+/usr/include –放置了nodejs扩展开发用头文件
+优点是全局安装nodejs模块，直接使用。
