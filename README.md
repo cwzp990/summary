@@ -293,6 +293,19 @@ params一旦设置在路由，params就是路由的一部分，如果这个路�
 
 需要拖拽的对象设置position属性
 
+vue在观测对象，以及数组这类数据结构是，需要写成对象的形式，并加上deep:true才能进行深层观测
+
+```js
+
+form: {
+  handler(newVal, oldVal) {
+    ......
+  },
+  deep: true
+}
+
+```
+
 **drag方法**
 
 @dragstart：拖拽开始事件，可绑定于被拖拽元素上；
@@ -359,6 +372,18 @@ methods: {
 ```
 
 ### axios统一封装和api接口管理
+
+**async/await**
+
+async 用于申明一个 function 是异步的，而 await 用于等待一个异步方法执行完成
+
+async输出的是一个promise对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象
+
+await 等到了它要等的东西，一个 Promise 对象，或者其它值，然后呢？我不得不先说，await 是个运算符，用于组成表达式，await 表达式的运算结果取决于它等的东西。
+
+如果它等到的不是一个 Promise 对象，那 await 表达式的运算结果就是它等到的东西。
+
+如果它等到的是一个 Promise 对象，await 就忙起来了，它会阻塞后面的代码，等着 Promise 对象 resolve，然后得到 resolve 的值，作为 await 表达式的运算结果
 
 ### UI库的按需加载
 
