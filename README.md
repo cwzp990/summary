@@ -146,7 +146,130 @@ yAxis: {
 
 饼图图表位置是由series里的radius和center控制的，我一开始以为和柱图一样，在grid里面调了半天没反应，百度了才知道...
 
- 
+### echarts的响应式
+
+echart.resize()
+option.grid.containLabel // 这个参数非常棒
+
+**Vue使用 highcharts的扩展**
+
+最主要的是引入扩展包
+
+```js
+
+import Highcharts from 'highcharts/highstock'; // 必须
+import HighchartsMore from 'highcharts/highcharts-more'; // 必须
+import SolidGauge from 'highcharts/modules/solid-gauge.js'
+HighchartsMore(Highcharts)
+SolidGauge(Highcharts);
+<template>
+    <div>
+        <div id="highCharts" style="width: 400px; height: 300px;"></div>
+    </div>
+</template>
+
+<script>
+    import Highcharts from 'highcharts/highstock';
+    import HighchartsMore from 'highcharts/highcharts-more';
+    import SolidGauge from 'highcharts/modules/solid-gauge.js'
+    HighchartsMore(Highcharts)
+    SolidGauge(Highcharts);
+
+    Highcharts.setOptions({
+        chart: {
+            type: 'solidgauge'
+        },
+        title: null,
+        pane: {
+            center: ['50%', '85%'],
+            size: '140%',
+            startAngle: -90,
+            endAngle: 90,
+            background: {
+            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+            innerRadius: '60%',
+            outerRadius: '100%',
+            shape: 'arc'
+            }
+        },
+        tooltip: {
+            enabled: false
+        },
+        yAxis: {
+            stops: [
+                [0.1, '#55BF3B'], // green
+                [0.5, '#DDDF0D'], // yellow
+                [0.9, '#DF5353'] // red
+            ],
+                lineWidth: 0,
+                minorTickInterval: null,
+                tickPixelInterval: 400,
+                tickWidth: 0,
+                title: {
+                y: -70
+            },
+            labels: {
+                y: 16
+            }
+        },
+        plotOptions: {
+            solidgauge: {
+                dataLabels: {
+                    y: 5,
+                    borderWidth: 0,
+                    useHTML: true
+                }
+            }
+        }
+    });
+
+
+
+    export default {
+        mounted(){
+           this.init();
+        },
+        data(){
+            return {
+                
+            }    
+        },
+        methods:{
+            init(){
+                this.draw();
+            },
+            draw(){
+                new Highcharts.chart('highCharts', {
+                    yAxis: {
+                        min: 0,
+                        max: 200,
+                        title: {
+                            text: '速度'
+                        }
+                    },
+                    credits: {
+                            enabled: false
+                    },
+                    series: [{
+                            name: '速度',
+                            data: [80],
+                            dataLabels: {
+                                    format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                                    '<span style="font-size:12px;color:silver">km/h</span></div>'
+                            },
+                            tooltip: {
+                                    valueSuffix: ' km/h'
+                            }
+                    }]
+                });
+            }
+        }
+    }
+</script>
+
+```
+
 3）关于优化
 
 https://juejin.im/post/5b0033c9518825056508075f
