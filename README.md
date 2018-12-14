@@ -270,9 +270,24 @@ SolidGauge(Highcharts);
 
 ```
 
-3）关于优化
+关于优化
 
 https://juejin.im/post/5b0033c9518825056508075f
+
+## form表单中只有一个input输入框时 ##
+
+form表单中只有一个input输入框时， W3C规定会触发提交事件，需要组织表单的提交
+vue中element-ui中使用 @submit.native.prevent阻止提交
+
+使用form表单的一些坑
+
+生效就是触发提交
+如果表单里有一个type=”submit”的按钮，回车键生效。
+如果表单里只有一个type=”text”的input，不管按钮是什么type，回车键生效。
+如果按钮不是用input，而是用button，并且没有加type，IE下默认为type=button，FX默认为type=submit。
+其他表单元素如textarea、select不影响，radio checkbox不影响触发规则，但本身在FX下会响应回车键，在IE下不响应。
+type=”image”的input，效果等同于type=”submit”，不知道为什么会设计这样一种type，不推荐使用，应该用CSS添加背景图合适些
+我在一个form表单中  写了个没有type的button  当 inupt 按回车时  触发了这个button的click事件  把这个 button 声明为type=button就行了
 
 ## vue相关
 
