@@ -552,6 +552,28 @@ libraryDirectory {
 
 ```
 
+**vuecli3按需引入elementui**
+
+```js
+
+babel.config.js
+module.exports = {
+  presets: ["@vue/app"],
+  plugins: [
+    [
+      "component",
+      {
+        libraryName: "element-ui",
+        styleLibraryName: "theme-chalk"
+      }
+    ]
+  ]
+};
+然后建立一个js文件 放elementui引入的组件
+然后mian.js 引入这个js文件
+
+```
+
 ### 在当前页面覆盖UI库组件的样式
 
 我们在vue文件的样式都是写在<style lang='scss' scoped></style>标签中的，加scoped是为了使得样式只在当前页面有效，那么问题来了:
