@@ -729,6 +729,19 @@ $('xxx').on('focus', 'input', function(event){
 
 ```
 
+## new Date 转时间戳
+
+new Date().valueOf()和new Date().getTime()
+还可以直接+：
+
+```js
+
+let date = new Date()
+
+console.log(+date)
+
+```
+
 ## Ueditor
 
 **Ueditor图片直传OSS**
