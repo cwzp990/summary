@@ -506,6 +506,24 @@ form: {
 
 ```
 
+### 5. keep-alive和 beforeDestory
+
+当组件使用keep-alive的时候，组件的生命周期beforeDestory不再生效，应使用deactivated或者beforeRouterLeave代替
+152. 数据驱动慎用清空列表(优化小细节)
+
+场景介绍
+// 列表页 每次获取新数据清空列表
+this.list = [];
+this.loadData()
+造成的影响
+如果设备比较卡 或者网络比较慢
+会造成列表页空白或显示暂无数据（看你交互方式）
+用户体验不好 看起来一闪一闪的
+我的解决办法 -> 请求完毕后咋成功回调里直接覆盖数据
+loadData().then(res=>{
+    Array.isArray(res.contentList) && (this.list = res.contentList)
+})
+
 **drag方法**
 
 @dragstart：拖拽开始事件，可绑定于被拖拽元素上；
