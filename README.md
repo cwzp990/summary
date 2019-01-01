@@ -613,6 +613,59 @@ await 等到了它要等的东西，一个 Promise 对象，或者其它值，�
      obj = { async foo() {} }
     异步箭头函数： const
      foo = async () => {};
+     
+## 移动端长按弹窗的逻辑，不需要松开即可弹窗
+
+```js
+
+<script>
+export default {
+  data() {
+    return {
+    
+      // 在滚动中  就不触发点击
+      scrollStatus: false,
+      timeId: null,
+      holdTime: 1500,
+      clickTimeDate: null
+    };
+  },
+  methods: {
+    handleClickStart(item, index) {
+      this.scrollStatus = false;
+      clearTimeout(this.timeId);
+      this.timeId = setTimeout(() => {
+        this.beforeDelete(item.objectId, index);
+      }, this.holdTime);
+      this.clickTimeDate = Date.parse(new Date());
+    },
+    handleClickMove() {
+      this.scrollStatus = true;
+    },
+    handleClickEnd(item) {
+      if (this.scrollStatus === true) {
+        clearTimeout(this.timeId);
+        return;
+      }
+      const timeRange = Date.parse(new Date()) - this.clickTimeDate;
+      if (timeRange < this.holdTime) {
+        clearTimeout(this.timeId);
+        this.goDetail(item);
+      }
+    },
+    goDetail(data) {
+      if (data.website) {
+        window.open(data.website);
+      } else {
+        // this.$store.commit("setActivityContent", data.content);
+        this.$router.push({ path: "/activity/detail", query: { id: data.id } });
+      }
+    },
+  }
+};
+</script>
+
+```
 
 ### UI库的按需加载
 
