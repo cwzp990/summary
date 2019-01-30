@@ -888,6 +888,55 @@ mousedown、mousemove组合实现
 
 ```
 
+自己的方法(Vue实现)
+
+```js
+
+dragging: function (event) {
+  this.drag.moveDom = event.currentTarget
+  this.drag.startY = event.clientY
+},
+drop: function (event) {
+  event.preventDefault()
+  this.drag.changeDom = event.currentTarget
+  this.drag.endY = event.clientY
+  if (this.drag.endY - this.drag.startY >= 0) {
+    this.$refs.parant.insertBefore(
+      this.drag.moveDom,
+      this.drag.changeDom.nextSibling
+    )
+  } else {
+    this.$refs.parant.insertBefore(this.drag.moveDom, this.drag.changeDom)
+  }
+},
+allowDrop: function (event) {
+  event.preventDefault()
+  this.drag.endY = event.clientY
+  this.drag.changeDom = event.currentTarget
+  if (this.drag.endY - this.drag.startY >= 0) {
+    this.$refs.parant.insertBefore(
+      this.drag.moveDom,
+      this.drag.changeDom.nextSibling
+    )
+  } else {
+    this.$refs.parant.insertBefore(this.drag.moveDom, this.drag.changeDom)
+  }
+},
+
+// html
+<ul ref="parant">
+  <li v-for="(list,index) in itemData.body"
+      :key="index"
+      draggable="true"
+      @dragstart="dragging($event)"
+      @drop="drop($event)"
+      @dragover="allowDrop($event)"
+      @click.stop="edit(index)">
+  </li>
+</ul>
+
+```
+
 ### axios统一封装和api接口管理
 
 **async/await**
