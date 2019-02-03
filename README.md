@@ -1261,6 +1261,35 @@ lazyMove(targetScroll) {
 
 ```
 
+## 通过promise判断滚动事件是scrollTo触发的还是鼠标滚动触发的
+
+```js
+
+status = false;
+	function timeout( long ){
+		return new Promise( function( resolve, reject ){
+			window.scrollTo( 0, long )
+			setTimeout( resolve, 0 )
+		} )
+	};
+
+	$(document).click( function(){
+		status = true;
+		timeout( 200 ).then( function(){
+			status = false;
+		} )
+	} );
+
+	$(window).scroll( function(){
+		if( status == 'true' ){
+			console.log( '点击事件触发的' )
+		}else if( status == 'false' ){
+			console.log( '滚动事件触发的' )
+		}
+	} )
+
+```
+
 ## Ueditor
 
 **Ueditor图片直传OSS**
