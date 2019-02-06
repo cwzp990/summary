@@ -208,6 +208,31 @@ substr 和 slice 如果遇到负数 会 和 length 相加
 substring和slice的区别则是，slice可以接受“负数”，表示从字符串尾部开始计数； 而substring则把负数或其它无效的数，当作0。
 substr的start也可接受负数，也表示从字符串尾部计数，这点和slice相同；但substr的length则不能小于1，否则返回空字符串。
 
+### Array.sort
+```js
+
+// 比如一个数组 
+let arr = [1, 23, 4, 5, 6, 8, 9, 1,0 ,11, 5, 666, -1, -1, -1 ];
+// 需求是 按照升序排列 但是-1必须在最后
+
+arr.sort( (a, b)=>{
+	a < 0 && (a = Number.POSITIVE_INFINITY);
+	b < 0 && (b = Number.POSITIVE_INFINITY);
+	return a - b
+} )
+
+arr.sort( (a, b)=>{
+  a < 0 || b < 0 && ( a *= -1, b *=-1 );
+  return a - b
+} )
+
+// 位运算
+arr.sort( (a, b) => !~a || !~b ? b : a - b ) 
+
+// sort方法会修改原始数组 使用之前最好拷贝一下原数组
+
+```
+
 ### 遇到一个需求 点击饼图的某个扇区 切换相应的柱图数据
 
 给饼图扇区添加事件：
