@@ -420,6 +420,23 @@ vue中element-ui中使用 @submit.native.prevent阻止提交
 type=”image”的input，效果等同于type=”submit”，不知道为什么会设计这样一种type，不推荐使用，应该用CSS添加背景图合适些
 我在一个form表单中  写了个没有type的button  当 inupt 按回车时  触发了这个button的click事件  把这个 button 声明为type=button就行了
 
+## label for
+
+给 label指定for 对应input或者别的form元素 即使label不包裹着for 也会触发该元素的聚焦 for把两个不包裹的元素关联了起来
+而label包裹上的元素不需要写for也可以聚焦
+
+### JS中的label
+
+start 在ES5中并没有建立作用域
+start: {
+	console.log(1);	
+	console.log(2);
+	break start
+	console.log(3);
+}
+// 1 2 
+还有双重for循环的场景 有兴趣可以MDN看一下
+
 ## vue相关
 
 因为之前做了其他项目，vue有些东西就记不清了，好记性不如烂笔头，这里把一些易错点记录下来，方便以后查阅
