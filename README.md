@@ -67,6 +67,28 @@
 
 移动端小键盘弹起会吧背景图弹上去 待解决 :punch:
 
+**懒加载**
+
+(前端技术周刊 2018-12-24：移动无限加载)[https://segmentfault.com/a/1190000017893879]
+
+滚动事件
+
+(移动 Web 的滚动)[http://www.alloyteam.com/2017/04/secrets-of-mobile-web-scroll-bars-and-drop-refresh/]
+(高性能滚动及页面渲染优化)[http://web.jobbole.com/86158/]
+(移动端滚动事件大起底)[https://github.com/merrier/mobile-scroll-events]
+
+懒加载
+
+(Lazyload 三种实现方式)[https://zhuanlan.zhihu.com/p/25455672]
+(懒加载和预加载)[https://www.jianshu.com/p/4876a4fe7731]
+
+无限滚动
+
+(React 之无限滚动)[https://zhuanlan.zhihu.com/p/32075662]
+(Vue.js 一个超长列表无限滚动加载的解决方案)[https://juejin.im/entry/5819993fbf22ec0068aab054]
+(设计高性能无限滚动加载，了解高效页面秘密)[https://zhuanlan.zhihu.com/p/25767226]
+(设计模式之享元模式)[https://www.cnblogs.com/TomXu/archive/2012/04/09/2379774.html]
+
 ## 3. 小程序录音相关
 需求：在小程序里把小程序录音的mp3文件给转成pcm，pcm发送给后台接口，转换成翻译机可以识别的音频格式
 
