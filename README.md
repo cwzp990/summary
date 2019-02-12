@@ -255,6 +255,31 @@ arr.sort( (a, b) => !~a || !~b ? b : a - b )
 
 ```
 
+### 对象拍平
+
+```js
+
+var m = { "a": 1, "b": { "c": 2, "d": [3, 4] }, "e": { f: { g: "6" } } };
+function spreadJSON (result, json, parentKey) {
+      const keys = Object.keys(json);
+      keys.forEach(key => {
+        const value = json[key];
+        const concatKey = parentKey + (parentKey ? '.' : '') + key;
+        if (Object.prototype.toString.call(value) === '[object Object]'){ 
+			spreadJSON (result, value, concatKey)
+		}else {
+			result[concatKey] = value
+		};
+      })
+      return result;
+    }
+	
+spreadJSON ({}, m, '')
+
+{a: 1, b.c: 2, b.d: Array(2), e.f.g: "6"}
+
+```
+
 ### 遇到一个需求 点击饼图的某个扇区 切换相应的柱图数据
 
 给饼图扇区添加事件：
