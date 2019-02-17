@@ -483,6 +483,42 @@ vue中element-ui中使用 @submit.native.prevent阻止提交
 type=”image”的input，效果等同于type=”submit”，不知道为什么会设计这样一种type，不推荐使用，应该用CSS添加背景图合适些
 我在一个form表单中  写了个没有type的button  当 inupt 按回车时  触发了这个button的click事件  把这个 button 声明为type=button就行了
 
+### 前端下载文件常见的两种方式
+
+ajax
+// 请求的responsetype设置为 responseType: 'blob'
+// 剩下的参考90那条
+form表单下载
+参考 隐藏form表单下载文件
+
+```js
+
+function downloadFile(actoinURL,filePath,fileName){  
+<span style="white-space:pre;"> </span>var form = $("<form>");     
+    $('body').append(form);    
+        form.attr('style','display:none');     
+        form.attr('target','');  
+        form.attr('method','post');  
+        form.attr('action',actoinURL);//下载文件的请求路径  
+          
+          
+        var input1 = $('<input>');   
+        input1.attr('type','hidden');   
+        input1.attr('name','filePath');   
+        input1.attr('value',filePath);  
+        form.append(input1);    
+        var input2 = $('<input>');   
+        input2.attr('type','hidden');   
+        input2.attr('name','fileName');   
+        input2.attr('value',fileName);  
+        form.append(input2);  
+          
+        form.submit();      
+      
+    }; 
+
+```
+
 ## label for
 
 给 label指定for 对应input或者别的form元素 即使label不包裹着for 也会触发该元素的聚焦 for把两个不包裹的元素关联了起来
