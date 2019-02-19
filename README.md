@@ -1396,6 +1396,11 @@ $('xxx').on('focus', 'input', function(event){
 
 ```
 
+## 当你想判断包含关系时
+
+- 少量的用 ||，量大的试试 includes、indexOf、search、正则…… 你的代码量会更少，更优雅
+- indexOf方法有两个缺点，一是不够语义化，它的含义是找到参数值的第一个出现位置，所以要去比较是否不等于-1，表达起来不够直观。二是，它内部使用严格相等运算符（===）进行判断，这会导致对NaN的误判。摘自——es6阮一峰
+
 ## new Date 转时间戳
 
 new Date().valueOf()和new Date().getTime()
