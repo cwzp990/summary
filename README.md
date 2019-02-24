@@ -230,6 +230,26 @@ substr 和 slice 如果遇到负数 会 和 length 相加
 substring和slice的区别则是，slice可以接受“负数”，表示从字符串尾部开始计数； 而substring则把负数或其它无效的数，当作0。
 substr的start也可接受负数，也表示从字符串尾部计数，这点和slice相同；但substr的length则不能小于1，否则返回空字符串。
 
+### 少用ID,会增加全局变量
+
+```js
+
+<!-- 全局 DOM 变量 -->
+<!-- 由于浏览器历史遗留问题，在创建带有 id 属性的 DOM 元素的时候也会创建同名的全局变量： -->
+<!-- windows下的全局变量不会被ID的全局变量覆盖 -->
+
+<div id='foo'><div>
+<scripts>
+   console.log(foo)     // 打印出DOM元素
+	
+	const el = document.createElement('div')
+	el.id = 'scrollX'
+	document.body.appendChild(el)
+	window.scrollX // 0
+</scripts>
+
+```
+
 ### isNaN
 
 ```js
