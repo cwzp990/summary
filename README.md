@@ -676,6 +676,18 @@ created () {
 注意 params是路由的一部分，必须要有，而query是拼接在url后面的参数，没有也没关系。
 params一旦设置在路由，params就是路由的一部分，如果这个路由有params传参，但是在跳转的时候没有传参，会导致跳转失败或页面没有内容
 
+**Vue-Router新开页面**
+
+```js
+
+const routeData = this.$router.resolve({
+  path: lang ? `/${lang}/news/detail` : `news/detail`,
+  query: { id }
+})
+window.open(routeData.href, '_blank')
+
+```
+
 ### 4. vue里的拖拽
 **mousedown、mouseup方法**
 ```js
