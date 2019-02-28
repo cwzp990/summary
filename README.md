@@ -1446,6 +1446,42 @@ console.log(+date)
 
 ```
 
+### 深拷贝
+
+```js
+
+function cloneObject (obj) {
+    var newObj = {}
+    //如果不是引用类型，直接返回
+    if ( obj instanceof Object ) {
+      return obj
+    }
+    //如果是引用类型，遍历属性
+    else{
+         for (var attr in obj) {
+         //如果某个属性还是引用类型，递归调用
+          newObj[attr] = cloneObject(obj[attr])
+        }
+    }
+   
+    return newObj
+  }
+
+```
+
+浅拷贝
+
+```js
+
+var extend = function(destination,source) {
+    for(var property in source) {
+        destination[property] = source[property]
+    }
+    return destination
+}
+
+```
+
 ## 缓动动画
 
 ```js
