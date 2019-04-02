@@ -1364,6 +1364,34 @@ export default [
 
 即keep-alive之后页面模板第一次初始化解析变成html片段后，再次进入就不再重新解析而是读取内存中的数据，即只有当数据变化时，才会使用vurtualDOM进行diff算法更新，所以一般我们不要created部分，把它的逻辑代码写进activated
 
+### 单页面过渡动画过渡过程要设置absolute还要有位置，这样才不会抖动
+
+```js
+
+.ht-filter-enter-active,
+.ht-filter-leave-active {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  transform: translate3d(0, 0, 0);
+  transition: opacity 0.5s, filter 0.5s;
+}
+.ht-filter-enter,
+.ht-filter-leave-to {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  transform: translate3d(0, 0, 0);
+  filter: blur(8px);
+  opacity: 0;
+}
+
+```
+
 **地图组件的优化处理**
 
 之前是进入地图页面后进行地图渲染+线路标记，现在是清除以前的线路标记绘制新的线路，性能优化可想而知
