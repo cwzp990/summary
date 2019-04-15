@@ -1373,6 +1373,24 @@ export default [
 
 即keep-alive之后页面模板第一次初始化解析变成html片段后，再次进入就不再重新解析而是读取内存中的数据，即只有当数据变化时，才会使用vurtualDOM进行diff算法更新，所以一般我们不要created部分，把它的逻辑代码写进activated
 
+### vue中有时候清除某个列表 在赋值前再清除会有效点
+
+```js
+
+// 有效清空 不会导致数据遗留
+loadData().then(res=>{
+	this.dataList = []
+	this.dataList = res.map(v=>{ v.name = 1; return v})
+})
+
+// 有时候会无效清空 导致数据遗留
+this.dataList = []
+loadData().then(res=>{	
+	this.dataList = res.map(v=>{ v.name = 1; return v})
+})
+
+```
+
 ### 单页面过渡动画过渡过程要设置absolute还要有位置，这样才不会抖动
 
 ```js
