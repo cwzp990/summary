@@ -565,6 +565,35 @@ start: {
 // 1 2 
 还有双重for循环的场景 有兴趣可以MDN看一下
 
+### 阿里网页支付跳转
+
+```js
+
+confirmPay(data) {
+      this.pageLoading = true;
+      const newTab = window.open();
+      const div = document.createElement("div");
+      aliPayApi
+        .getPayPage({
+          dePoint: data.dePoint,
+          feesSetMealBeans: this.getSendData()
+        })
+        .then(res => {
+          res = res.data;
+          div.innerHTML = res.orderInfo;
+          newTab.document.body.appendChild(div);
+          newTab.document.forms[0].submit();
+          this.pageLoading = false;
+	  
+          this.back();
+        })
+        .catch(() => {
+          this.pageLoading = false;
+        });
+    }
+    
+```
+
 ## vue相关
 
 因为之前做了其他项目，vue有些东西就记不清了，好记性不如烂笔头，这里把一些易错点记录下来，方便以后查阅
