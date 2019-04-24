@@ -483,6 +483,24 @@ SolidGauge(Highcharts);
 
 ```
 
+### vue中有时候清除某个列表 在赋值前再清除会有效点
+
+```js
+
+// 有效清空 不会导致数据遗留
+loadData().then(res=>{
+	this.dataList = []
+	this.dataList = res.map(v=>{ v.name = 1; return v})
+})
+
+// 有时候会无效清空 导致数据遗留
+this.dataList = []
+loadData().then(res=>{	
+	this.dataList = res.map(v=>{ v.name = 1; return v})
+})
+
+```
+
 ## 8. 如何编写优化的JavaScript
 
 JavaScript是如何工作的：深入V8引擎&编写优化代码的5个技巧
