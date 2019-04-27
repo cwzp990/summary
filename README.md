@@ -2141,3 +2141,33 @@ npm
 /usr/lib –放置了node_modules，即nodejs的各种模块
 /usr/include –放置了nodejs扩展开发用头文件
 优点是全局安装nodejs模块，直接使用。
+
+### vue/react使用JSDoc、jsconfig.json 完成vscode对于webpack的alias引入的js方法的提示
+TS有个好处就是你引入方法会告诉你什么类型返回什么类型
+首先你需要阅读JSDoc的文档和jsconfig.json的配置，你也可以百度下中文的文档
+比如我的webpack的alias配置如下, common中是我的公共方法
+chainWebpack: config => {
+	 config.resolve.alias
+      .set("@common", resolve("src/common"))
+}
+我如果在项目中使用@common/utils引入我需要的方法时，vscode是不会提示我引入这个js文件中有多少方法的，使用jsconfig.json就可以帮助vscode完成这项艰巨的任务
+方法的提示怎么做呢，首先你需要首席几个基本的 @param 等注释规范， 比如
+
+```js
+
+/**
+ *
+ * @param {String} msg 提示的消息
+ */
+export const ht_notify_error = msg => {
+  ht_notify({
+    title: "非常抱歉...",
+    message: msg,
+    type: "error"
+  });
+};
+
+```
+
+之后你在文件中引入这个方法时就会提示这些信息了，亲自试试吧！
+图文版的在我的博客中 https://blog.csdn.net/qq_37540004/article/details/89602242
