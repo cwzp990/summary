@@ -584,6 +584,48 @@ loadData().then(res=>{
 
 ```
 
+### vue按钮权限控制的一个思路
+从0到1搭建element后台框架之权限篇
+按钮级别的权限说实话一般都通过数据接口来控制是否展示，点击等等情况。如果光有前端来控制绝对不是可行之道。
+项目中按钮权限注册全局自定义指令来完成的。首先src下面新建一个directive文件夹，用于注册全局指令。在文件夹下新建一个premissionBtn.js。如果对自定义指令不熟的话可以查阅官方文档。
+全局指令
+
+```js
+
+import Vue from 'vue'
+    import store from '@/store/store'
+    //注册一个v-allowed指令
+     Vue.directive('allowed', {
+        inserted: function (el, bingding) {
+            let roles = store.getters.roles
+            //判断权限
+            if (Array.isArray(roles) && roles.length > 0) {
+                let allow = bingding.value.some(item => {
+                    return roles.includes(item)
+                })
+                if (!allow) {
+                    if (el.parentNode) {
+                        el.parentNode.removeChild(el)
+                    }
+                }
+            }
+        }
+    })
+引用
+ import './directive/premissionBtn'
+那自定义指令如何使用呢？
+ <div class="premissionBtn">
+        <el-button type="primary" v-allowed="['admin']">我是只有admin的时候才能显示</el-button>
+        <br>
+        <el-button type="info" v-allowed="['user']">我是只有user的时候才能显示</el-button>
+        <br>
+        <el-button type="warning" v-allowed="['admin','user']">我是admin或者user才能显示</el-button>
+        <br>
+        <el-button type="danger">任何角色都可以显示</el-button>
+    </div>
+    
+```
+
 ## 8. 如何编写优化的JavaScript
 
 JavaScript是如何工作的：深入V8引擎&编写优化代码的5个技巧
