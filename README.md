@@ -2213,3 +2213,121 @@ export const ht_notify_error = msg => {
 
 之后你在文件中引入这个方法时就会提示这些信息了，亲自试试吧！
 图文版的在我的博客中 https://blog.csdn.net/qq_37540004/article/details/89602242
+
+### 全屏化某个DOM
+
+```js
+
+export default {
+  data() {
+    return {
+      isFull: false
+    };
+  },
+  mounted() {
+    this.addListenWindow();
+  },
+  beforeDestroy() {
+    this.removeListenWindow();
+  },
+  methods: {
+    toggleFullScreen($el = document.querySelector("body")) {
+      $el && this.fullScreen($el);
+    },
+    // 以下是全屏的逻辑
+    fullScreen(el) {
+      // 进入全屏  退出全屏
+      if (window.navigator.userAgent.indexOf(".NET ") > -1) {
+        if (
+          window.outerHeight === window.screen.height &&
+          window.outerWidth === window.screen.width
+        ) {
+          this.escFullScreen(el);
+        } else {
+          this.toFullScreen(el);
+        }
+      } else {
+        !this.isFullScreen() ? this.toFullScreen(el) : this.escFullScreen(el);
+      }
+    },
+    // 进入全屏
+    toFullScreen(el) {
+      (el.requestFullscreen && el.requestFullscreen()) ||
+        (el.mozRequestFullScreen && el.mozRequestFullScreen()) ||
+        (el.webkitRequestFullscreen && el.webkitRequestFullscreen()) ||
+        (el.msRequestFullscreen && el.msRequestFullscreen());
+      this.isFull = true;
+    },
+    // 退出全屏
+    escFullScreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+      this.isFull = false;
+    },
+    // 判断是否进入全屏
+    isFullScreen() {
+      // 火狐升级导致判断失效了 只用window去判断 谷歌 68版本以上也会有这个问题
+      // window.fullScreen
+      if (navigator.userAgent.indexOf("Firefox") >= 0) {
+        return window.fullScreen;
+      } else {
+        return (
+          window.fullScreen ||
+          document.webkitIsFullScreen ||
+          document.msFullscreenEnabled
+        );
+      }
+    },
+    // 获取chrome版本号
+    getChromeVerson() {
+      let userAgent = navigator.userAgent;
+      let strStart = userAgent.indexOf("Chrome");
+      let strStop = userAgent.indexOf(" Safari");
+      let temp = userAgent.substring(strStart, strStop);
+      let arr = temp.match(/\d+/);
+      let version = arr[0] ? arr[0] : -1;
+      return version;
+    },
+    addListenWindow() {
+      // window.addEventListener("resize", this.toggleChange)
+      document.addEventListener("fullscreenchange", this.toggleChange);
+      document.addEventListener("webkitfullscreenchange", this.toggleChange);
+      document.addEventListener("mozfullscreenchange", this.toggleChange);
+      document.addEventListener("MSFullscreenChange", this.toggleChange);
+    },
+    removeListenWindow() {
+      // window.removeEventListener("resize", this.toggleChange)
+      document.removeEventListener("fullscreenchange", this.toggleChange);
+      document.removeEventListener("webkitfullscreenchange", this.toggleChange);
+      document.removeEventListener("mozfullscreenchange", this.toggleChange);
+      document.removeEventListener("MSFullscreenChange", this.toggleChange);
+    },
+    toggleChange() {
+      clearTimeout(this.reseizeTimeId);
+      // 避免多次触发
+      this.reseizeTimeId = setTimeout(() => {
+        if (window.navigator.userAgent.indexOf(".NET ") > -1) {
+          if (
+            window.outerHeight === window.screen.height &&
+            window.outerWidth === window.screen.width
+          ) {
+            this.isFull = true;
+          } else {
+            this.isFull = false;
+          }
+        } else {
+          !this.isFullScreen() && (this.isFull = false);
+        }
+      }, 200);
+    }
+  }
+};
+
+```
