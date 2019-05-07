@@ -682,6 +682,11 @@ import Vue from 'vue'
     
 ```
 
+vue-cli import 中大小写的有意思之处
+未测试是es6的规则还是vue-cli或者webpack的关系
+import AppUseChart from './appUseChart' 默认当成文件夹 会查找里面的index.vue
+而import AppUseChart from './AppUseChart' 会当成.vue组件
+
 ## 8. 如何编写优化的JavaScript
 
 JavaScript是如何工作的：深入V8引擎&编写优化代码的5个技巧
