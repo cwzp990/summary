@@ -717,7 +717,13 @@ import AppUseChart from './appUseChart' 默认当成文件夹 会查找里面的
     
 ```
 
-## 8. 如何编写优化的JavaScript
+### 8. vue-router router-link阻止跳转的一个方案
+
+利用tag属性，将router-link渲染成a或别的跳转功能标签之外的标签（修改默认右键菜单也行）
+不需要跳转的to属性设置一个固定的路由链接
+在页面级组件中，利用路由守卫拦截2中的路由连接即可
+
+## 9. 如何编写优化的JavaScript
 
 JavaScript是如何工作的：深入V8引擎&编写优化代码的5个技巧
 
