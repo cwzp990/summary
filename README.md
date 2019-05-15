@@ -1688,6 +1688,36 @@ loadData().then(res=>{
 
 ```
 
+### transition动画过程中多个子重叠优先级问题（鼠标右移和左移显示效果不一样）
+
+大概就是这样一个场景 一个列表 五个li 然后鼠标放上去放大 放大后的要遮住旁边的li 鼠标从左往右的时候，即将开始动画的在即将结束动画的DOM结构之上，而从右往左，是结束的在上面 开始的在下面，于是利用z-index的方案来解决了这个问题
+
+```js
+
+li {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      width: 227px;
+      height: 290px;
+      text-align: center;
+      margin-right: 24px;
+      background: linear-gradient(
+        180deg,
+        rgba(83, 77, 51, 1),
+        rgba(198, 184, 119, 1)
+      );
+      border-radius: 8px;
+      transition: transform 0.4s linear, box-shadow 0.4s linear;
+      &:hover {
+        transform: scale(1.3);
+        box-shadow: 0 0 60px #000;
+        z-index: 2;
+      }
+}
+
+```
+
 **地图组件的优化处理**
 
 之前是进入地图页面后进行地图渲染+线路标记，现在是清除以前的线路标记绘制新的线路，性能优化可想而知
