@@ -723,7 +723,31 @@ import AppUseChart from './appUseChart' 默认当成文件夹 会查找里面的
 不需要跳转的to属性设置一个固定的路由链接
 在页面级组件中，利用路由守卫拦截2中的路由连接即可
 
-## 9. 如何编写优化的JavaScript
+### 9、vue多层传递数据和事件 $attrs/$listeners
+
+https://www.cnblogs.com/mengfangui/p/9995470.html
+
+组件传值一般是通过props传值的。inheritAttrs默认值为true，true的意思是将父组件中除了props外的属性添加到子组件的根节点上(说明，即使设置为true，子组件仍然可以通过$attr获取到props意外的属性)
+
+inheritAttrs:false后（请将fatherDom.vue添加inheritAttrs:false），coo属性就不会显示在fatherDom根节点上了。但是怎么获取到coo呢？这时就通过$attrs获取到到coo。
+
+爷爷
+
+<Father :datas="666" />
+
+父
+
+<Child v-on="$attrs" v-on="$listeners"/>
+
+子
+
+<div>{{datas}}</div>
+
+{
+
+props: [datas]}
+
+## 10. 如何编写优化的JavaScript
 
 JavaScript是如何工作的：深入V8引擎&编写优化代码的5个技巧
 
