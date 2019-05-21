@@ -1446,6 +1446,12 @@ allowDrop: function (event) {
 
 ```
 
+### 同一个浏览器多个tab页面如何登入同一个项目不同角色
+localstorage配合用户id方案，不行 即便可以通过用户id区分用户的token，但是一旦刷新，这个用户的id就不知道了（id用本地存储存下来也无法鉴别），除非重新登录，
+sessionstorage 后端token没失效，用户需要重新登录，新页面打开token也失效
+cookie和localstorage一样道理
+如果要做需要后端配合 静默登录
+
 ### axios统一封装和api接口管理
 
 **async/await**
