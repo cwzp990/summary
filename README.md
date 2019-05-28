@@ -762,7 +762,13 @@ inheritAttrs:false后（请将fatherDom.vue添加inheritAttrs:false），coo属�
 
 props: [datas]}
 
-## 10. 如何编写优化的JavaScript
+### 10. 为什么vue-cli中只需要实例化一次vue?
+
+export default 的是一个对象 Object，然后父组件通过 components 属性注册，其实是内部调用了 Vue.extend 方法，把这个 Object 传入，然后得到的也是一个 Vue 的实例。为啥用 Vue.extend 而不是直接new Vue，因为他们要建立父子关系，形成一个 Vue 的组件树。
+组件里的 data 必须是一个方法，因为组件是多个实例，如果 data 是一个同一个 object，那么一个组件的修改会影响另一个，因此它必须返回一个方法。
+
+
+## 11. 如何编写优化的JavaScript
 
 JavaScript是如何工作的：深入V8引擎&编写优化代码的5个技巧
 
