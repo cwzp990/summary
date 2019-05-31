@@ -645,6 +645,14 @@ loadData().then(res=>{
 
 ```
 
+### vue extends extend minxins mixin
+extends 和 mixins 是用在单页面（不一定准确）中
+extends可以继承vue文件
+mixins继承js文件
+extend mixin 是全局的 具体区别和用法看文档 还是和带s的有差别的
+extends只能继承一个 mixins可以继承多个
+extends并不能继承template 因为 组件没暴露template 哈哈
+
 ### vue中如果接口返回的字段和你默认的字段中有缺失， 不能直接赋值，会不能修改
 
 比如你的默认字段是
