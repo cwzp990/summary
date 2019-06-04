@@ -805,6 +805,38 @@ vue中element-ui中使用 @submit.native.prevent阻止提交
 type=”image”的input，效果等同于type=”submit”，不知道为什么会设计这样一种type，不推荐使用，应该用CSS添加背景图合适些
 我在一个form表单中  写了个没有type的button  当 inupt 按回车时  触发了这个button的click事件  把这个 button 声明为type=button就行了
 
+### 深拷贝的注意点
+对象的属性值是函数时，无法拷贝。
+原型链上的属性无法获取
+不能正确的处理 Date 类型的数据
+不能处理 RegExp
+会忽略 symbol
+会忽略 undefined
+
+```js
+function deepClone(obj) { //递归拷贝
+    if(obj instanceof RegExp) return new RegExp(obj);
+    if(obj instanceof Date) return new Date(obj);
+    if(obj === null || typeof obj !== 'object') {
+        //如果不是复杂数据类型，直接返回
+        return obj;
+    }
+    /**
+     * 如果obj是数组，那么 obj.constructor 是 [Function: Array]
+     * 如果obj是对象，那么 obj.constructor 是 [Function: Object]
+     */
+    let t = new obj.constructor();
+    for(let key in obj) {
+        //如果 obj[key] 是复杂数据类型，递归
+        if(obj.hasOwnProperty(key)){//是否是自身的属性
+            t[key] = deepClone(obj[key]);
+        }
+    }
+    return t;
+}
+
+```
+
 ### 前端下载文件常见的两种方式
 
 ajax
