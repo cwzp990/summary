@@ -499,6 +499,16 @@ export default {
 
 ```
 
+### 移动端返回页面不刷新解决方案
+
+https://www.jianshu.com/p/a8ecfb73a22a
+
+  // 点击浏览器返回按钮，404页面刷新
+ window.addEventListener('pageshow', function (event) {
+//event.persisted属性为true时，表示当前文档是从往返缓存中获取
+  if (event.persisted) location.reload();
+ });
+
 ### html中url路径请求的六种方式：无斜杠、单斜杠（/）、点+单斜杠（./）、点点+单斜杠（../）、多个点点+单斜杠（../../）、全路径
 
 没有斜杠，跳转到和自己（rootPath.html）同目录下的layout页面
