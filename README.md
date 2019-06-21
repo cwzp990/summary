@@ -2899,6 +2899,7 @@ git commit 提交规范 & 规范校验 如何写好 Git commit messages git comm
     test：增加测试
     chore：构建过程或辅助工具的变动
     
-    
-
 如果type为feat和fix，则该 commit 将肯定出现在 Change log 之中
+
+### focus状态下的dom，按键盘的enter键会触发click事件
+解决方案就是 让这个dom blur 可以通过documnet.activeElement 来获得当前focus的DOM
