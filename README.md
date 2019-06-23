@@ -2903,3 +2903,21 @@ git commit 提交规范 & 规范校验 如何写好 Git commit messages git comm
 
 ### focus状态下的dom，按键盘的enter键会触发click事件
 解决方案就是 让这个dom blur 可以通过documnet.activeElement 来获得当前focus的DOM
+
+### 数组去重并统计每一项有几个
+
+```js
+
+var arr = ["a","b","c","c","ab","d","ab","d","c"],
+	newArr = [],
+	obj = {};
+for ( var i = 0, l = arr.length; i < l; i++ ){
+    if( newArr.indexOf( arr ) <= -1 ){
+        newArr.push( arr );
+        obj[arr] = 1
+    }else {
+        obj[arr] = obj[arr] + 1;
+    }    
+}
+
+```
