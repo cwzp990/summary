@@ -2921,3 +2921,8 @@ for ( var i = 0, l = arr.length; i < l; i++ ){
 }
 
 ```
+
+### Array.prototype.methods.apply()的妙用
+
+Array.prototype.concat.apply([], [1,2,[3,4,[5,6]]]) // [1, 2, 3, 4, Array(2)] 可以铺平2维数组
+Array.prototype.push.apply() 可以合并数组
