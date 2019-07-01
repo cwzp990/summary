@@ -2984,3 +2984,16 @@ micro-task(微任务)：Promise，process.nextTick
           });
 	  
 ```
+
+### IE9 input的backspace、delete和右键操作兼容
+
+input的backspace、delete可以通过keyup解决
+右键复制粘贴和剪切可以通过监听document的selectionChange解决
+document.addEventListener('selectionchange', () => {
+    // 获取当前focus/激活的元素
+    const el = document.activeElement
+    // 如果vmodel存在  触发一下input事件  干嘛用的？
+    if (el && el.vmodel) {
+      trigger(el, 'input')
+    }
+  })
