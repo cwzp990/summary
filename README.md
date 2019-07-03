@@ -2989,6 +2989,9 @@ micro-task(微任务)：Promise，process.nextTick
 
 input的backspace、delete可以通过keyup解决
 右键复制粘贴和剪切可以通过监听document的selectionChange解决
+
+```js
+
 document.addEventListener('selectionchange', () => {
     // 获取当前focus/激活的元素
     const el = document.activeElement
@@ -2997,6 +3000,8 @@ document.addEventListener('selectionchange', () => {
       trigger(el, 'input')
     }
   })
+  
+```
 
 ### IE10&11 给textarea设置placeholder时的兼容
 
