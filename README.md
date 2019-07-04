@@ -3035,17 +3035,13 @@ document.addEventListener('selectionchange', () => {
 
 https://ustbhuangyi.github.io/vue-analysis/prepare/ 看肥神的课程啊
 
-```js
-
-created周期执行之后，判断是否存在el，不管el是啥，只要有值就进行下一步，执行vm.$mount
-而$mount根据vue的执行环境，有不同的逻辑，我看的是web执行环境的，所以$mount封装在了platforms/web/index.js，在这里判断el是否存在，不存在设置为undefined，之后调用mountComponent方法， mountComponent方法在core/instance/lifecycle
-我们再来看mountComponent方法，先把el赋值给vm.$el，之后判断render函数可有，没有的话，渲染个空dom（这就是为啥报错了渲染的是空的），如果是开发环境，报错。不管有没有报错接下来都会触发beforeMount周期。
-在之后就是设置updateComponent方法，根据是否需要性能展示，有不同的处理逻辑，但最后都会调用vm._update方法。
-vm._update方法封装在lifecycle.js中的，vm._update接受一个vnode和服务端渲染相关的标识,看其核心，vm.__path__。
-vm.__path__就是Vue.prototype.__path__，也是根据执行环境不同，有不同的处理方式，我们看的是web环境，所以在platforms/web/runtime/index.js中，可以看到Vue.prototype.__patch__ = inBrowser ? patch : noop,这个patch方法在platforms/web/runtime/patch.js中。
-patch.js中做的事大概可以概括为暴露createPatchFunction方法，createPatchFunction方法使用了event style dom-props class attrs transition ref 和directives这些包，它的执行结果就是把vnode转换成html，其中有scoped的处理和keep-alive的处理。
-再回到mountComponent方法中，添加好update要做的事情之后，会创建一个watcher，在触发变化的时候，观察者会判断是否已经mounted并且没有destoryed组件，去执行beforeUpdate周期。
-创建好watcher之后，让服务端渲染的标示给false（服务端用这个干嘛的？），之后判断如果vm.$vnode == null,那么久代表dom已经可以操作，让_isMounted等于true，触发mounted周期
-为啥vm.$vnode == null？ vm.$vnode 表示 Vue 实例的父虚拟 Node，所以它为 Null 则表示当前是根 Vue 的实例。(摘自肥神)
-
-```
++ created周期执行之后，判断是否存在el，不管el是啥，只要有值就进行下一步，执行vm.$mount
++ 而$mount根据vue的执行环境，有不同的逻辑，我看的是web执行环境的，所以$mount封装在了platforms/web/index.js，在这里判断el是否存在，不存在设置为undefined，之后调用mountComponent方法， mountComponent方法在core/instance/lifecycle
++ 我们再来看mountComponent方法，先把el赋值给vm.$el，之后判断render函数可有，没有的话，渲染个空dom（这就是为啥报错了渲染的是空的），如果是开发环境，报错。不管有没有报错接下来都会触发beforeMount周期。
++ 在之后就是设置updateComponent方法，根据是否需要性能展示，有不同的处理逻辑，但最后都会调用vm._update方法。
++ vm._update方法封装在lifecycle.js中的，vm._update接受一个vnode和服务端渲染相关的标识,看其核心，vm.__path__。
++ vm.__path__就是Vue.prototype.__path__，也是根据执行环境不同，有不同的处理方式，我们看的是web环境，所以在platforms/web/runtime/index.js中，可以看到Vue.prototype.__patch__ = inBrowser ? patch : noop,这个patch方法在platforms/web/runtime/patch.js中。
++ patch.js中做的事大概可以概括为暴露createPatchFunction方法，createPatchFunction方法使用了event style dom-props class attrs + transition ref 和directives这些包，它的执行结果就是把vnode转换成html，其中有scoped的处理和keep-alive的处理。
++ 再回到mountComponent方法中，添加好update要做的事情之后，会创建一个watcher，在触发变化的时候，观察者会判断是否已经mounted并且没有destoryed组件，去执行beforeUpdate周期。
++ 创建好watcher之后，让服务端渲染的标示给false（服务端用这个干嘛的？），之后判断如果vm.$vnode == null,那么久代表dom已经可以操作，让_isMounted等于true，触发mounted周期
++ 为啥vm.$vnode == null？ vm.$vnode 表示 Vue 实例的父虚拟 Node，所以它为 Null 则表示当前是根 Vue 的实例。(摘自肥神)
