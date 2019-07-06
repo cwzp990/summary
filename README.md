@@ -3045,3 +3045,25 @@ https://ustbhuangyi.github.io/vue-analysis/prepare/ 看肥神的课程啊
 + 再回到mountComponent方法中，添加好update要做的事情之后，会创建一个watcher，在触发变化的时候，观察者会判断是否已经mounted并且没有destoryed组件，去执行beforeUpdate周期。
 + 创建好watcher之后，让服务端渲染的标示给false（服务端用这个干嘛的？），之后判断如果vm.$vnode == null,那么久代表dom已经可以操作，让_isMounted等于true，触发mounted周期
 + 为啥vm.$vnode == null？ vm.$vnode 表示 Vue 实例的父虚拟 Node，所以它为 Null 则表示当前是根 Vue 的实例。(摘自肥神)
+
+### 一个按照顺序异步执行的解决方案引发的event loop的思考
+
+```js
+
+let p = Promise.resolve();
+for(let i = 0; i < 5; i++){
+	p = p.then(()=>{
+		return new Promise((resolve, reject)=>{
+			setTimeout(()=>{
+				console.log(i);
+				resolve()
+			}, 500)
+		})
+	})
+}
+p.then(()=>{
+	console.log('完成')
+})
+// 0 1 2 3 4 完成
+
+```
