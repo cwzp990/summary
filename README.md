@@ -3085,3 +3085,14 @@ for执行完之后，执行then(()=>{console.log('完成')})，由于这是一�
 
 assign不继承原型 浅拷贝的__proto__是Object 而Object.create的proto指向它继承来的那个对象 从而让整个原型链串起来
 assign可以合并 浅拷贝俩对象 而create就是继承
+
+### 驼峰转下划线
+
+```js
+
+const hyphenateRE = /\B([A-Z])/g
+ const hyphenate = str=> {
+  return str.replace(hyphenateRE, '-$1').toLowerCase()
+}
+
+```
