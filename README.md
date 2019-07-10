@@ -3096,3 +3096,36 @@ const hyphenateRE = /\B([A-Z])/g
 }
 
 ```
+
+### 模拟一个new
+
+// 创建一个新对象
+// j将构造函数的作用域赋值给新对象  this就指向了这个
+// 执行构造函数中的代码
+// f返回这个对象
+
+```js
+
+function _new(){
+	const Constructor = Array.prototype.shift.call(arguments);
+	const obj = new Object();
+	obj.__proto__ = Constructor.prototype;
+	Constructor.apply(obj, arguments)
+	return obj
+}
+
+var Dog = function(name) {
+  this.name = name
+}
+Dog.prototype.bark = function() {
+  console.log('wangwang')
+}
+Dog.prototype.sayName = function() {
+  console.log('my name is ' + this.name)
+}
+
+var simao = _new(Dog, 'simao')
+
+simao instanceof Dog // true
+
+```
