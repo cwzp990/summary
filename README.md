@@ -3141,3 +3141,9 @@ var simao = _new(Dog, 'simao')
 simao instanceof Dog // true
 
 ```
+
+### white-space
+
+一直以为输入多个空格浏览器只解析成一个是就是这样的，其实不是
+可以使用white-space更改
+给自己一个警醒，写东西一定要想为啥会是这样，而不是它就是这样的。
