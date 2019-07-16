@@ -668,6 +668,24 @@ option = {
 
 ```
 
+### element远程搜索组件注意点
+
+···js
+
+querySearchAsync(queryString, cb) {
+	var restaurants = this.restaurants;
+	var results = queryString ? restaurants.filter(this.createStateFilter(queryString)) : restaurants;
+
+	clearTimeout(this.timeout);
+	this.timeout = setTimeout(() => {
+	  cb(results);
+	}, 3000 * Math.random());
+}
+
+```
+
+要搜索结果显示的值必须是放在返回结果中key为value的值
+
 ### 移动端返回页面不刷新解决方案
 
 https://www.jianshu.com/p/a8ecfb73a22a
