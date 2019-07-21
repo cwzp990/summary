@@ -3190,3 +3190,18 @@ simao instanceof Dog // true
 如果到了限定行数，且lineWidth加上省略号的宽度再加上下个字符的宽度大于限定宽度，那么不再迭代。
 
 可以在测试页面测试和看使用方法
+
+### 洗牌算法
+
+```js
+
+function shuffle(arr) {
+    let shuffled = arr.concat(), rand;
+    for (let i = shuffled.length; i--;) {
+        rand = Math.floor(Math.random() * (i + 1));
+        [shuffled[i],shuffled[rand]] = [shuffled[rand],shuffled[i]] 
+    }
+    return shuffled;
+}
+
+```
