@@ -1,71 +1,39 @@
-const { resolve } = require('path')
-const HtmlWebpackPlugin = 'html-webpack-plugin'
+const path = require('path')
+// 会在打包结束后，自动生成html文件，并把打包生成的js自动引入到html中
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
+  mode: 'development',
   entry: './src/index.js',
   output: {
-    path: resolve(__dirname, 'dist'),
-    filename: '[name].js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  devServer: {
+    contentBase: './dist',
+    open: true
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ['babel-loadel', 'eslint-loader']
+        loader: 'babel-loader'
       },
       {
-        test: /\.html$/,
-        use: 'html-loader'
-      },
-      {
-        test: /favicon\.png$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[hash].[ext]'
-            }
-          }
-        ]
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif|svg)(\?.+)?$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 1000
-            }
-          }
-        ]
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader']
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      chunksSortMode: 'none'
+      template: 'src/index.html' // 模版文件
     }),
-    new HtmlWebpackPlugin.HashedModuleIdsPlugin()
-  ],
-  optimization: {
-    runtimeChunk: true,
-    splitChunks: {
-      chunks: 'all'
-    }
-  }
+    new CleanWebpackPlugin()
+  ]
 }
 
-if (dev) {
-  module.exports.serve = {
-    port: 8080,
-    add: app => {
-      app.use(covert(history()))
-    }
-  }
-}
+// babel-preset-env只做了语法转换 然而低版本浏览器依旧没有es6的某些函数，还需要
+// 安装polyfill，来进行补充这些函数方法
