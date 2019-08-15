@@ -64,6 +64,16 @@ interface SquareConfig2 {
 
 //  此处报错原因是，任意属性的值允许是string，但可选属性width的值却是number，number不是string的子属性
 
+// 函数类型的接口
+interface Func {
+  (source: string, subString: string): boolean
+}
+
+let func: Func
+func = function(source, subString) {
+  return source.search(subString) !== -1
+}
+
 // 继承接口
 interface Shape {
   color: string;
