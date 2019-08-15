@@ -59,8 +59,10 @@ a = ro as number[]
 interface SquareConfig2 {
   color?: string;
   width?: number;
-  [propName: string]: any;
+  [propName: string]: string; // 任意属性
 }
+
+//  此处报错原因是，任意属性的值允许是string，但可选属性width的值却是number，number不是string的子属性
 
 // 继承接口
 interface Shape {

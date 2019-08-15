@@ -16,6 +16,7 @@ let list2: Array<number> = [1, 2, 3]
 let myFavoriteNumber: string | number
 myFavoriteNumber = 'seven'
 myFavoriteNumber = 7
+myFavoriteNumber.length // 我们只能访问联合类型上共有的属性或方法
 
 // 元组 表示一个已知元素数量和类型的数组，各元素的类型不必相同
 
