@@ -12,6 +12,11 @@ let list: number[] = [1, 2, 3]
 
 let list2: Array<number> = [1, 2, 3]
 
+// 联合类型
+let myFavoriteNumber: string | number
+myFavoriteNumber = 'seven'
+myFavoriteNumber = 7
+
 // 元组 表示一个已知元素数量和类型的数组，各元素的类型不必相同
 
 let x: [string, number]
@@ -54,8 +59,8 @@ let o: object = { a: 1 }
 // 类型断言
 // 某些时候，你会比TS更清楚的知道某个值的类型
 
-let someValue:any = 'this is a string'
-let strLen:number = (<string>someValue).length
+let someValue: any = 'this is a string'
+let strLen: number = (<string>someValue).length
 
-let strLen1:number = (someValue as string).length // 在jsx语法中，只有as是被允许的
+let strLen1: number = (someValue as string).length // 在jsx语法中，只有as是被允许的
 
