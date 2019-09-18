@@ -5132,7 +5132,7 @@ let bar = await barPromise;
 
 ```
 
-** 261. encodeURI encodeURIComponent **
+** 261.encodeURI encodeURIComponent **
 
 ```js
 
@@ -5142,5 +5142,25 @@ encodeURIComponent('http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html ' 
 
 encodeURI('http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html ' )
 // "http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html%20"
+
+```
+** 262.Vue如果模板展示的含有插槽，写在插槽外的部分是不会被渲染的 **
+
+```js
+
+<template>
+	<HtTable :showTitle="false">
+		<template v-slot:tableContain>
+			<UpdateBottomAdvDlg
+        		:visible.sync="dlg.visible"
+        		:id="dlg.id"
+        		:datas="dlg.datas"
+      			></UpdateBottomAdvDlg>
+    		</template>
+		
+		// 如果这里没插槽 写在这里的话 就不会被渲染
+		
+	</HtTable>
+</template>
 
 ```
