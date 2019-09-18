@@ -5132,7 +5132,7 @@ let bar = await barPromise;
 
 ```
 
-** 261.encodeURI encodeURIComponent **
+**261. encodeURI encodeURIComponent**
 
 ```js
 
@@ -5144,7 +5144,7 @@ encodeURI('http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html ' )
 // "http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html%20"
 
 ```
-** 262.Vue如果模板展示的含有插槽，写在插槽外的部分是不会被渲染的 **
+**262. Vue如果模板展示的含有插槽，写在插槽外的部分是不会被渲染的**
 
 ```js
 
