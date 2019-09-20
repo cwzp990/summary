@@ -5164,3 +5164,17 @@ encodeURI('http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html ' )
 </template>
 
 ```
+
+**263. es5构造函数和es6类区别 https://www.jianshu.com/p/209decedfaf6**
+
+```js
+
+    ES5的构造函数的原型上的属性和方法可以遍历/ES6 不能够遍历
+    ES6的类必须通过new调用，构造函数则可以不用
+    类不存在变量提升
+    ES6的类没有私有方法和私有属性（正在提议中）
+    class多了一个静态方法（static）,里面的this指向的是类本身，静态方法可以被子类继承
+    ES6的静态属性和静态方法
+    ES6 类多了一个new Target 可以判定new 的构造函数
+
+```
