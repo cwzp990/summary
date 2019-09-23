@@ -5165,7 +5165,9 @@ encodeURI('http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html ' )
 
 ```
 
-**263. es5构造函数和es6类区别 https://www.jianshu.com/p/209decedfaf6**
+**263. ES5的继承和ES6的继承有什么区别？ https://segmentfault.com/a/1190000020391424#articleHeader5**
+
+**264. ES5构造函数和ES6类区别 https://www.jianshu.com/p/209decedfaf6**
 
 ```js
 
