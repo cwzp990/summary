@@ -5184,3 +5184,8 @@ encodeURI('http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html ' )
 **265. input file 选择文件的时候类型的坑**
 
 部分机型不支持accept=".jpg .png "之类的写法，会提示无可用操作，尽量改成image/*
+
+**266. vue3.0项目构建用到的两个工具 rollup 和 lerna**
+
+- rollup 类似于webpack的功能 https://www.rollupjs.com/guide/introduction/
+- lerna 是管理package的工具 https://juejin.im/post/5a989fb451882555731b88c2
