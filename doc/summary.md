@@ -5229,3 +5229,8 @@ encodeURI('http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html ' )
 
 - rollup 类似于webpack的功能 https://www.rollupjs.com/guide/introduction/
 - lerna 是管理package的工具 https://juejin.im/post/5a989fb451882555731b88c2
+
+**267. 当dom已经全屏的时候，如果需要video再全屏，怎么解决**
+
+- 将video 铺满全屏即可。。。。阻止video的全屏事件或者控制条的显示 自己盖一个上去
+- 为什么要这样，因为如果不手动铺满，让video全屏的话，退出全屏 dom的全屏也会没有了 影响体验
