@@ -5234,3 +5234,11 @@ encodeURI('http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html ' )
 
 - 将video 铺满全屏即可。。。。阻止video的全屏事件或者控制条的显示 自己盖一个上去
 - 为什么要这样，因为如果不手动铺满，让video全屏的话，退出全屏 dom的全屏也会没有了 影响体验
+
+**268. threejs使用EffectComposer无法透明显示背景**
+
+可以给背景加到scene.background里 但是会受到辉光效果影响 还在找后续解决放案
+outlinepass 同样有这个问题 https://github.com/mrdoob/three.js/issues/16483 outlinepass的解决方案是把源码里的
+var currentBackground = this.renderScene.background; 改成
+var currentBackground = new THREE.Color( 0xff0000 ); 或者改成透明图片
+新版本的有个demo https://threejs.org/examples/?q=selective#webgl_postprocessing_unreal_bloom_selective 选择某个地方辉光的 可以研究下
