@@ -5242,3 +5242,11 @@ outlinepass 同样有这个问题 https://github.com/mrdoob/three.js/issues/1648
 var currentBackground = this.renderScene.background; 改成
 var currentBackground = new THREE.Color( 0xff0000 ); 或者改成透明图片
 新版本的有个demo https://threejs.org/examples/?q=selective#webgl_postprocessing_unreal_bloom_selective 选择某个地方辉光的 可以研究下
+
+**269. 进程VS线程**
+
+- 进程只是一个容器，一个进程可以由多个线程组成。程序运行时，系统会创建一个进程，并未他分配资源，然后把该进程放入就绪队列，当进程调度器选中他时会为他分配CPU时间，程序开始真正的运行。
+
+- 线程是程序执行时的最小单位，它是进程的一个执行流。线程间共享进程的所有资源，每个线程都有自己的堆栈和局部变量。
+
+- 区别：进程有自己的独立地址空间，每启动一个进程，系统就会为它分配一个地址空间，CPU切换线程的花费比进程要小很多。进程之间的通信需要以通信的方式进行，而线程之间是共享全局变量的。一个进程阻塞不会导致程序崩溃，因为进程有自己独立的地址空间，而一个线程阻塞会导致整个进程崩溃。
