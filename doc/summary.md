@@ -5279,3 +5279,5 @@ const $dom  =document.getElementById('user-mobile')
 temp1.onChange({target: $dom})
 ```
 - 一番操作，获取验证码按钮不经过手动触发点亮了
+
+**271. https://segmentfault.com/a/1190000021102583 面试**
