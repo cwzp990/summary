@@ -5281,3 +5281,27 @@ temp1.onChange({target: $dom})
 - 一番操作，获取验证码按钮不经过手动触发点亮了
 
 **271. https://segmentfault.com/a/1190000021102583 面试**
+
+**272. 删除 Git 中的所有提交历史记录**
+
+```javascript
+
+# 创建 orphan 分支
+git checkout --orphan new-branch
+
+# 添加需要上传文件
+git add .
+
+# 提交更改
+git commit -m "Initial"
+
+# 删除需要清空提交记录的分支
+git branch -D master
+
+# 将当前分支重命名为需要清空提交记录的分支名
+git branch -m master
+
+# 强制更新存储库
+git push -f origin master
+
+```
