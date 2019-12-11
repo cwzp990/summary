@@ -5383,3 +5383,13 @@ function getPolygonAreaCenter(points) {
 getPolygonAreaCenter([{longitude: 117.240752, latitude: 31.819288}...]) // {x: 中心点, y: 中心点}
 
 ```
+
+**275. 数字转字母**
+
+工作中，有一个场景，列表需要用abc...来分组，可以通过ASCII码把数字转为字母
+
+```js
+
+String.fromCharCode(i + 97)
+
+```
