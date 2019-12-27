@@ -80,7 +80,7 @@ Browserify 只支持 CommonJS 模块规范，不支持 AMD 和 ES6 模块规范�
 
 ## webpack报错
 
-** 1. 拆分css **
+**1. 拆分css**
 
 webpack 4.0需要使用MiniCssExtractPlugin将css单独打包，默认是将css打包进js里，但是写的时候要注意，不需要再加入style-loader了
 
@@ -91,4 +91,19 @@ webpack 4.0需要使用MiniCssExtractPlugin将css单独打包，默认是将css�
         use: [miniCssExtractPlugin.loader, 'style-loader', 'css-loader']
       }
       
+ ```
+ 
+ **2. babel**
+ 
+ ```js
+ 
+ npm i babel-loader @babel/preset-env @babel/core
+ 
+- 注意 babel-loader与babel-core的版本对应关系
+- babel-loader 8.x 对应babel-core 7.x
+- babel-loader 7.x 对应babel-core 6.x
+
+需要注意的事，上述配置仅会对ES6/7/8语法进行转换，而不会对新api进行转换，例如(promise、Generator、Set、Maps、Proxy等)。
+我们需要借助babel-polyfill来帮助我们转换
+ 
  ```
