@@ -78,46 +78,17 @@ Browserify 对其他非 js 文件的加载不够完善，因为它主要解决�
 Browserify 只支持 CommonJS 模块规范，不支持 AMD 和 ES6 模块规范，这意味旧的 AMD 模块和将来的 ES6 模块不能使用。
 基于以上几点，Browserify 并不是一个理想的选择。那么 webpack 是否解决了以上的几个问题呢? 废话，不然介绍它干嘛。那么下面章节我们用实战的方式来说明 webpack 是怎么解决上述的问题的。
 
-## webpack性能优化
+## webpack报错
 
-1. 减少打包文件体积
+** 1. 拆分css **
 
-webpack+react的项目打包出来的文件经常有几百k甚至上M，究其原因有：
+webpack 4.0需要使用MiniCssExtractPlugin将css单独打包，默认是将css打包进js里，但是写的时候要注意，不需要再加入style-loader了
 
-+ import css文件的时候，会直接作为模块一并打包到js文件中
+```js
 
-针对第一种情况，我们可以用extract-text-webpack-plugin来进行拆分，缺点是会产生更长时间的编译，也没有XMR，还会增加额外的HTTP请求。对于CSS文件不是很大的情况最好不要这样做
-
-+ 所以JS模块 + 依赖 都会打包到一个文件
-
-针对第二种情况，我们可以提取公共代码：
-
-new webpack.optimize.CommonsChunkPlugin('common.js')
-
-通过这种方法，我们可以有效减少不同入口文件之间重叠的代码，对于非单页应用来说非常重要
-
-+ react + react DOM文件过大
-
-针对第三种情况，我们可以把react、react DOM缓存起来
-
-![webpack](https://github.com/cwzp990/summary/blob/master/images/webpack1.png)
-
-我们在开发环境使用react的开发版本，这里包含很多注释，警告等等，部署线上的时候可以通过webpack.DefinePlugin来切换生产版本。当然我们还可以将react直接放到CDN上，以此来减少体积
-
-2. 代码压缩
-
-webpack提供的UglifyJS插件由于采用单线程压缩，速度很慢，webpack-parallel-uglify-plugin插件可以并行运行UglifyJS插件，这可以有效减少构建时间，注意，该插件应用于生产环境而非开发环境，配置如下：
-
-![webpack](https://github.com/cwzp990/summary/blob/master/images/webpack2.png)
-
-3. 缓存增量构建
-
-由于项目中主要使用的是react.js和es6，结合webpack的babel-loader加载器进行编译，每次重新构建都要重新编译一次，我们可以针对这个进行增量构建，而不需要每次都全量构建
-
-babel-loader可以缓存
-
-4. 升级node、npm
-
-有的时候，我们升级一下node和npm版本会有惊喜。
-
-总之我觉得打包时间控制在差不多的范围内就可以了，没必要过分的优化。可能你研究了半天，改了一堆参数发现其实也就提升了几秒，但维护成本上去了，得不偿失。还不如升级 node、升级 webpack、升级你的编译环境的硬件水平来的实在和简单。
+      {
+        test: /\.css$/,
+        use: [miniCssExtractPlugin.loader, 'style-loader', 'css-loader']
+      }
+      
+ ```
