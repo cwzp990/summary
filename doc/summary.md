@@ -5393,3 +5393,19 @@ getPolygonAreaCenter([{longitude: 117.240752, latitude: 31.819288}...]) // {x: �
 String.fromCharCode(i + 97)
 
 ```
+
+**276. 获取当前月份的前六个月**
+
+```js
+
+function getDate(){
+	const date = new Date();
+	const year = date.getFullYear();
+	const month = date.getMonth() + 1;
+	const allMonth = year * 12 + month
+	for(let i = allMonth - 6; i < allMonth; i++){
+		console.log(`${Math.floor( i / 12)}-${i % 12 + 1}`)
+	}
+}
+
+```
