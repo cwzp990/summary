@@ -107,3 +107,11 @@ webpack 4.0需要使用MiniCssExtractPlugin将css单独打包，默认是将css�
 我们需要借助babel-polyfill来帮助我们转换
  
  ```
+ 
+ **3. 优化打包速度**
+ 
+ - webpack默认为production模式，该模式下会进行tree shaking（去除无用代码）和uglifyjs（代码压缩混淆）
+- alias: 当我们代码中出现 import 'vue'时， webpack会采用向上递归搜索的方式去node_modules 目录下找。为了减少搜索范围我们可以直接告诉webpack去哪个路径下查找。也就是别名(alias)的配置。
+- include exclude 同样配置include exclude也可以减少webpack loader的搜索转换时间。
+- noParse  当我们代码中使用到import jq from 'jquery'时，webpack会去解析jq这个库是否有依赖其他的包。但是我们对类似jquery这类依赖库，一般会认为不会引用其他的包(特殊除外,自行判断)。增加noParse属性,告诉webpack不必解析，以此增加打包速度。
+- extensions webpack会根据extensions定义的后缀查找文件(频率较高的文件类型优先写在前面)
