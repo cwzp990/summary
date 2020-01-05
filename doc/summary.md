@@ -5409,3 +5409,44 @@ function getDate(){
 }
 
 ```
+
+**277. column实现瀑布流**
+
+```js
+
+ <div :class="['column-container', { 'all-data': showAllData }]">
+    <div :class="['gateways-list']">
+      <template v-for="(item, index) in gateways">
+        <transition
+          tag="div"
+          name="el-zoom-in-center"
+          :key="item.model._id || index"
+        >
+          <!--内容-->
+          <div class="bg-contain">...</div>
+        </transition>
+      </template>
+    </div>
+  </div>
+  <style lang="scss">
+    .column-container {
+      &.all-data {
+        z-index: 4;
+        width: 464px;
+        overflow: auto;
+        .gateways-list {
+          columns: 215px 2;
+          column-gap: 0;
+          .bg-contain {
+            margin-bottom: 10px;
+            transform: translate(0, 0) !important;
+            position: static;
+            break-inside: avoid;
+            // float: left;
+          }
+        }
+      }
+    }
+  </style>
+  
+  ```
