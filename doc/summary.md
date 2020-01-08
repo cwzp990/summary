@@ -5486,3 +5486,17 @@ function getDate(){
     }
 
 ```
+
+**279. 通用的模块封装暴露规则**
+
+```js
+
+var DracoDecoderModule = function(DracoDecoderModule) {}
+if (typeof exports === 'object' && typeof module === 'object')
+  module.exports = DracoDecoderModule;
+else if (typeof define === 'function' && define['amd'])
+  define([], function() { return DracoDecoderModule; });
+else if (typeof exports === 'object')
+  exports["DracoDecoderModule"] = DracoDecoderModule;
+  
+```
