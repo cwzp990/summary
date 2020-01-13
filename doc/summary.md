@@ -5500,3 +5500,13 @@ else if (typeof exports === 'object')
   exports["DracoDecoderModule"] = DracoDecoderModule;
   
 ```
+
+**280. Mac删除前往文件夹历史记录**
+
+```js
+
+// 终端
+defaults delete com.apple.finder GoToField; killall Finder
+defaults delete com.apple.finder GoToFieldHistory; killall Finder
+
+```
