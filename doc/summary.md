@@ -5510,3 +5510,65 @@ defaults delete com.apple.finder GoToField; killall Finder
 defaults delete com.apple.finder GoToFieldHistory; killall Finder
 
 ```
+
+**281. 封装fullScreen**
+
+```js
+
+// 必须要在你全屏元素的子元素中才可以
+function support () {
+  const doc = document.documentElement
+
+  return ('requestFullscreen' in doc) ||
+    ('mozRequestFullScreen' in doc && document.mozFullScreenEnabled) ||
+    ('webkitRequestFullScreen' in doc)
+}
+
+function fullScreenStatus () {
+  return document.fullscreen ||
+    document.mozFullScreen ||
+    document.webkitIsFullScreen ||
+    false
+}
+
+export function requestFullScreen (el) {
+  if (el.requestFullscreen) {
+    el.requestFullscreen()
+  } else if (el.mozRequestFullScreen) {
+    el.mozRequestFullScreen()
+  } else if (el.webkitRequestFullScreen) {
+    el.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT)
+  }
+}
+
+export function cancelFullScreen () {
+  if (document.exitFullscreen) {
+    document.exitFullscreen()
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen()
+  } else if (document.webkitCancelFullScreen) {
+    document.webkitCancelFullScreen()
+  }
+}
+
+export function addFullScreenEvent (callback) {
+  const event = document.exitFullscreen
+    ? 'fullscreenchange'
+    : document.mozCancelFullScreen
+      ? 'mozfullscreenchange'
+      : 'webkitfullscreenchange'
+
+  document.addEventListener(event, handler)
+
+  function handler () {
+    callback(fullScreenStatus())
+  }
+
+  return function () {
+    document.removeEventListener(event, handler)
+  }
+}
+
+export const supportFullScreen = support()
+
+```
