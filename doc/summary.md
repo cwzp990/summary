@@ -5627,3 +5627,5 @@ document.addEventListener('visibilitychange', () => {
 })
 
 ```
+
+**283. window.history和popstate事件可以监听浏览器返回**
