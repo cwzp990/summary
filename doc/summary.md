@@ -5629,3 +5629,20 @@ document.addEventListener('visibilitychange', () => {
 ```
 
 **283. window.history和popstate事件可以监听浏览器返回**
+
+**284. Vue.nextTwoTicks**
+
+```js
+
+import { createLocalVue } from '@vue/test-utils';
+const Vue = createLocalVue();
+
+      Vue.nextTwoTicks = function(callback) {
+        Vue.nextTick(() => {
+          Vue.nextTick(callback)
+        })
+      }
+
+export default Vue;
+
+```
