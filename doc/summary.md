@@ -5650,3 +5650,7 @@ export default Vue;
 **285. https://github.com/airuikun/Weekly-FE-Interview 每周十道前端大厂面试题，并收集大家在大厂面试中遇到的难题，一起共同成长。**
 
 **286. https://segmentfault.com/a/1190000021794867 每天都在用 SSH，你知道 SSH 的原理吗？**
+
+**287. 火狐浏览器在搜索栏输入about:config再输入general.useragent.override可以修改浏览器标识 **
+
+比如修改成微信访问的标识Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A365 MicroMessenger/5.4.1 NetType/WIFI就可以访问限制微信访问的页面了。
