@@ -5654,3 +5654,17 @@ export default Vue;
 **287. 火狐浏览器在搜索栏输入about:config再输入general.useragent.override可以修改浏览器标识 **
 
 比如修改成微信访问的标识Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12A365 MicroMessenger/5.4.1 NetType/WIFI就可以访问限制微信访问的页面了。
+
+**288. scss 根据颜色生成对应的 class 名字**
+
+```js
+
+$colorList: 2dd382, 2dd358, eb6120;
+$jing: "#";
+@each $type in $colorList {
+  .td-#{$type} {
+    background: #{$jing}#{$type};
+  }
+}
+
+```
