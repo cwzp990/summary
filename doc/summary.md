@@ -5668,3 +5668,20 @@ $jing: "#";
 }
 
 ```
+
+**289. nvm 设置淘宝镜像**
+
+- 验证 nvm 是否安装成功：在 cmd 输入 nvm version，有提示 nvm 版本信息，即安装 成功
+
+- 然后输入 nvm root，查看到 nvm 的路径信息，我的是 C:\Users\Administrator\AppData\Roaming\nvm，所以在资源管理器上打开这个路径，找到里面的 settings.txt，并打开
+
+- 在文本的最后一行中加入这两行代码
+
+```js
+
+node_mirror: https://npm.taobao.org/mirrors/node/
+npm_mirror: https://npm.taobao.org/mirrors/npm/
+
+```
+
+- 然后保存，保存文件之后，关掉 cmd，再重新打开 cmd，输入：nvm install [version]，就会启用淘宝镜像自动下载安装对应的 node 和 npm 版本。
