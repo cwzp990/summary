@@ -5699,3 +5699,71 @@ $jing: "#";
 }
 
 ```
+
+**291. vue自定义v-model**
+
+```js
+
+model: {
+    prop: '这个是传进来的props，比如你v-modle="text",那你的props里面就要写个text',
+    event: '这个是触发的事件名字，比如你写了个input 你@input="$emit('testEvent')",那你这里就要写上testEvent'
+}
+子
+<template>
+  <el-select @change="handleSelectChange" :value="selected">
+    <el-option :value="1">1</el-option>
+    <el-option :value="2">2</el-option>
+  </el-select>
+</template>
+
+<script>
+export default {
+  model: {
+    prop: "selected",
+    event: "change"
+  },
+  props: {
+    selected: {
+      default: ""
+    }
+  },
+  data() {
+    return {};
+  },
+  computed: {},
+  methods: {
+    handleSelectChange(value) {
+      this.$emit("change", value);
+    }
+  }
+};
+</script>
+<style lang=""></style>
+父
+<template>
+  <div>
+    {{ testValue }}
+    <ht-select v-model="testValue"></ht-select>
+  </div>
+</template>
+
+<script>
+
+import SelectVue from "./Select";
+
+export default {
+  components: {
+    "ht-select": SelectVue
+  },
+  data() {
+    return {
+      testValue: "1",
+      
+    };
+  },
+  
+
+};
+</script>
+
+```
