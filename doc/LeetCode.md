@@ -448,3 +448,68 @@ const longestPalindrome = (s) => {
 };
 
 ```
+
+## 6. Z字形变换
+
+将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
+
+比如输入字符串为 "LEETCODEISHIRING" 行数为 3 时，排列如下：
+
+L C I R
+E T O E S I I G
+E D H N
+
+之后，你的输出需要从左往右逐行读取，产生出一个新的字符串，比如："LCIRETOESIIGEDHN"。
+
+请你实现这个将字符串进行指定行数变换的函数：
+
+string convert(string s, int numRows);
+
+示例1：
+
+输入: s = "LEETCODEISHIRING", numRows = 3
+输出: "LCIRETOESIIGEDHN"
+示例2：
+
+输入: s = "LEETCODEISHIRING", numRows = 4
+输出: "LDREOEIIECIHNTSG"<br>
+解释:
+  L     D     R
+  E   O E   I I
+  E C   I H   N
+  T     S     G
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/zigzag-conversion/
+
+### 解题思路1:指针法
+
+1.首先设置三个变量：
+
+rows:用于存放每一行的字符串的数组
+goingDown:用于判断字符串遍历方向是往上还是往下
+curRow:当前遍历字符串应当存放的行数
+2.从左至右遍历字符串,rows[curRow]=str,如下图： 0006-01.png 从P开始遍历，存储到第一行字符串，而且当前行数为0，证明当前位置在顶部，那么遍历方向一定是是向下的，所以设置goingDown为true,curRow加1 0006-02.png 如上图，当遍历到第二个P时，已经到了底部，那么意味下一次遍历就是反方向的，那么goingDown为false，curRow就要相应减1让下一个遍历的字符存储到上一行
+
+### 代码实现
+
+```js
+
+let convert = (s, nRows) => {
+    if (nRows <= 1) return s;
+    let rows = Array(Math.min(nRows, s.length)).fill(''),
+        goingDown = false,
+        curRow = 0,
+        res = '';
+    for (let i = 0, len = s.length; i < len; i++) {
+        rows[curRow] += s.charAt(i);
+        if (curRow === 0 || curRow === nRows - 1) goingDown = !goingDown;
+        curRow += goingDown ? 1 : -1
+    }
+    for (let str of rows) {
+        res += str
+    }
+
+    return res
+};
+
+```
