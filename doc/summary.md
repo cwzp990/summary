@@ -5820,3 +5820,8 @@ let index = 1;
 action(index);
 
 ```
+
+**293. 通过dom获取vue / react 的组件对象**
+
+- vue在dom对象中是__vue__
+- react在dom对象中是__reactInternalInstance 加一串 has
