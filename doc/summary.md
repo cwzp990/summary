@@ -5825,3 +5825,35 @@ action(index);
 
 - vue在dom对象中是__vue__
 - react在dom对象中是__reactInternalInstance 加一串 has
+
+scss根据颜色数组生成类型class
+
+```js
+$colorList: (
+    type: "primary",
+    color: $primaryColor,
+  ),
+  (
+    type: "success",
+    color: $successColor,
+  ),
+  (
+    type: "warning",
+    color: $warningColor,
+  ),
+  (
+    type: "danger",
+    color: $dangerColor,
+  ),
+  (
+    type: "info",
+    color: $infoColor,
+  );
+
+@for $i from 1 through length($colorList) {
+  $item: nth($colorList, $i);
+  &.#{map-get($item, type)} {
+    background: map-get($item, color);
+  }
+}
+```
