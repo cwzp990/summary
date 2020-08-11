@@ -5821,14 +5821,10 @@ action(index);
 
 ```
 
-**293. 通过dom获取vue / react 的组件对象**
-
-- vue在dom对象中是__vue__
-- react在dom对象中是__reactInternalInstance 加一串 has
-
-scss根据颜色数组生成类型class
+**293. scss根据颜色数组生成类型class**
 
 ```js
+
 $colorList: (
     type: "primary",
     color: $primaryColor,
@@ -5856,4 +5852,5 @@ $colorList: (
     background: map-get($item, color);
   }
 }
+
 ```
