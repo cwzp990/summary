@@ -70,7 +70,54 @@ w3c标准约定了一个事件的传播过程：事件捕获阶段、目标阶�
 
 **使用 shouldComponentUpdate 规避冗余的更新逻辑**
 
++ 只要父组件发生了更新，那么所有的子组件都会被无条件更新
+
++ 当组件自身调用了 setState 后，那么不管 setState 前后的状态内容是否真正发生了变化，它都会去走一遍更新流程
+
++ react根据shouldComponentUpdate的返回值true/false来决定是否更新
+
 **PureComponent + Immutable.js**
 
+PureComponent内置了对shouldComponentUpdate的实现，对组件更新前后的props和state进行浅比较，故数据类型为引用类型不适合
+
 **React.memo 与 useMemo**
+
+react.memo 函数版的shouldComponentUpdate：
+
+```js
+
+import React from "react";
+// 将 ChildB 改写为 function 组件
+function ChildB(props) {
+  console.log("ChildB 的render 逻辑执行了");
+  return (
+    <div className="childB">
+      子组件B的内容：
+      {props.text}
+    </div>
+  );
+}
+// areEqual 用于对比 props 的变化
+function areEqual(prevProps, nextProps) {
+  if(prevProps.text === nextProps.text) {
+    return true
+  }
+  return false
+}
+// 使用 React.memo 来包装 ChildB
+export default React.memo(ChildB, areEqual);
+
+```
+
+useMemo控制是否需要重复执行某一段逻辑：
+
+```js
+
+// 我们可以把目标逻辑作为第一个参数传入，把逻辑的依赖项数组作为第二个参数传入。这样只有当依赖项数组中的某个依赖发生变化时，useMemo 才会重新执行第一个入参中的目标逻辑
+
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+
+```
+
+
 
