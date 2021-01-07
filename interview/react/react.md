@@ -4,7 +4,7 @@ jsx是JavaScript的扩展，他会编译为react.createElement()，并将返回�
 ## 虚拟DOM是什么
 虚拟DOM本质是以JavaScript对象形式存在的对DOM的描述
 
-虚拟DOM的好处：
+虚拟DOM的好处：性能(diff算法)、跨平台
 
 ## 生命周期
 
@@ -25,74 +25,52 @@ getSnapshotBeforeUpdate的返回值作为第三个参数给到componentDidUpdate
 ### Fiber架构
 react渲染由原来的同步渲染变为可以被打断的异步渲染，即render阶段是允许暂停、终止和重启的，就会导致render阶段的生命周期都是有可能被重复执行的：componentWillMount、componentWillUpdate、componentWillReceiveProps
 
-### 发布订阅模式
+### Redux
+store：单一的数据源，且是只读的
 
-```js
+action：对变化的描述
 
-class myEventEmitter {
-  constructor () {
-    this.eventMap = {}
-  }
+reducer：对变化进行分发和处理，将新的数据返回给store
 
-  on(type, handler) {
-    if (!handler instanceof Function) {
-      throw new Error("请传入一个函数~")
-    }
+### 类组件与函数组件
+类组件需要继承class，可以访问生命周期方法，可以获取到实例化的this，并基于这个this做各种各样的事情，可以定义并维护state(状态)。类组件是面向对象编程思想的一个表征，即封装和继承
 
-    if (!this.eventMap[type]) {
-      this.eventMap[type] = []
-    }
+函数组件会捕获render内部的状态，这是两类组件最大的不同。
 
-    this.eventMap[type].push(handler)
-  }
+函数组件的好处：this绑定的问题，逻辑与生命周期耦合在一起
 
-  emit(type, params) {
-    if (this.eventMap[type]) {
-      this.eventMap[type].forEach((handler, index) => {
-        handler(params)
-      })
-    }
-  }
+### hooks原则
 
-  off(type, handler) {
-    if (this.eventMap[type]) {
-      this.eventMap[type].splice(this.eventMap[type].indexOf(handler)>>>0, 1)
-    }
-  }
-}
++ 只在react函数中调用hook
 
-const myEvent = new myEventHandler()
-const testHandler = function (params) {
-  console.log(`事件触发，参数是${params}`)
-}
-myEvent.on("test", testHandler)
-myEvent.emit("test", "newState")
++ 不要在循环、条件或嵌套函数中调用hook，即确保hooks在每次渲染时都保持同样的执行顺序(本质是链表)
 
-// 通信
-const globalEvent = window.myEvent
+### setState同步异步？
 
-class B extends React.Component {
-  state = {
-    params: ''
-  }
-  handler = (params) => {
-    this.setState({
-      params
-    })
-  }
-  bindHandler = () => {
-    globalEvent.on("someEvent", this.handler)
-  }
-}
+### react事件系统
+w3c标准约定了一个事件的传播过程：事件捕获阶段、目标阶段、事件冒泡阶段
 
-class A extends React.Component {
-  state = {
-    infoToB: ''
-  }
-  reportToB = () => {
-    globalEvent.emit("someEvent", this.state.infoToB)
-  }
-}
+当事件在具体的 DOM 节点上被触发后，最终都会冒泡到 document 上，document 上所绑定的统一事件处理程序会将事件分发到具体的组件实例。
 
-```
+**DOM事件流下的性能优化思路---事件委托**
+
+### react路由
+
+**路由器负责感知路由的变化并作出反应**
+
+分为hash路由(通关url的hash属性来控制路由的)和browser路由(使用html5的historyAPI来控制路由的)
+
+前端路由需要
+
++ 拦截用户的刷新操作，避免服务端盲目响应、返回不符合预期的资源内容
+
++ 感知url的变化
+
+### react性能优化(重要)
+
+**使用 shouldComponentUpdate 规避冗余的更新逻辑**
+
+**PureComponent + Immutable.js**
+
+**React.memo 与 useMemo**
 
