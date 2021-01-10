@@ -25,6 +25,8 @@ getSnapshotBeforeUpdate的返回值作为第三个参数给到componentDidUpdate
 ### Fiber架构
 react渲染由原来的同步渲染变为可以被打断的异步渲染，即render阶段是允许暂停、终止和重启的，就会导致render阶段的生命周期都是有可能被重复执行的：componentWillMount、componentWillUpdate、componentWillReceiveProps
 
+React 渲染异常的时候，在没有做任何拦截的情况下，会出现整个页面白屏的现象。它的成型原因是在渲染层出现了 JavaScript 的错误，导致整个应用崩溃。这种错误通常是在 render 中没有控制好空安全，使值取到了空值。
+
 ### Redux
 store：单一的数据源，且是只读的
 
