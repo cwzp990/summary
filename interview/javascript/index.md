@@ -47,3 +47,47 @@ f3();
 
 + 每个对象都有一个隐藏的属性_proto_，这个属性引用了创建这个对象函数的prototype
 
+### EventLoop
+
+**MacroTask**
+
++ 渲染事件
+
++ 用户交互事件
+
++ js脚本执行
+
++ 网络请求、文件读写完成事件等等
+
+**MicroTask**
+
++ 将异步回调进行宏任务队列的入队操作
+
++ 将异步回调放到当前宏任务的末尾
+
+```js
+
+console.log('start');
+setTimeout(() => {
+  console.log('timeout');
+});
+Promise.resolve().then(() => {
+  console.log('resolve');
+});
+console.log('end');
+
+Promise.resolve().then(()=>{
+  console.log('Promise1')  
+  setTimeout(()=>{
+    console.log('setTimeout2')
+  },0)
+});
+setTimeout(()=>{
+  console.log('setTimeout1')
+  Promise.resolve().then(()=>{
+    console.log('Promise2')    
+  })
+},0);
+console.log('start');
+
+```
