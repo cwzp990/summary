@@ -43,9 +43,11 @@ f3();
 
 + 对象都是通过函数创建的，函数又是一种对象
 
-+ 函数默认有一个属性，prototype，值是一个对象，这个对象有一个叫做constructor的的属性，指向函数本身
++ 函数默认有一个prototype属性，值是一个对象，这个对象有一个叫做constructor的的属性，指向函数本身
 
-+ 每个对象都有一个隐藏的属性_proto_，这个属性引用了创建这个对象函数的prototype
++ 每个对象都有一个隐藏的_proto_属性，这个属性引用了创建这个对象函数的prototype
+
+![prototype](./prototype.png)
 
 ### EventLoop
 
