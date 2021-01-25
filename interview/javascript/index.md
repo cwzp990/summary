@@ -43,11 +43,9 @@ f3();
 
 + 对象都是通过函数创建的，函数又是一种对象
 
-+ 函数默认有一个prototype属性，值是一个对象，这个对象有一个叫做constructor的的属性，指向函数本身
++ 函数默认有一个属性，prototype，值是一个对象，这个对象有一个叫做constructor的的属性，指向函数本身
 
-+ 每个对象都有一个隐藏的_proto_属性，这个属性引用了创建这个对象函数的prototype
-
-![prototype](./prototype.png)
++ 每个对象都有一个隐藏的属性_proto_，这个属性引用了创建这个对象函数的prototype
 
 ### EventLoop
 
@@ -91,5 +89,60 @@ setTimeout(()=>{
   })
 },0);
 console.log('start');
+
+```
+
+### 事件的节流和防抖
+
+```js
+
+// 节流
+
+function throttle(fn, interval) {
+  let flag = true;
+  return funtion(...args) {
+    let context = this;
+    if (!flag) return;
+    flag = false;
+    setTimeout(() => {
+      fn.apply(context, args);
+      flag = true;
+    }, interval);
+  };
+};
+
+// 防抖
+
+function debounce(fn, delay) {
+  let timer = null;
+  return function (...args) {
+    let context = this;
+    if(timer) clearTimeout(timer);
+    timer = setTimeout(function() {
+      fn.apply(context, args);
+    }, delay);
+  }
+}
+
+// 加强版节流
+
+function throttle(fn, delay) {
+  let last = 0, timer = null;
+  return function (...args) {
+    let context = this;
+    let now = new Date();
+    if(now - last > delay){
+      clearTimeout(timer);
+      setTimeout(function() {
+        last = now;
+        fn.apply(context, args);
+      }, delay);
+    } else {
+      // 这个时候表示时间到了，必须给响应
+      last = now;
+      fn.apply(context, args);
+    }
+  }
+}
 
 ```
