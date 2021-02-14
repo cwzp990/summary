@@ -5854,3 +5854,27 @@ $colorList: (
 }
 
 ```
+
+**294. axios上传进度条**
+
+```js
+
+    // 原生一样适用
+    var form = new FormData()
+    form.append('file', vm.$refs.upload.files[0])
+    form.append('id', id)
+    form.append('type', type)
+    var config = {
+        onUploadProgress: progressEvent => {
+            var complete = (progressEvent.loaded / progressEvent.total * 100 | 0) + '%'
+            this.progress = complete
+        }
+    }
+    axios.post(`api/uploadFile`,
+        form, config).then((res) => {
+        if (res.data.status === 'success') {
+            console.log('上传成功')
+        }
+    })
+
+```
