@@ -5900,3 +5900,65 @@ const proxyFile = (function(){
 })()
 
 ```
+
+**396. 将vue页面打包成npm包思路**
+
+1. 搞个入口文件 比如package/index.js
+
+```js
+
+import PaintedChart from '@/views/statistic/index.js';
+
+const components = [PaintedChart];
+
+const install = function(Vue) {
+  components.forEach(component => {
+    Vue.component(component.name, component);
+  });
+};
+
+/* istanbul ignore if */
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue);
+}
+
+export default {
+  install,
+  PaintedChart
+};
+
+```
+
+2. package.json打包build命令改为 "build": "vue-cli-service build --target lib --name cdssChart ./package/index.js"
+
+- cdssChart 是npm包名
+
+- ./package/index.js 是打包入口
+
+3. 给vue页面添加一个index.js 让页面暴露出去 在src/views/statistic/目录下
+
+```js
+
+import PaintedChart from '@/views/statistic/index.js';
+
+const components = [PaintedChart];
+
+const install = function(Vue) {
+  components.forEach(component => {
+    Vue.component(component.name, component);
+  });
+};
+
+/* istanbul ignore if */
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue);
+}
+
+export default {
+  install,
+  PaintedChart
+};
+
+```
+
+然后运行 npm run build 发布到私有npm上就行了
