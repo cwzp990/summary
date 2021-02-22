@@ -5901,7 +5901,7 @@ const proxyFile = (function(){
 
 ```
 
-**396. 将vue页面打包成npm包思路**
+**296. 将vue页面打包成npm包思路**
 
 1. 搞个入口文件 比如package/index.js
 
@@ -5962,3 +5962,31 @@ export default {
 ```
 
 然后运行 npm run build 发布到私有npm上就行了
+
+**297. 初识canvas**
+
+```js
+
+const canvas = document.getElementById("qrcode");
+const ctx = canvas.getContext("2d");
+const linearGradient = ctx.createLinearGradient(80, 10, 400, 550);
+linearGradient.addColorStop(0, "#44a2dc");
+linearGradient.addColorStop(1, "#2658bb");
+ctx.fillStyle = linearGradient;
+// 绘制外边框
+ctx.fillRect(80, 10, 400, 550);
+// 绘制圆角矩形
+      const min_size = Math.min(w, h);
+if (r > min_size / 2) r = min_size / 2;
+// 开始绘制
+ctx.beginPath();
+ctx.moveTo(x + r, y);
+ctx.arcTo(x + w, y, x + w, y + h, r);
+ctx.arcTo(x + w, y + h, x, y + h, r);
+ctx.arcTo(x, y + h, x, y, r);
+ctx.arcTo(x, y, x + w, y, r);
+ctx.closePath();
+ctx.fillStyle = "#fff";
+ctx.fill();
+
+```
