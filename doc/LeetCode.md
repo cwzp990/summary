@@ -1003,3 +1003,58 @@ let intToRoman = function (num) {
 };
 
 ```
+
+### 13.最长公共前缀
+编写一个函数来查找字符串数组中的最长公共前缀。
+
+如果不存在公共前缀，返回空字符串 ""。
+
+示例1：
+
+输入: ["flower","flow","flight"]
+输出: "fl"
+示例2：
+
+输入: ["dog","racecar","car"]
+输出: ""
+解释: 输入不存在公共前缀。
+说明:
+
+所有输入只包含小写字母 a-z 。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/longest-common-prefix/
+
+#### 解题思路：水平扫描
+对于LCP问题，可以先列一个方程，大概是这样的:
+
+LCP(s1,s2,s3,.....,sn)=LCP(LCP(LCP(s1,s2),s3)....,sn)
+这个方程的含义就是先从s1和s2中找到CP(s1,s2)，然后找出来的CP(s1,s2)再和s3的CP(s1,s2,s3)，以此类推到CP(s1,s2,s3,.....sn)就是最后的解
+
+那么问题就回到如何去得出CP(s1,s2)上：
+
+假设s1='flower',s2='flow'，可以不断对s1进行削减，当s1削减到成为flow时CP(s1,s2)的结果就出现了，如下图 0014-01.png
+在得出CP(s1,s2)后可以用一个pre变量缓存起来，继续求下一个与s3的CP(CP(pre,s3))，如下图 0014-02.png
+如果pre为空字符串的情况下证明没有CP，那么可以直接返回结果
+
+#代码实现
+
+```
+
+let longestCommonPrefix = function (strs) {
+    if (strs === null || strs.length === 0) return ""
+    let pre = strs[0],
+        k = 1,
+        cur = '';
+    while (k < strs.length) {
+        cur = strs[k]
+        while (cur.indexOf(pre) !== 0) {
+            pre = pre.substring(0, pre.length - 1)
+        }
+        if (pre === '') return ''
+        k++
+    }
+    return pre
+};
+
+```
