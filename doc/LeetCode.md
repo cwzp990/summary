@@ -1059,59 +1059,74 @@ let longestCommonPrefix = function (strs) {
 
 ```
 
-### 14.最长公共前缀
+### 14. 三数之和
+给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
 
-编写一个函数来查找字符串数组中的最长公共前缀。
+注意：答案中不可以包含重复的三元组
 
-如果不存在公共前缀，返回空字符串 ""。
+例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
 
-示例1：
-
-输入: ["flower","flow","flight"]
-输出: "fl"
-示例2：
-
-输入: ["dog","racecar","car"]
-输出: ""
-解释: 输入不存在公共前缀。
-说明:
-
-所有输入只包含小写字母 a-z 。
-
+满足要求的三元组集合为：
+[
+  [-1, 0, 1],
+  [-1, -1, 2]
+]
 来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/longest-common-prefix/
+链接：https://leetcode-cn.com/problems/3sum
 
-#### 解题思路：水平扫描
+#### 解题思路：双指针
 
-对于LCP问题，可以先列一个方程，大概是这样的:
+首先题目要求结果不包含重复三元组，而在给出的nums中又可能出现重复的元素，因此可以先对nums进行一次排序，这样做的意义一是方便使用双指针，二是遍历中也方便跳过重复项
 
-LCP(s1,s2,s3,.....,sn)=LCP(LCP(LCP(s1,s2),s3)....,sn)
-这个方程的含义就是先从s1和s2中找到CP(s1,s2)，然后找出来的CP(s1,s2)再和s3的CP(s1,s2,s3)，以此类推到CP(s1,s2,s3,.....sn)就是最后的解
+那么应该怎样找出三个相加为0的三元组呢？具体步骤如下:
 
-那么问题就回到如何去得出CP(s1,s2)上：
+先找出一个基点，假设这个基点索引为i，nums长度为n，那么剩下2个与基点相加为0的元素就是在[i+1,i+2,.....,n-2,n-1]中寻找
+确定寻找范围后，就可以依靠双指针法，如下图: 0015-01.png 假设j=i+1,k=n-1,然后判断nums[i]+nums[j]+nums[k]的值是否为0，从上图可以看出-2-1+4>0，所以k值要往左移动，如下图: 0015-02.png k往左移动后nums[i]+nums[j]+nums[k]相加刚好为0，那么就可以把这个三元组放进结果数组中
+在找到基点的第一组三元数组后并不意味着开始前往下一个基点，相反当前基点nums[i]可能存在2个及2个以上三元数组，所以需要以当前基点寻找，如下图： 0015-03.png 在找出第一组三元数组后，j加一,k减一，这个时候nums[i]+nums[j]+nums[k]同样为0,如下图 0015-04.png
 
-假设s1='flower',s2='flow'，可以不断对s1进行削减，当s1削减到成为flow时CP(s1,s2)的结果就出现了，如下图 0014-01.png
-在得出CP(s1,s2)后可以用一个pre变量缓存起来，继续求下一个与s3的CP(CP(pre,s3))，如下图 0014-02.png
-如果pre为空字符串的情况下证明没有CP，那么可以直接返回结果
+最后只剩下一些边界条件的处理，比如：
+1.当基点大于0的时候，就代表不符合题目条件，直接返回结果
+2.当基点与前一个基点相同时，跳过本次循环
+3.如上面说到的基于当前基点继续寻找三元数组时，j和k都要各自往左右移动，那么在左移或右移后有可能碰到相同项，那么就需要继续移动
 
 #### 代码实现
 
 ```js
 
-let longestCommonPrefix = function (strs) {
-    if (strs === null || strs.length === 0) return ""
-    let pre = strs[0],
-        k = 1,
-        cur = '';
-    while (k < strs.length) {
-        cur = strs[k]
-        while (cur.indexOf(pre) !== 0) {
-            pre = pre.substring(0, pre.length - 1)
+let threeSum = (nums) => {
+    if (nums.length < 3) return []
+    let sum,
+        result = [];
+    nums = nums.sort((a, b) => {
+        return a - b
+    });
+    for (let i = 0; i < nums.length - 2; i++) {
+        let a = nums[i]
+        if (a > 0) return result;
+        if (i > 0 && a === nums[i - 1]) continue;
+        let j = i + 1, k = nums.length - 1;
+        while (j < k) {
+            let b = nums[j],
+                c = nums[k],
+                sum = a + b + c;
+            if (sum === 0) {
+                result.push([a, b, c]);
+                j++;
+                k--;
+                while (nums[j] === b) {
+                    j++
+                }
+                while (nums[k] === c) {
+                    k--
+                }
+            } else if (sum > 0) {
+                k--
+            } else {
+                j++
+            }
         }
-        if (pre === '') return ''
-        k++
     }
-    return pre
+    return result
 };
 
 ```
