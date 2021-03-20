@@ -1130,3 +1130,65 @@ let threeSum = (nums) => {
 };
 
 ```
+
+### 15. 最接近的三数之和
+给定一个包括 n 个整数的数组nums和一个目标值target。找出nums中的三个整数，使得它们的和与target最接近。返回这三个数的和。假定每组输入只存在唯一答案。
+
+例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.
+
+与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/3sum-closest
+
+#### 解题思路：双指针
+
+这一题和上一题(三数之和)其实大同小异的，都可以通过双指针来解决。
+
+首先应该对nums进行排序，确保数组有序可以使用双指针。与上一题相同点在于都需要有一个基点i，以此基点为核心进行指针滑动，具体步骤如下：
+
+先设置以下变量：
+sum:用于缓存nums[i]+nums[j]+nums[k]之和
+distance:距离target的距离，用绝对值表示，初始值设为无限大
+result:最终返回的结果值
+定义好双指针的位置，设置j=i+1,k=nums.length-1，然后计算三个元素之和，同时算出距离target的距离绝对值distance，如下图： 0016-01.png
+由上图可以得出sum=-3，distance=|1-(-3)|=4，由于distance初始值为无限大，所以更新result和distance值
+在判断是否更新distance后仍然需要基于基点进行遍历，当sum小于target时j往右移动，相反则k往左移动，如下图： 0016-02.png
+这个时候算出distance离target更近了，所以更新result和distance。
+循环第2、3步
+#代码实现
+
+```js
+
+let threeSumClosest = (nums, target) => {
+    if (nums.length < 3) return [];
+
+    nums = nums.sort((a, b) => {
+        return a - b;
+    });
+    let sum = 0,
+        distance = Infinity,
+        result;
+    for (let i = 0; i < nums.length - 2; i++) {
+        let a = nums[i];
+        if (i > 0 && nums[i - 1] === a) continue;
+        let j = i + 1,
+            k = nums.length - 1;
+        while (j < k) {
+            let b = nums[j],
+                c = nums[k];
+            sum = a + b + c;
+            if (Math.abs(target - sum) < distance) {
+                distance = Math.abs(target - sum)
+                result = sum
+            }
+            if (sum < target) {
+                j++
+            } else {
+                k--
+            }
+        }
+    }
+    return result
+};
+
+```
