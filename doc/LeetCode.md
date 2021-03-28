@@ -1192,3 +1192,61 @@ let threeSumClosest = (nums, target) => {
 };
 
 ```
+
+### 16.电话号码的字母组合
+给定一个仅包含数字2-9的字符串，返回所有它能表示的字母组合。
+
+给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+
+title
+
+示例:
+
+输入："23"
+输出：["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+说明: 尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。
+
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/
+
+#### 解题思路：
+
+从题目可以看出就是一条组合题，组合题最常见的做法毫无疑问是递归，那么问题来了该怎么去递归呢，在弄清楚如何去递归前先画一张多叉树图，如下： 0017-01.png
+以例子输入23为例，出去根结点外还有2层子节点，可以看到先把abc拆开，再去和def逐个结合在一起，那么转化为计算思路其实也很简单，步骤如下：
+
+新建一个专用于递归的combine函数，函数方法主要接收3个参数：
+index：当前组合位置
+s: 当前组合字符串
+len：电话号码长度，用于判断是否于组合位置相等终止递归
+
+在combine内建一个映射集map，存贮数字对应的字符串，根据index取出字符串，假设这个字符串为letters，那么开始对letters每一个字符进行递归
+
+在进入第一层递归假设字符为s1，s1下面要与def进行组合，那么这个时候又可以从def取出一个字符，假设为s2，进行第二层递归，而第一层递归和第二层递归组合的结果为s1s2
+
+当进入第二层递归后，组合的字符串长度已经等于len，那么这个时候就到达终止递归的条件，把组合字符放入结果数组中
+
+#代码实现
+
+```js
+
+const letterCombinations = function (digits) {
+    let res = [];
+    if (!digits) return [];
+    let findCombination = function (len, index, s) {
+        if (index === len) {
+            res.push(s);
+            return
+        }
+        let c = digits[index],
+            map = [" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"];
+        if (c < 0 || c > 9 || c === 1) return;
+        let letters = map[parseInt(c)];
+        for (let i = 0; i < letters.length; i++) {
+            findCombination(digits.length, index + 1, s + letters[i])
+        }
+    };
+    findCombination(digits.length, 0, "");
+    return res
+};
+
+```
