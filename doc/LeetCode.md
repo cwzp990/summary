@@ -1250,3 +1250,79 @@ const letterCombinations = function (digits) {
 };
 
 ```
+
+### 17. 四数之和
+
+给定一个包含 n 个整数的数组nums和一个目标值target，判断nums中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与target相等？找出所有满足条件且不重复的四元组。
+
+注意：
+
+答案中不可以包含重复的四元组。
+
+示例：
+
+给定数组 nums = [1, 0, -1, 0, -2, 2]，和 target = 0。
+
+满足要求的四元组集合为：
+[
+  [-1,  0, 0, 1],
+  [-2, -1, 1, 2],
+  [-2,  0, 0, 2]
+]
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/4sum
+
+##### 解题思路：滑动窗口
+
+与前面一条三数之和一样思路也是使用滑动窗口，那么对比三数之和又有什么差别呢，先来回忆下三数之和的解题思路
+
+寻找基点，在基点之后的区间进行窗口滑动，假设基点为a，窗口两端为b和c,通过不断判断a+b+c相对大小移动b或c得到结果
+当然还有三数之和求的是0，四数之和求的事target，这里就把0看成target即可
+那么按照三数之和的思路解决四数之和,可以看成
+
+a+b+c+d=target => a+_target=target
+上面的代码意思就是把b+c+d看成一个求三数之和等于_target，那么_target=target-a,也就是说对比三数之和的逻辑只是多了一层逻辑，代码如下:
+
+for(let i=0;i<nums.length-3;i++){
+  let _target = target - nums[i]
+  ...
+}
+在求出_target后就可以按照原来三数之和的逻辑进行计算
+
+#代码实现
+
+```js
+
+const fourSum = (nums, target) => {
+    let result = [],
+        sum;
+    nums = nums.sort((a, b) => {
+        return a - b
+    });
+    for (let i = 0; i < nums.length - 3; i++) {
+        if (i > 0 && nums[i] === nums[i - 1]) continue;
+        let _target = target - nums[i];
+        for (let j = i + 1; j < nums.length - 2; j++) {
+            if (j > i + 1 && nums[j] === nums[j - 1]) continue;
+            let l = j + 1,
+                r = nums.length - 1;
+            while (l < r) {
+                sum = nums[j] + nums[l] + nums[r];
+                if (sum === _target) {
+                    result.push([nums[i], nums[j], nums[l], nums[r]]);
+                    l++;
+                    r--;
+                    while (nums[l] === nums[l - 1]) l++;
+                    while (nums[r] === nums[r + 1]) r--;
+                } else if (sum < _target) {
+                    l++;
+                } else {
+                    r--;
+                }
+            }
+        }
+    }
+    return result;
+};
+
+```
