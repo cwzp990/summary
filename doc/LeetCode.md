@@ -1326,3 +1326,79 @@ const fourSum = (nums, target) => {
 };
 
 ```
+
+### 18. 两数相除
+
+给定两个整数，被除数dividend和除数divisor。将两数相除，要求不使用乘法、除法和 mod 运算符。
+
+返回被除数dividend除以除数divisor得到的商。
+
+示例 1:
+
+输入: dividend = 10, divisor = 3
+输出: 3
+示例 2:
+
+输入: dividend = 7, divisor = -3
+输出: -2
+说明:
+
+被除数和除数均为 32 位有符号整数。
+除数不为 0。
+假设我们的环境只能存储 32 位有符号整数，其数值范围是 [−231,  231 − 1]。本题中，如果除法结果溢出，则返回 231 − 1。
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/divide-two-integers
+
+#### 解题思路
+
+这个问题从求解的角度看并不难办，只需要通过一个循环每次被除数dividend减去除数divisor，然后结果res加1，直到被除数小于除数循环结束就可以得到结果，伪代码如下：
+
+while (dividend >= divisor) {
+    dividend -= divisor
+    res += 1
+}
+但是这样做效率太低，如果输入的被除数是-2147483648或者2147483647这些极限数字那消耗的时间就大到可怕了，所以要另寻一种便捷的方法来解决极限数字输入的问题。
+
+再看看上面解法的思路其实可以优化，每次只减去一个除数太慢那就减去两个，减去两个还是小于被除数那就减去四个，周而复始，伪代码如下：
+
+while (divisor + divisor <= dividend) {
+    divisor += divisor
+}
+按照这个思路求解步骤如下：
+
+先把dividend和divisor进行绝对值，绝对值后的dividend和divisor为dvd和dvs，绝对值是因为这是一个求商的过程，如果被除数是负数除数是正数那么会增加核心代码编写的复杂性，所以要缓存一个判断商正负数的变量，通过这个变量决定返回的商是正数还是负数，然后定义一个sum，sum可以理解为
+sum = 商 * 除数
+然后第一层while循环判断sum+dvs<=dvd，为什么要这么做呢，因为求商的过程不会一层循环就走完，比如当dvd为20，dvs为3，按照上面的思路：
+3+3 => 6+6 => 12+12 
+上面就是dvs不断double的过程(代码里为了保持dvs的不变性需要设置一个临时的temp)，而到12以后就再double就会比dvd大，而这个时候得到的商值是4，但是20除以3的商为6，而20-12=8后，8除以3又可以得出商为2，两次求商过程相加才能得出最后答案，这个过程也可以理解为挤牙膏。
+
+第二层循环就是上面说到的思路，不断的double，double后把每次计算的商同时double，当不符合sum + temp + temp <= dvd后把temp与sum相加得出新的sum，每次循环得到的商加到最终结果变量中，然后继续循环第一层while循环判断求商过程是否结束。
+
+####代码实现
+
+```js
+
+let divide = function (dividend, divisor) {
+    if (divisor === 0) return Infinity;
+    if (dividend === 0) return 0;
+    if (divisor === 1) return dividend;
+
+    let [dvd, dvs] = [dividend, divisor].map(Math.abs),
+        sign = (dividend > 0 && divisor > 0) || (dividend < 0 && divisor < 0),
+        sum = 0,
+        res = 0;
+    while (sum + dvs <= dvd) {
+        let temp = dvs,
+            count = 1;
+        while (sum + temp + temp <= dvd) {
+            temp += temp;
+            count += count;
+        }
+        sum += temp
+        res += count
+    }
+
+    return sign ? Math.min(res, 2147483647) : Math.max(-res, -2147483648);
+};
+
+```
