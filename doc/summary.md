@@ -6119,3 +6119,33 @@ server{
 	}
 
 ```
+	      
+### 304. postcss-px-to-viewport npm 下载不支持 include exclude
+
+因为 npm 上面的 postcss-px-to-viewport 包并不支持 include 的用法，需要使用 github 上面的包
+	      
+https://blog.csdn.net/qq_35430000/article/details/116117367
+	     
+```js
+	      
+{
+  'postcss-px-to-viewport': {
+        viewportWidth: rootValue * 10,
+        viewportHeight: 1920,
+        unitPrecision: 5,
+        viewportUnit: 'vw',
+        // fontViewportUnit:'px',
+        // propList: ['!font*'],
+        selectorBlackList: [
+          '.usepixel',
+          '.ignore',
+          '.hairlines',
+          'van-circle__layer'
+        ],
+        minPixelValue: 1,
+        mediaQuery: false,
+        include: /mobile/
+      }
+}
+	      
+```
