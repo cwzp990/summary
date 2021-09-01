@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>compose demo2</title>
+</head>
+<body>
+  <script>
+    const fn1 = (next) => {
+      console.log(1)
+      return function(action) {
+        console.log('dispatch 1, next:',  next, 'action:', action)
+      }
+    }
+
+    const fn2 = (next) => {
+      console.log(2)
+      return function(action) {
+        console.log('dispatch 2, next:',  next, 'action:', action)
+      }
+    }
+
+    const fn3 = (next) => {
+      console.log(3)
+      return function(action) {
+        console.log('dispatch 3, next:',  next, 'action:', action)
+      }
+    }
+
+    const fn4 = (next) => {
+      console.log(4)
+      return function(action) {
+        console.log('dispatch 4, next:',  next, 'action:', action)
+      }
+    }
+
+    const fn5 = (next) => {
+      console.log(5)
+      return function(action) {
+        console.log('dispatch 5, next:',  next, 'action:', action)
+      }
+    }
+
+    const compose = (...funcs) => {
+      return funcs.reduce(function(preFnA, itemFnB, index) {
+        return function (...args) {
+          console.log('---preFnA---' + index, preFnA)
+
+          console.log('---preFnA---' + index, itemFnB.name)
+
+          return preFnA(itemFnB(...args))
+        }
+      })
+    }
+
+    const dispatch = (action) => {
+      console.log('action:', action)
+      return action
+    }
+
+    const enhancerDispatch = compose(fn1, fn2, fn3, fn4, fn5)(dispatch)
+
+    console.log('enhancerDispatch', enhancerDispatch)
+
+    enhancerDispatch({type: 'compose'})
+  </script>
+</body>
+</html>

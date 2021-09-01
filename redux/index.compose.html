@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>compose demo</title>
+</head>
+<body>
+  <script>
+    const fn1 = () => {
+      console.log(1)
+      return 1
+    }
+    const fn2 = () => {
+      console.log(2)
+      return 2
+    }
+    const fn3 = () => {
+      console.log(3)
+      return 3
+    }
+    const fn4 = () => {
+      console.log(4)
+      return 4
+    }
+    const fn5 = () => {
+      console.log(5)
+      return 5
+    }
+
+    // const arr = [1,2,3,4,5]
+    // const sum = arr.reduce((pre, item) => pre + item, 0)
+    // console.log('求和', sum)
+
+    const compose = (...funcs) => {
+      return funcs.reduce(function(preFnA, itemFnB) {
+        return function (...args) {
+          return preFnA(itemFnB(...args))
+        }
+      })
+    }
+
+    const dispatch = (action) => {
+      console.log('action', action)
+      return action
+    }
+
+    debugger
+    const enhancerDispatch = compose(fn1, fn2, fn3, fn4, fn5)(dispatch)
+
+    console.log('enhancerDispatch', enhancerDispatch)
+
+    dispatch({type: 'compose'})
+  </script>
+</body>
+</html>

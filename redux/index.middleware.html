@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>redux middleware</title>
+  <script src="./dist/redux.js"></script>
+</head>
+<body>
+  <div>
+    <p>
+      Clicked: <span id="value">0</span> times
+      <button id="increment">+</button>
+      <button id="decrement">-</button>
+      <button id="incrementIfOdd">Increment if odd</button>
+      <button id="incrementAsync">Increment async</button>
+    </p>
+  </div>
+
+  <script>
+    const log1 = ({getState}) => {
+      return next => action => {
+        console.log('dispatch1, next:', next, 'action', action)
+
+        console.log('state after dispatch1', getState())
+
+        return next(action)
+      }
+    }
+
+    // 因为中间件是要多个首尾相连的，对next进行一层层的“加工”，所以next必须独立一层。那么Store和action呢？Store的话，我们要在中间件顶层放上Store，因为我们要用Store的dispatch和getState两个方法。action的话，是因为我们封装了这么多层，其实就是为了作出更高级的dispatch方法，是dispatch，就得接受action这个参数
+    
+    const log2 = ({getState}) => {
+      return function(next) {
+        return function (action) {
+          console.log('dispatch2, next:', next, 'action', action)
+
+          const returnValue = next(action)
+
+          console.log('state after dispatch2', getState())
+
+          return returnValue
+        }
+      }
+    }
+
+    const log3 = ({getState}) => {
+      return next => action => {
+        console.log('dispatch3, next:', next, 'action', action)
+
+        console.log('state after dispatch3', getState())
+
+        return next(action)
+      }
+    }
+
+    const reducer = (state = 0, action) => {
+      switch (action.type) {
+          case 'INCREMENT':
+            return state + 1
+          case 'DECREMENT':
+            return state - 1
+          default:
+            return state
+        }
+    }
+
+    const store = Redux.createStore(reducer,  Redux.applyMiddleware(log1, log2,  log3))
+
+    const render = () => {
+      const valueEl = document.querySelector('#value')
+      valueEl.innerHTML = store.getState().toString()
+    }
+
+    render()
+
+    store.subscribe(render)
+
+    document.querySelector("#increment").addEventListener('click', () => {
+      store.dispatch({type: 'INCREMENT'})
+    })
+
+    document.querySelector("#decrement").addEventListener('click', () => {
+      store.dispatch({type: 'DECREMENT'})
+    })
+
+    document.querySelector("#incrementIfOdd").addEventListener('click', () => {
+      if (store.getState() % 2 !== 0) {
+        store.dispatch({ type: 'INCREMENT' })
+      }
+    })
+
+    document.querySelector("#incrementAsync").addEventListener('click', () => {
+      setTimeout(function () {
+        store.dispatch({ type: 'INCREMENT' })
+      }, 1000)
+    })
+  </script>
+</body>
+</html>
