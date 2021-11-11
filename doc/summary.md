@@ -6216,10 +6216,227 @@ export default {
 	      
 ```
 	      
-### 418. 选择 Object 还是 Map
+### 307. 选择 Object 还是 Map
 	      
 - 内存占用 Object 和 Map 的工程级实现在不同浏览器间存在明显差异，但存储单个键/值对所占用的内存数量 都会随键的数量线性增加。批量添加或删除键/值对则取决于各浏览器对该类型内存分配的工程实现。 不同浏览器的情况不同，但给定固定大小的内存，Map 大约可以比 Object 多存储 50%的键/值对。
 - 插入性能 向 Object 和 Map 中插入新键/值对的消耗大致相当，不过插入 Map 在所有浏览器中一般会稍微快 一点儿。对这两个类型来说，插入速度并不会随着键/值对数量而线性增加。如果代码涉及大量插入操 作，那么显然 Map 的性能更佳。
 - 查找速度 与插入不同，从大型 Object 和 Map 中查找键/值对的性能差异极小，但如果只包含少量键/值对， 则 Object 有时候速度更快。在把 Object 当成数组使用的情况下（比如使用连续整数作为属性），浏 览器引擎可以进行优化，在内存中使用更高效的布局。这对 Map 来说是不可能的。对这两个类型而言， 查找速度不会随着键/值对数量增加而线性增加。如果代码涉及大量查找操作，那么某些情况下可能选 择 Object 更好一些。
 - 删除性能 使用 delete 删除 Object 属性的性能一直以来饱受诟病，目前在很多浏览器中仍然如此。为此， 出现了一些伪删除对象属性的操作，包括把属性值设置为 undefined 或 null。但很多时候，这都是一 种讨厌的或不适宜的折中。而对大多数浏览器引擎来说，Map 的 delete()操作都比插入和查找更快。 如果代码涉及大量删除操作，那么毫无疑问应该选择 Map。
 顺序 Map 会维护插入值的顺序 Object 会根据默认规则排序
+
+### 307. segmentfault 的 404 效果
+
+```js
+	      
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box-404-wrap {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .box-404-wrap .box {
+        margin: 0 auto;
+        padding: 4rem 1.25rem;
+        background-color: #fff;
+        width: 546px;
+        border-radius: 0.25rem;
+      }
+
+      .box-404-wrap .box .text-wrap {
+        position: relative;
+        width: 100%;
+        height: 7.1875rem;
+        text-align: center;
+        z-index: 3;
+      }
+
+      .box-404-wrap .box .text-wrap h1 {
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        font-size: 6rem;
+        font-weight: 700;
+        margin: 0;
+        animation: shake 0.6s ease-in-out infinite alternate;
+        user-select: none;
+      }
+
+      .box-404-wrap .box .text-wrap h1:before {
+        content: attr(data-t);
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0.34em);
+        height: 0.1em;
+        line-height: 0.5em;
+        width: 100%;
+        animation: scan 0.5s ease-in-out 367ms infinite alternate, glitch-anim
+            0.3s ease-in-out infinite alternate;
+        overflow: hidden;
+        opacity: 0.7;
+      }
+
+      .box-404-wrap .box .text-wrap h1:after {
+        content: attr(data-t);
+        position: absolute;
+        top: -28px;
+        left: 50%;
+        transform: translate(-50%, 0.34em);
+        height: 0.5em;
+        line-height: 0.1em;
+        width: 100%;
+        animation: scan 665ms ease-in-out 422ms infinite alternate, glitch-anim
+            0.3s ease-in-out infinite alternate;
+        overflow: hidden;
+        opacity: 0.8;
+      }
+
+      @media only screen and (max-width: 480px) {
+        .box-404-wrap .box .box {
+          width: 100%;
+        }
+      }
+
+      .box-404-wrap .box .clearfix:after,
+      .box-404-wrap .box .clearfix:before {
+        content: " ";
+        display: table;
+      }
+
+      .box-404-wrap .box .clearfix:after {
+        clear: both;
+      }
+
+      @keyframes scan {
+        0%,
+        20%,
+        to {
+          height: 0;
+          transform: translate(-50%, 0.44em);
+        }
+
+        10%,
+        15% {
+          height: 1em;
+          line-height: 0.2em;
+          transform: translate(-55%, 0.3em);
+        }
+      }
+
+      @keyframes attn {
+        0%,
+        to {
+          opacity: 1;
+        }
+
+        30%,
+        35% {
+          opacity: 0.4;
+        }
+      }
+
+      @keyframes shake {
+        0%,
+        to {
+          transform: translate(-1px);
+        }
+
+        10% {
+          transform: translate(2px, 1px);
+        }
+
+        30% {
+          transform: translate(-3px, 2px);
+        }
+
+        35% {
+          transform: translate(2px, -3px);
+          filter: blur(4px);
+        }
+
+        45% {
+          transform: translate(2px, 2px) skewY(-8deg) scaleX(0.96);
+          filter: blur(0);
+        }
+
+        50% {
+          transform: translate(-3px, 1px);
+        }
+      }
+
+      @keyframes glitch-anim {
+        0% {
+          clip: rect(96px, 9999px, 68px, 0);
+        }
+
+        10% {
+          clip: rect(76px, 9999px, 13px, 0);
+        }
+
+        20% {
+          clip: rect(45px, 9999px, 100px, 0);
+        }
+
+        30% {
+          clip: rect(36px, 9999px, 18px, 0);
+        }
+
+        40% {
+          clip: rect(46px, 9999px, 49px, 0);
+        }
+
+        50% {
+          clip: rect(100px, 9999px, 45px, 0);
+        }
+
+        60% {
+          clip: rect(87px, 9999px, 93px, 0);
+        }
+
+        70% {
+          clip: rect(2px, 9999px, 33px, 0);
+        }
+
+        80% {
+          clip: rect(83px, 9999px, 22px, 0);
+        }
+
+        90% {
+          clip: rect(31px, 9999px, 14px, 0);
+        }
+
+        to {
+          clip: rect(90px, 9999px, 1px, 0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box-404-wrap">
+      <div class="box">
+        <div class="d-flex flex-column align-items-center">
+          <div class="text-wrap"><h1 data-t="404" class="h1">404</h1></div>
+          <div class="text-center mt-2">
+            当前页面无法访问，可能没权限或已删除 <br />
+            长老们，去别处看看吧 彡(-_-;)彡
+          </div>
+          <div class="mt-4"><a href="/" class="btn btn-primary">回首页</a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+	      
+```
