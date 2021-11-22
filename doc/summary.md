@@ -6467,3 +6467,13 @@ router.onError(function (error) {
 
 ```
 
+### 309. svg转base64
+
+```js
+	      
+function svgToImage(svg: string): string {
+  const base64 = btoa(svg)
+  return `data:image/svg+xml;base64,${base64}`
+}
+
+```
