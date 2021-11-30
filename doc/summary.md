@@ -6477,3 +6477,25 @@ function svgToImage(svg: string): string {
 }
 
 ```
+	      
+### 310. 大量数据 正则性能不一定有数组等原生方法好
+	      
+```js
+
+const text = new Array(10000)
+  .fill(1)
+  .map(v => {
+    return "哈哈哈哈哈哈哈哈哈哈或;";
+  })
+  .join("");
+console.time("a");
+text.replace(/;/g, "<br>");
+console.timeEnd("a");
+// a: 2.648681640625 ms
+
+console.time("a");
+text.split(";").join(";<br>");
+console.timeEnd("a");
+// a: 1.241943359375 ms
+	      
+```
