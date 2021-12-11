@@ -6499,3 +6499,22 @@ console.timeEnd("a");
 // a: 1.241943359375 ms
 	      
 ```
+	      
+### 311. uglify 压缩 js 的一个注意点
+	      
+```js
+
+// 如果你比较的是 nodeenv 的变量引用的话 那么压缩的时候会保留这段代码 如
+	      
+const isProd = process.env.NODE_ENV === "production";
+
+if (isProd) {
+  // xxx 压缩之后里的代码会保留
+}
+
+// 如果你直接比较
+if (process.env.NODE_ENV === "production") {
+  // 这里的代码压缩后会删除 如果结果是false
+}
+	      
+```
