@@ -6524,3 +6524,9 @@ if (process.env.NODE_ENV === "production") {
 + 1、 初次使用需要绑定支付宝实名认证，购买【移动企业服务功能（免费）】，登录阿里云移动研发平台 EMAS https://emas.console.aliyun.com/#/overview 
 + 2、 创建并进入工作空间，选择【移动测试】二级页面，进入在选择菜单【远程真机】，搜索相关测试真机点击使用
 + 3、 点击使用后进入详情页面，选择对应系统浏览器访问 H5 即可测试功能 使用时注意右上角计时(图片右上角)，如果测试完成或中断，需要手动点击退出停止计时
+	      
+### 313. 前端通过 js 获取手机型号
+	      
++ https://www.cnblogs.com/alisleepy/p/11200325.html
++ https://github.com/joyqi/mobile-device-js/blob/master/device.js
++ https://github.com/hgoebl/mobile-detect.js
