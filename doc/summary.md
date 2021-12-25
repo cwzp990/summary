@@ -6529,4 +6529,13 @@ if (process.env.NODE_ENV === "production") {
 	      
 + https://www.cnblogs.com/alisleepy/p/11200325.html
 + https://github.com/joyqi/mobile-device-js/blob/master/device.js
-+ https://github.com/hgoebl/mobile-detect.js
++ https://github.com/hgoebl/mobile-detect.js、
+	      
+### 314. Set、WeakSet、Map、WeakMap
+
+Set 、WeakSet、Map、WeakMap 用法
+
+- Set 成员唯一且不重复 [value, value]，只有键值，没有键名 可以遍历，方法有：add、delete、has
+- WeakSet 成员都是对象 成员都是弱引用，可以被垃圾回收机制回收，可以用来保存 DOM 节点，不容易造成内存泄漏 不能遍历，方法有 add、delete、has 在 WeakSet 的实例中，如果向 add()、has()和 delete()这三个方法传入非对象参数都会导致程序报错 WeakSet 集合是不可遍历的，所以不能被用于 for-of 循环 WeakSet 集合不暴露任何迭代器 WeakSet 没有 size 属性，也没有 forEach 方法
+- Map 本质上是键值对的集合，类似集合 可以遍历，方法很多可以跟各种数据格式转换
+- WeakMap 只接受对象作为键名（null 除外），不接受其他类型的值作为键名 键名是弱引用，键值可以是任意的，键名所指向的对象可以被垃圾回收，此时键名是无效的 不能遍历，方法有 get、set、has、delete Weakpack 只接受对象作为键名（null 除外）,不接受其他类型的值作为键名。 WeakMap 的键名所指向的对象不计入垃圾回收机制。它的键名所引用的对象都是弱引用，即垃圾回收机制不将该引用考虑在内。因此所有引用的对象的其他引用都被清除，垃圾回收站就会释放该对象所占用的内存。 WeakMap 没有遍历操作(即没有 key()、values()和 entries()方法)，也没有 size 属性。 WeakMap 无法清空，即不支持 delete()方法。
