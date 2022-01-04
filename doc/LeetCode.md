@@ -39,3 +39,59 @@ const twoSum = function (nums, target) {
 };
 
 ```
+
+### 2. 题目：两数相加
+给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+
+示例:
+
+输入: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+输出: 7 -> 0 -> 8
+解释: 342 + 465 = 807.
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/add-two-numbers/
+
+##### 解题思路：标记法
+
+- 1.先设立一个进位变量count，用于判断下一次相加之和是否需要进位
+- 2.同时遍历2个链表当前节点值之和为sum
+- 3.判断sum是否超过10，如果超过则设置 sum自减10，同时count变量为1
+- 4.产生新节点后count赋值sum，count归0
+
+#### 代码实现
+
+```js
+
+const addTwoNumbers = function (l1, l2) {
+    let list = new ListNode(0),
+        curr = list,
+        count = 0,
+        sum = 0;
+
+    while (l1 || l2 || sum) {
+        if (l1) {
+            sum += l1.val;
+            l1 = l1.next
+        }
+
+        if (l2) {
+            sum += l2.val;
+            l2 = l2.next
+        }
+
+        if (sum >= 10) {
+            sum -= 10;
+            count = 1
+        }
+
+        curr.next = new ListNode(sum);
+        curr = curr.next;
+        sum = count;
+        count = 0;
+    }
+
+    return list.next
+};
+
+```
