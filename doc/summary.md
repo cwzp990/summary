@@ -7977,6 +7977,11 @@ function svgToImage(svg: string): string {
 
 1. webview 在 h5 是 iframe 有很多在 iframe 条件下不跳转
 	      
+**437. 内容安全策略(csp)可以限制访问策略很好用**
+
+- https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP
+- Content-Security-Policy
+	      
 **436. 利用 getboundingclientrect 和 window.scrollY 计算锚点**
 
 小程序为例
