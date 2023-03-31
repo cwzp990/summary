@@ -178,6 +178,8 @@ Rollup 消除项目中实际未使用的代码的过程
 
 #### vite
 
+预编译阶段，lodash -> esm 合并请求
+
 开发阶段，会创建一个Koa实例，创建除了node_modules之外的文件的watcher，并传入context中，将context上下文传入并调用每一个plugin
 
 - 向index.html中注入hmr模块导入
@@ -226,7 +228,22 @@ ESModule a中引入b，会去优先执行b，然后执行a，然后发现b中引
 
 ## CI/CD（流水线、nginx）
 
-**即每当我们将前端代码更新并 PUSH 到仓库后，CICD 将会拉取仓库代码并自动部署到服务器**
+持续集成/持续部署
+
+1. 功能分支提交后，通过 CICD 进行自动化测试、语法检查等，**如未通过 CICD，则无法 CodeReview，更无法合并到生产环境分支进行上线**
+2. 功能分支提交后，通过 CICD 检查 npm 库的风险、检查构建镜像容器的风险等
+3. 功能分支提交后，通过 CICD 对当前分支代码构建独立镜像并生成独立的分支环境地址进行测试，**如对每一个功能分支生成一个可供测试的地址，一般是 `<branch>.dev.shanyue.tech` 此种地址**
+4. 功能分支测试通过后，合并到主分支，自动构建镜像并部署到生成环境 (一般生成环境需要手动触发、自动部署)**
+
+on pull_request and feature/** pr和在某一分支才做
+
+### nginx
+
+- try_files指令将所有页面导向index.html
+
+- expires 对静态资源配置缓存
+
+- proxy_pass 设置反向代理
 
 ## npm相关（调试、发布、npm字段），monorepo架构
 
@@ -280,6 +297,14 @@ npm publish之前有npm prepare 打包
 
 ### lerna
 
+假设子项目中 A 项目有一个启动服务器的命令 start，B 项目有一个启动网页的命令 start。那么使用 Lerna 运行 start 命令则会自动运行 A 和 B 项目的指令
+
+lerna clean:清理子项目中的node_modules依赖
+
+lerna bootstrap:将依赖安装到根目录以达到子项目共享node_modules
+
+子项目相同版本的包会提升到最外层 不同的或者可执行文件依然留在子项目node_modules
+
 ```json
 {
     "workspaces": [
@@ -288,7 +313,21 @@ npm publish之前有npm prepare 打包
 }
 ```
 
+### 可能出现的问题
+
+- 幽灵依赖：依赖的提升，pnpm
+
+- 编译时间&依赖安装时间变长：lerna:changed 只对需要构建的项目进行构建，CI 脚本中对commit body进行识别，从而只对单个项目的构建。当需要合并的主干分支时，再对整个项目进行构建，只有所以项目都完成 CI 构建 & 校验，才能被合并到主干分支
+
+- 依赖安装加速：pnpm install --filter按需安装
+
 ## Git Eslint Husky
+
+.git目录hooks bash脚本 npm run lint/npm run test
+
+git hooks: precommit
+
+lint-stage 只对这次更改的东西进行 git的暂存区
 
 ## 微前端
 
@@ -342,3 +381,23 @@ output: {
 
 1. 在微前端架构中，子应用并不是一个模块，而是一个独立的应用，我们将子应用按业务划分可以拥有更好的可维护性和解耦性。
 2. 子应用应该具备独立运行的能力，应用间频繁的通信会增加应用的复杂度和耦合度。 综上所述，我们应该从业务的角度出发划分各个子应用，尽可能减少应用间的通信，从而简化整个应用，使得我们的微前端架构可以更加灵活可控。
+
+## fle-cli
+
+1. package.json里要指定bin字段为入口文件
+
+2. 文件头部需#! /usr/bin/env node 指定脚本的解释程序
+
+3. npm link 到全局
+
+4. inquirer 提供询问交互
+
+5. 通过用户选择拿到结果 process.cwd()控制台目录 path.join是模版存放目录
+
+6. commander 提供命令行操作指令
+
+7. chalk命令行美化
+
+8. cross-spawn执行shell命令 process.exit(1);退出
+
+9. github提供获取模版信息以及版本信息的api接口
