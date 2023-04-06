@@ -50,24 +50,49 @@ select name from Student where not exists ( // 查询学生
 select * from Student where Sdept="cs" union select * from Student where Sage <=19; // 并
 ```
 
+### 插入
 
+```sql
+insert into user(id, username, password) values (10, 'juzi', 123456);
+insert into user(id, username) values (11, 'cwz');
+insert into user values (13, 'p990', 123456);
 
+// 批量插入
+insert into user values
+    (14, 'name1', 123456),
+    (15, 'name2', 123456);
 
+```
 
+### 修改
 
+```sql
+update user set username = '修改名字', password = 123 where id = 14;
+```
 
+### 删除
 
+```sql
+delete from user where id = 12;
+```
 
+### 视图
 
+> 视图（view）也被称为虚表，即虚拟的表，是一组数据的逻辑表示，其本质是对应于一条select语句，结果集被赋予一个名字，即视图的名字
+> 
+> 视图本身并不包含任何数据，它只包含映射到基表的一个查询语句，当基表数据发生变化，视图数据也随之变化
 
+```sql
+// 以后对该视图进行插入、修改、删除操作时，会自动加上 = IS的条件
+create view IS_Student as
+    select no,name,age from Student where Sdept='IS' with check opinion;
 
+// 删除视图
+drop view IS_Student cascade // 该视图导出了其他视图 一并删除
 
-
-
-
-
-
-
-
+// 更新视图 还要更新原表
+update IS_Student set name='李晨' where no='20120202';
+update Student set name='李晨' where no='20120202' and Sdept='IS';
+```
 
 
