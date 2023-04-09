@@ -152,27 +152,27 @@ var glob = {
 - substring 有个神奇的地方 就是 start， end ，两个参数 谁小 谁就是 start
 
 ```javascript
-var str = "My name is: Jerry . My age is: 12 . : :666 .";
+var str = 'My name is: Jerry . My age is: 12 . : :666 .';
 str.substring(0, 5);
-("My na");
-var str = "My name is: Jerry . My age is: 12 . : :666 .";
+('My na');
+var str = 'My name is: Jerry . My age is: 12 . : :666 .';
 str.substring(5, 0);
-("My na");
+('My na');
 ```
 
 - substr 和 slice 如果遇到负数 会 和 length 相加
 
 ```javascript
-var str = "My name is: Jerry . My age is: 12 . : :666 .";
+var str = 'My name is: Jerry . My age is: 12 . : :666 .';
 str.slice(0, 5);
-("My na");
-var str = "My name is: Jerry . My age is: 12 . : :666 .";
+('My na');
+var str = 'My name is: Jerry . My age is: 12 . : :666 .';
 str.slice(0, -5);
-("My name is: Jerry . My age is: 12 . : :");
+('My name is: Jerry . My age is: 12 . : :');
 str.length;
 44;
 str.slice(0, 39);
-("My name is: Jerry . My age is: 12 . : :");
+('My name is: Jerry . My age is: 12 . : :');
 ```
 
 - 从定义上看： substring 和 slice 是同类的，参数都是字符串的某个｛开始｝位置到某个｛结束｝位置（但｛结束｝位置的字符不包括在结果中）；而 substr 则是字符串的某个｛开始｝位置起，数 length 个长度的字符才结束。－－ 共性：从 start 开始，如果没有第 2 个参数，都是直到字符串末尾
@@ -198,10 +198,10 @@ $(document).click(function () {
 });
 
 $(window).scroll(function () {
-  if (status == "true") {
-    console.log("点击事件触发的");
-  } else if (status == "false") {
-    console.log("滚动事件触发的");
+  if (status == 'true') {
+    console.log('点击事件触发的');
+  } else if (status == 'false') {
+    console.log('滚动事件触发的');
   }
 });
 ```
@@ -377,7 +377,7 @@ arr.sort((a, b) => (!~a || !~b ? b : a - b));
 > [MDN-isNaN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/isNaN)
 
 ```javascript
-var str = "";
+var str = '';
 isNaN(str); // false
 Number(str); // 0
 
@@ -385,7 +385,7 @@ var num = 0;
 isNaN(num); // false
 
 //isNaN() 底层会将字符串先转成数字类型
-isNaN("666"); // false
+isNaN('666'); // false
 ```
 
 **26. 对象拍平方法**
@@ -395,15 +395,15 @@ isNaN("666"); // false
 - 三层的情况
 
 ```javascript
-var m = { a: 1, b: { c: 2, d: [3, 4] }, e: { f: { g: "6" } } };
+var m = { a: 1, b: { c: 2, d: [3, 4] }, e: { f: { g: '6' } } };
 var obj = {};
 function planeHouse(m, child) {
   Object.keys(m).forEach(function (v, k) {
-    if (Object.prototype.toString.call(m[v]) === "[object Object]") {
+    if (Object.prototype.toString.call(m[v]) === '[object Object]') {
       // 如果当前还是一个对象 递归调用 传入child  v是m[v]的子key  obj[b.c] obj[b.d]
       planeHouse(m[v], v);
     } else {
-      child ? (obj[child + "." + v] = m[v]) : (obj[v] = m[v]);
+      child ? (obj[child + '.' + v] = m[v]) : (obj[v] = m[v]);
     }
   });
 }
@@ -418,11 +418,11 @@ var m = { a: 1, b: { c: 2, d: [3, 4] } };
 var obj = {};
 function planeHouse(m, child) {
   Object.keys(m).forEach(function (v, k) {
-    if (Object.prototype.toString.call(m[v]) === "[object Object]") {
+    if (Object.prototype.toString.call(m[v]) === '[object Object]') {
       // 如果当前还是一个对象 递归调用 传入child  v是m[v]的子key  obj[b.c] obj[b.d]
       planeHouse(m[v], v);
     } else {
-      child ? (obj[child + "." + v] = m[v]) : (obj[v] = m[v]);
+      child ? (obj[child + '.' + v] = m[v]) : (obj[v] = m[v]);
     }
   });
 }
@@ -603,7 +603,7 @@ function saveDom(){
     <style>
       body {
         margin: 0;
-        background: url("../images/timg.jpg") no-repeat;
+        background: url('../images/timg.jpg') no-repeat;
         background-size: 100% 100%;
         /*这个属性把背景图固定住*/
         background-attachment: fixed;
@@ -712,7 +712,7 @@ a[g]  其实就是 a["[object Object],[object Object],[object Object]"]
 **44. ‘false‘如何转成布尔后仍然是 false**
 
 ```javascript
-const str = "false";
+const str = 'false';
 Boolean(str); // true
 JSON.parse(str); // false
 // 使用JSON.parse()最好try-catch 避免报错
@@ -721,11 +721,11 @@ JSON.parse(str); // false
 **45. 字符串不会隐式转换的**
 
 ```javascript
-"0" == "";
+'0' == '';
 false;
-"0" == false;
+'0' == false;
 true;
-"" == false;
+'' == false;
 true;
 ```
 
@@ -733,8 +733,8 @@ true;
 
 ```javascript
 const arr = [
-  ["1", "2", "3"],
-  ["a", "b"],
+  ['1', '2', '3'],
+  ['a', 'b'],
 ];
 for (let i = 0, l = arr[0].length; i < l; i++) {
   newArr.push(arr[0][i] + arr[1][0], arr[0][i] + arr[1][1]);
@@ -746,7 +746,7 @@ for (let i = 0, l = arr[0].length; i < l; i++) {
 
 ```javascript
 // 固定参数实现
-const result = x => y => z => x * y * z;
+const result = (x) => (y) => (z) => x * y * z;
 result(3)(4)(4); // 48;
 // 柯里化实现
 function curry(fn) {
@@ -759,7 +759,7 @@ function curry(fn) {
     return function () {
       return curried.apply(
         this,
-        args.concat(Array.prototype.slice.call(arguments))
+        args.concat(Array.prototype.slice.call(arguments)),
       );
     };
   };
@@ -774,7 +774,7 @@ result(3)(4)(4); // 48
 
 ```javascript
 let arr = [];
-arr[4] = "a";
+arr[4] = 'a';
 console.log(arr); // [ emptyx3, 4 ]
 // 如果要循环出来 需要用for 使用forEach 等一些高阶函数 会过滤空的数组
 ```
@@ -798,9 +798,9 @@ arr.sort((a, b) => {
 
 ```javascript
 var arr = [
-  ["0001", "0010"],
-  ["0020", "0300"],
-  ["0301", "0400"],
+  ['0001', '0010'],
+  ['0020', '0300'],
+  ['0301', '0400'],
 ];
 console.log(JSON.stringify(arr)); // [["0001","0010"],["0020","0300"],["0301","0400"]]
 
@@ -853,8 +853,8 @@ console.log(JSON.stringify(arr)); // [[1,8],[16,192],[193,256]]
   </nav>
   <div class="content">内容</div>
   <script>
-    var content = document.querySelector(".content");
-    content.classList.add("active"); // 这个 classList IE10才行
+    var content = document.querySelector('.content');
+    content.classList.add('active'); // 这个 classList IE10才行
   </script>
 </body>
 ```
@@ -1092,7 +1092,7 @@ export default{
 ```javascript
 console.log(this.$refs.passInput); // 显示的是vue组件 然后我找到了挂载的el
 console.log(this.$refs.passInput.$el); // 显示的是当前DOM
-this.$refs.passInput.$el.querySelector("input").focus(); // 然后在找到input focus
+this.$refs.passInput.$el.querySelector('input').focus(); // 然后在找到input focus
 ```
 
 **74. Vue-cli api 请求架构的建议**
@@ -1101,9 +1101,9 @@ this.$refs.passInput.$el.querySelector("input").focus(); // 然后在找到input
 
 ```javascript
 /*api.js*/
-export const CONTEXT = "";
+export const CONTEXT = '';
 
-export const FILE_LIST = CONTEXT + "/api/file/list";
+export const FILE_LIST = CONTEXT + '/api/file/list';
 ```
 
 - 请求的方法单独管理 —— fetch.js
@@ -1111,18 +1111,18 @@ export const FILE_LIST = CONTEXT + "/api/file/list";
 ```javascript
 /*fetch.js*/
 // 我们封装的fetch.js
-import axios from "axios";
-import { Message } from "element-ui";
-import auth from "./auth";
-const model = process.env.NODE_ENV === "development";
+import axios from 'axios';
+import { Message } from 'element-ui';
+import auth from './auth';
+const model = process.env.NODE_ENV === 'development';
 
 //设置用户信息action
 export default function fetch(options, type) {
-  let token = "";
-  if (options.url.indexOf("api") > 0) {
+  let token = '';
+  if (options.url.indexOf('api') > 0) {
     token = JSON.stringify({
-      deviceType: "WEB",
-      token: "Basic  " + auth.getToken(),
+      deviceType: 'WEB',
+      token: 'Basic  ' + auth.getToken(),
     });
   }
   //console.log('token is ' + token);
@@ -1153,12 +1153,12 @@ export default function fetch(options, type) {
             Message.warning(msg);
           } else {
             setUserInfo(null);
-            router.replace({ name: "login" });
+            router.replace({ name: 'login' });
             Message.warning(msg);
           }
         }
       })
-      .catch(error => {
+      .catch((error) => {
         //请求失败时,根据业务判断状态
         if (error.response) {
           let resError = error.response;
@@ -1171,7 +1171,7 @@ export default function fetch(options, type) {
               data: mockData,
             });
           } else {
-            Message.error("操作失败！错误原因 " + resMsg);
+            Message.error('操作失败！错误原因 ' + resMsg);
             reject({ code: resCode, msg: resMsg });
           }
         }
@@ -1183,13 +1183,13 @@ export default function fetch(options, type) {
 - 具体到某个模块的请求 —— list.js
 
 ```javascript
-import * as api from "../api";
-import fetch from "../common/fetch";
+import * as api from '../api';
+import fetch from '../common/fetch';
 
 export function getList(data) {
   return fetch({
     url: api.FILE_LIST,
-    method: "post",
+    method: 'post',
     data,
   });
 }
@@ -1230,12 +1230,12 @@ ext-监控指定的后缀文件名
 - 修改 app.js 文件，记得注稀最后一行的：module.exports = app;
 
 ```javascript
-var debug = require("debug")("my-application"); // debug模块
-app.set("port", process.env.PORT || 3000); // 设定监听端口
+var debug = require('debug')('my-application'); // debug模块
+app.set('port', process.env.PORT || 3000); // 设定监听端口
 
 //启动监听
-var server = app.listen(app.get("port"), function () {
-  debug("Express server listening on port " + server.address().port);
+var server = app.listen(app.get('port'), function () {
+  debug('Express server listening on port ' + server.address().port);
 });
 
 //module.exports = app;//这是 4.x 默认的配置，分离了 app 模块,将它注释即可，上线时可以重新改回来
@@ -1252,11 +1252,11 @@ nodemon app.js
 ```javascript
 export const triggerResize = () => {
   if (document.createEvent) {
-    var event = document.createEvent("HTMLEvents");
-    event.initEvent("resize", true, true);
+    var event = document.createEvent('HTMLEvents');
+    event.initEvent('resize', true, true);
     window.dispatchEvent(event);
   } else if (document.createEventObject) {
-    window.fireEvent("onresize");
+    window.fireEvent('onresize');
   }
 };
 ```
@@ -1264,13 +1264,13 @@ export const triggerResize = () => {
 **76. 字节换算**
 
 ```javascript
-export const bytesToSize = bytes => {
-  if (bytes === 0) return "0 B";
+export const bytesToSize = (bytes) => {
+  if (bytes === 0) return '0 B';
   var k = 1000, // or 1024
-    sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
+    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
     i = Math.floor(Math.log(bytes) / Math.log(k));
 
-  return (bytes / Math.pow(k, i)).toPrecision(3) + " " + sizes[i];
+  return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
 };
 ```
 
@@ -1306,9 +1306,9 @@ computed: {
 - 最主要的是引入扩展包
 
 ```javascript
-import Highcharts from "highcharts/highstock"; // 必须
-import HighchartsMore from "highcharts/highcharts-more"; // 必须
-import SolidGauge from "highcharts/modules/solid-gauge.js";
+import Highcharts from 'highcharts/highstock'; // 必须
+import HighchartsMore from 'highcharts/highcharts-more'; // 必须
+import SolidGauge from 'highcharts/modules/solid-gauge.js';
 HighchartsMore(Highcharts);
 SolidGauge(Highcharts);
 ```
@@ -1321,28 +1321,28 @@ SolidGauge(Highcharts);
 </template>
 
 <script>
-import Highcharts from "highcharts/highstock";
-import HighchartsMore from "highcharts/highcharts-more";
-import SolidGauge from "highcharts/modules/solid-gauge.js";
+import Highcharts from 'highcharts/highstock';
+import HighchartsMore from 'highcharts/highcharts-more';
+import SolidGauge from 'highcharts/modules/solid-gauge.js';
 HighchartsMore(Highcharts);
 SolidGauge(Highcharts);
 
 Highcharts.setOptions({
   chart: {
-    type: "solidgauge",
+    type: 'solidgauge',
   },
   title: null,
   pane: {
-    center: ["50%", "85%"],
-    size: "140%",
+    center: ['50%', '85%'],
+    size: '140%',
     startAngle: -90,
     endAngle: 90,
     background: {
       backgroundColor:
-        (Highcharts.theme && Highcharts.theme.background2) || "#EEE",
-      innerRadius: "60%",
-      outerRadius: "100%",
-      shape: "arc",
+        (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+      innerRadius: '60%',
+      outerRadius: '100%',
+      shape: 'arc',
     },
   },
   tooltip: {
@@ -1350,9 +1350,9 @@ Highcharts.setOptions({
   },
   yAxis: {
     stops: [
-      [0.1, "#55BF3B"], // green
-      [0.5, "#DDDF0D"], // yellow
-      [0.9, "#DF5353"], // red
+      [0.1, '#55BF3B'], // green
+      [0.5, '#DDDF0D'], // yellow
+      [0.9, '#DF5353'], // red
     ],
     lineWidth: 0,
     minorTickInterval: null,
@@ -1388,12 +1388,12 @@ export default {
       this.draw();
     },
     draw() {
-      new Highcharts.chart("highCharts", {
+      new Highcharts.chart('highCharts', {
         yAxis: {
           min: 0,
           max: 200,
           title: {
-            text: "速度",
+            text: '速度',
           },
         },
         credits: {
@@ -1401,18 +1401,18 @@ export default {
         },
         series: [
           {
-            name: "速度",
+            name: '速度',
             data: [80],
             dataLabels: {
               format:
                 '<div style="text-align:center"><span style="font-size:25px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
-                  "black") +
+                  'black') +
                 '">{y}</span><br/>' +
                 '<span style="font-size:12px;color:silver">km/h</span></div>',
             },
             tooltip: {
-              valueSuffix: " km/h",
+              valueSuffix: ' km/h',
             },
           },
         ],
@@ -1471,10 +1471,10 @@ function throttle(func, wait, mustRun) {
 }
 // 实际想绑定在 scroll 事件上的 handler
 function realFunc() {
-  console.log("Success");
+  console.log('Success');
 }
 // 采用了节流函数
-window.addEventListener("scroll", throttle(realFunc, 500, 1000));
+window.addEventListener('scroll', throttle(realFunc, 500, 1000));
 ```
 
 **83. 一个声明提前面试题**
@@ -1578,7 +1578,7 @@ toString，join变字符，toLocaleString不常用。
 **85. Object 对象如果 key 是数字，会按照数字从小到大排列**
 
 ```javascript
-const object3 = { 100: "a", 2: "b", 7: "c" };
+const object3 = { 100: 'a', 2: 'b', 7: 'c' };
 console.log(object3);
 // {2: "b", 7: "c", 100: "a"}
 ```
@@ -1597,12 +1597,12 @@ var foo = (function () {
 })();
 // 不改变以上函数  取出o的所有属性
 
-Object.defineProperty(Object.prototype, "_getAll", {
+Object.defineProperty(Object.prototype, '_getAll', {
   get() {
     return this;
   },
 });
-let obj = foo("_getAll");
+let obj = foo('_getAll');
 // 避免污染
 delete Object.prototype._getAll;
 Object.keys(obj);
@@ -1627,19 +1627,19 @@ option + t ：交换光标处和之前的单词
 
 ```javascript
 let data = {
-  up: "运行了",
-  Exited: "关闭了",
-  month: "月",
-  days: "天",
-  hours: "小时",
-  minutes: "分钟",
-  secondes: "秒",
-  ago: "",
-  "Less than a second": "少于一秒",
-  "About a minute": "大概一分钟",
+  up: '运行了',
+  Exited: '关闭了',
+  month: '月',
+  days: '天',
+  hours: '小时',
+  minutes: '分钟',
+  secondes: '秒',
+  ago: '',
+  'Less than a second': '少于一秒',
+  'About a minute': '大概一分钟',
 };
 
-var str = "系统{%up%}, 15{%days%}";
+var str = '系统{%up%}, 15{%days%}';
 var regex = /\{%([^{]+)%\}/g;
 var match = null;
 while ((match = regex.exec(str))) {
@@ -1686,11 +1686,11 @@ export const download_blob = (blob, file_name) => {
   return new Promise((resolve, reject) => {
     try {
       const BLOB = new Blob([blob]);
-      if ("download" in document.createElement("a")) {
+      if ('download' in document.createElement('a')) {
         // 非IE下载
-        const elink = document.createElement("a");
+        const elink = document.createElement('a');
         elink.download = file_name;
-        elink.style.display = "none";
+        elink.style.display = 'none';
         elink.href = URL.createObjectURL(BLOB);
         document.body.appendChild(elink);
         elink.click();
@@ -1702,24 +1702,24 @@ export const download_blob = (blob, file_name) => {
       } else {
         navigator.msSaveBlob(BLOB, file_name);
       }
-      resolve({ status: "success", content: "" });
+      resolve({ status: 'success', content: '' });
     } catch (error) {
-      reject({ status: "error", content: error });
+      reject({ status: 'error', content: error });
     }
   });
 };
 
 axios({})
-  .then(res => {
-    download_blob(res, Date.parse(new Date()) + ".xls")
-      .then(data => {
+  .then((res) => {
+    download_blob(res, Date.parse(new Date()) + '.xls')
+      .then((data) => {
         console.log(data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err);
   });
 ```
@@ -1808,16 +1808,16 @@ module.exports = {
 **100. 如何不写域名的情况下修改端口**
 
 ```javascript
-io.connect("http://192.168.1.122:8080");
+io.connect('http://192.168.1.122:8080');
 // 改成我们自己的
-io.connect(":9101"); // http://localhost:9101
+io.connect(':9101'); // http://localhost:9101
 ```
 
 **101. Vue Highcharts 双饼图需要引入的**
 
 ```javascript
 // 只有这一个就好啦
-import Highcharts from "highcharts";
+import Highcharts from 'highcharts';
 ```
 
 **102. linear-gradient 可以用在很多地方的**
@@ -1957,7 +1957,7 @@ export const getScrollTop = function () {
 ```javascript
 function flattenArray(arr) {
   const flattened = [].concat(...arr);
-  return flattened.some(item => Array.isArray(item))
+  return flattened.some((item) => Array.isArray(item))
     ? flattenArray(flattened)
     : flattened;
 }
@@ -2240,20 +2240,20 @@ script.onerror = reject; document.head.appendChild(script); }); }, initMap(Map){
 - echarts
 
 ```javascript
-const echarts = require("echarts/lib/echarts");
-require("echarts/lib/chart/line");
-require("echarts/lib/chart/bar");
-require("echarts/lib/chart/pie");
+const echarts = require('echarts/lib/echarts');
+require('echarts/lib/chart/line');
+require('echarts/lib/chart/bar');
+require('echarts/lib/chart/pie');
 // 引入提示框和标题组件
-require("echarts/lib/component/tooltip");
-require("echarts/lib/component/title");
+require('echarts/lib/component/tooltip');
+require('echarts/lib/component/title');
 ```
 
 - Highcharts（这个商业化要收费）
 
 ```javascript
-import HighchartsMore from "highcharts/highcharts-more";
-import SolidGauge from "highcharts/modules/solid-gauge.js";
+import HighchartsMore from 'highcharts/highcharts-more';
+import SolidGauge from 'highcharts/modules/solid-gauge.js';
 HighchartsMore(Highcharts);
 SolidGauge(Highcharts);
 ```
@@ -2350,17 +2350,17 @@ export default {
 
 ```javascript
 // 创建事件.
-let event = document.createEvent("HTMLEvents");
+let event = document.createEvent('HTMLEvents');
 // 初始化一个点击事件，可以冒泡，无法被取消
-event.initEvent("click", true, false);
-let elm = document.getElementById("wq");
+event.initEvent('click', true, false);
+let elm = document.getElementById('wq');
 // 设置事件监听.
 elm.addEventListener(
-  "click",
-  e => {
+  'click',
+  (e) => {
     console.log(e);
   },
-  false
+  false,
 );
 // 触发事件监听
 elm.dispatchEvent(event);
@@ -2461,12 +2461,12 @@ VSCode Snippets VueHelper Ysgrifennwr Color Theme // 最爱的猪蹄
     display: inline-block;
     width: 144px;
     height: 144px;
-    background: url("https://user-gold-cdn.xitu.io/2018/7/31/164f0e6745afe2ba?w=144&h=144&f=png&s=2780")
+    background: url('https://user-gold-cdn.xitu.io/2018/7/31/164f0e6745afe2ba?w=144&h=144&f=png&s=2780')
       no-repeat center / cover;
     overflow: hidden;
   }
   .icon-color:after {
-    content: "";
+    content: '';
     display: block;
     height: 100%;
     transform: translateX(-100%);
@@ -2502,13 +2502,13 @@ VSCode Snippets VueHelper Ysgrifennwr Color Theme // 最爱的猪蹄
 - 不要用 windows 的 resize 事件 当浏览器 F11 全屏后，用户按着 esc 关闭全屏，resize 事件是没法监听到的。
 
 ```javascript
-document.addEventListener("fullscreenchange", toggleChange);
-document.addEventListener("webkitfullscreenchange", toggleChange);
-document.addEventListener("mozfullscreenchange", toggleChange);
-document.addEventListener("MSFullscreenChange", toggleChange);
+document.addEventListener('fullscreenchange', toggleChange);
+document.addEventListener('webkitfullscreenchange', toggleChange);
+document.addEventListener('mozfullscreenchange', toggleChange);
+document.addEventListener('MSFullscreenChange', toggleChange);
 
 function toggleChange() {
-  console.log("magic");
+  console.log('magic');
 }
 ```
 
@@ -2545,9 +2545,9 @@ function toggleChange() {
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
-import test from "./test";
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import test from './test';
 
 @Component({
   components: {
@@ -2555,23 +2555,23 @@ import test from "./test";
   },
 })
 export default class Home extends Vue {
-  private msg: string = "Hello, World!";
+  private msg: string = 'Hello, World!';
 
   get computedMsg(): string {
-    return this.msg + "7777";
+    return this.msg + '7777';
   }
 
   beforeCreate() {
-    test.$alert("haha");
+    test.$alert('haha');
   }
 
   handleClick(event: object, name: string) {
-    this.msg = "666";
+    this.msg = '666';
     // console.log(event, name);
   }
 
   resetMsg(data: any) {
-    console.log(data, "父组件收到啦");
+    console.log(data, '父组件收到啦');
   }
 }
 </script>
@@ -2587,7 +2587,7 @@ export default class Home extends Vue {
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Emit } from "vue-property-decorator";
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 
 @Component
 export default class HelloWorld extends Vue {
@@ -2596,9 +2596,9 @@ export default class HelloWorld extends Vue {
   private num!: number;
   count: number = 0;
 
-  @Emit("reset")
+  @Emit('reset')
   resetMsg(data: object) {
-    console.log("父组件收到没");
+    console.log('父组件收到没');
   }
 }
 </script>
@@ -2689,7 +2689,7 @@ var aﾠ = 1;
 var a = 2;
 var ﾠa = 3;
 if (aﾠ == 1 && a == 2 && ﾠa == 3) {
-  console.log("Why hello there!");
+  console.log('Why hello there!');
 }
 // Why hello there!
 ```
@@ -2718,7 +2718,7 @@ this.loadData();
 - 我的解决办法 -> 请求完毕后咋成功回调里直接覆盖数据
 
 ```javascript
-loadData().then(res => {
+loadData().then((res) => {
   Array.isArray(res.contentList) && (this.list = res.contentList);
 });
 ```
@@ -2742,7 +2742,7 @@ loadData().then(res => {
 
 ```javascript
 // config/index.js
-let HOST = "http://192.168.1.112:9000";
+let HOST = 'http://192.168.1.112:9000';
 // 1
 // const HOST = "http://192.168.1.63:9000";
 // 2
@@ -2755,12 +2755,12 @@ let HOST = "http://192.168.1.112:9000";
 // packagejson里面有script里的标识 判断启用哪个接口去对接
 const ENVIRONMENT = process.env.npm_lifecycle_event;
 
-if (ENVIRONMENT.indexOf("xia") > -1) {
-  HOST = "http://192.168.1.59:9000";
-} else if (ENVIRONMENT.indexOf("niu") > -1) {
-  HOST = "http://192.168.1.63:9000";
-} else if (ENVIRONMENT.indexOf("me") > -1) {
-  HOST = "http://localhost:3001";
+if (ENVIRONMENT.indexOf('xia') > -1) {
+  HOST = 'http://192.168.1.59:9000';
+} else if (ENVIRONMENT.indexOf('niu') > -1) {
+  HOST = 'http://192.168.1.63:9000';
+} else if (ENVIRONMENT.indexOf('me') > -1) {
+  HOST = 'http://localhost:3001';
 }
 ```
 
@@ -2778,12 +2778,12 @@ text-align: left;
 **156.vueli3 的配置文件另一种写法**
 
 ```javascript
-configureWebpack: confing => {
+configureWebpack: (confing) => {
   config.resolve = {
-    extensions: [".js", ".vue", ".json", ".css"],
+    extensions: ['.js', '.vue', '.json', '.css'],
     alias: {
-      vue$: "vue/dist/vue.esm.js",
-      "@": resolve("src"),
+      vue$: 'vue/dist/vue.esm.js',
+      '@': resolve('src'),
     },
   };
 };
@@ -2796,7 +2796,7 @@ configureWebpack: confing => {
 - JavaScript 内部，字符以 UTF-16 的格式储存，每个字符固定为 2 个字节。对于那些需要 4 个字节储存的字符（Unicode 码点大于 0xFFFF 的字符），JavaScript 会认为它们是两个字符。
 
 ```javascript
-var s = "𠮷";
+var s = '𠮷';
 
 s.length; // 2
 s.charAt(0); // ''
@@ -2808,9 +2808,9 @@ s.charCodeAt(1); // 57271
 **158. 日期替换**
 
 ```javascript
-let str = "2018-09-19 00:00:00";
-str.replace(/(\d{4})-(\d{2})-(\d{2})\s\d{2}\:\d{2}\:\d{2}/g, "$1年$2月$3日");
-str.replace(/(.+?)\-(.+?)\-(\d{2}).+/, "$1年$2月$3日");
+let str = '2018-09-19 00:00:00';
+str.replace(/(\d{4})-(\d{2})-(\d{2})\s\d{2}\:\d{2}\:\d{2}/g, '$1年$2月$3日');
+str.replace(/(.+?)\-(.+?)\-(\d{2}).+/, '$1年$2月$3日');
 // "2018年09月19日"
 ```
 
@@ -3005,7 +3005,7 @@ table {
 **168. 阿里云前端上传的一段 mixins**
 
 ```javascript
-import * as ossApi from "@services/oss";
+import * as ossApi from '@services/oss';
 export default {
   mounted() {},
   methods: {
@@ -3013,33 +3013,33 @@ export default {
     $file_getUploadUrl(data) {
       return ossApi.getUploadUrl(data);
     },
-    $file_upLoad(file, type = "TRACE") {
+    $file_upLoad(file, type = 'TRACE') {
       return new Promise((resolve, reject) => {
         this.$file_getUploadUrl({ type })
-          .then(res => {
+          .then((res) => {
             res = res.data;
             let data = new FormData();
-            data.append("key", res.key);
-            data.append("success_action_status", "200");
-            data.append("OSSAccessKeyId", res.OSSAccessKeyId);
-            data.append("Signature", res.Signature);
-            data.append("policy", res.policy);
-            data.append("file", file);
+            data.append('key', res.key);
+            data.append('success_action_status', '200');
+            data.append('OSSAccessKeyId', res.OSSAccessKeyId);
+            data.append('Signature', res.Signature);
+            data.append('policy', res.policy);
+            data.append('file', file);
 
             this.$http
               .post(`${res.url}/`, data)
-              .then(uploadRes => {
+              .then((uploadRes) => {
                 resolve({
                   data: uploadRes.data,
                   status: uploadRes.status,
                   fileId: res.key,
                 });
               })
-              .catch(err => {
+              .catch((err) => {
                 reject(err);
               });
           })
-          .catch(err => {
+          .catch((err) => {
             reject(err);
           });
       });
@@ -3064,11 +3064,11 @@ export default {
   <head>
     <script type="text/javascript">
       function say() {
-        alert("parent.html");
+        alert('parent.html');
       }
       function callChild() {
         myFrame.window.say();
-        myFrame.window.document.getElementById("button").value = "调用结束";
+        myFrame.window.document.getElementById('button').value = '调用结束';
       }
     </script>
   </head>
@@ -3091,11 +3091,11 @@ export default {
   <head>
     <script type="text/javascript">
       function say() {
-        alert("child.html");
+        alert('child.html');
       }
       function callParent() {
         parent.say();
-        parent.window.document.getElementById("button").value = "调用结束";
+        parent.window.document.getElementById('button').value = '调用结束';
       }
     </script>
   </head>
@@ -3129,7 +3129,7 @@ export default {
 **170. vue beforeDestory 另一种用法**
 
 ```js
-this.$once("hook:beforeDestroy", function () {
+this.$once('hook:beforeDestroy', function () {
   clearTimeout(timeId);
 });
 ```
@@ -3146,7 +3146,7 @@ console.log(date);
 **172. 获取域名和端口**
 
 ```javascript
-export const getBaseUrl = url => {
+export const getBaseUrl = (url) => {
   var reg = /^((\w+):\/\/([^/:]*)(?::(\d+))?)(.*)/;
   reg.exec(url);
   return RegExp.$1;
@@ -3158,26 +3158,26 @@ export const getBaseUrl = url => {
 ```javascript
 //复制文字
 GlobalFunction.prototype.copyText = function (text) {
-  let dom = document.createElement("input");
+  let dom = document.createElement('input');
   dom.value = text;
-  document.querySelector("html").appendChild(dom);
+  document.querySelector('html').appendChild(dom);
   dom.select();
   this.selectText(dom, 0, text.length);
-  document.execCommand("Copy");
+  document.execCommand('Copy');
   dom.remove();
 };
 //复制文字选中兼容苹果Safari
 GlobalFunction.prototype.selectText = function (
   textbox,
   startIndex,
-  stopIndex
+  stopIndex,
 ) {
   if (textbox.createTextRange) {
     //ie
     var range = textbox.createTextRange();
     range.collapse(true);
-    range.moveStart("character", startIndex); //起始光标
-    range.moveEnd("character", stopIndex - startIndex); //结束光标
+    range.moveStart('character', startIndex); //起始光标
+    range.moveEnd('character', stopIndex - startIndex); //结束光标
     range.select(); //不兼容苹果
   } else {
     //firefox/chrome
@@ -3290,8 +3290,8 @@ lazyMove(targetScroll) {
 **136. vuecli3 引入第三方插件 如 JQ 百度地图**
 
 ```javascript
-chainWebpack: config => {
-  config.externals({ BMap: "BMap" });
+chainWebpack: (config) => {
+  config.externals({ BMap: 'BMap' });
 };
 ```
 
@@ -3338,18 +3338,18 @@ chainWebpack: config => {
 
 ```javascript
 export default function ({ $axios, redirect }) {
-  $axios.onRequest(config => {
+  $axios.onRequest((config) => {
     // console.log('Making request to ' + config.url)
   });
-  $axios.onError(error => {
+  $axios.onError((error) => {
     console.log(error);
     const code = parseInt(error.response && error.response.status);
     if (code === 400) {
-      redirect("/400");
+      redirect('/400');
     }
   });
 
-  $axios.onResponse(response => {
+  $axios.onResponse((response) => {
     // console.log(response)
   });
 }
@@ -3373,15 +3373,15 @@ module.exports = {
     node: true,
   },
   parserOptions: {
-    parser: "babel-eslint",
+    parser: 'babel-eslint',
   },
-  extends: ["plugin:vue/recommended", "plugin:prettier/recommended"],
+  extends: ['plugin:vue/recommended', 'plugin:prettier/recommended'],
   // required to lint *.vue files
-  plugins: ["vue", "prettier"],
+  plugins: ['vue', 'prettier'],
   // add your custom rules here
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },
 };
 ```
@@ -3519,23 +3519,23 @@ function _ajax(options){
 // 翻斗鱼的源码看到的
 
 ```javascript
-define("douyu/com/zoom", [
-  "jquery",
-  "shark/observer",
-  "shark/util/cookie/1.0",
-  "shark/util/storage/1.0",
-  "douyu/context",
-  "douyu/com/zoom-dp",
+define('douyu/com/zoom', [
+  'jquery',
+  'shark/observer',
+  'shark/util/cookie/1.0',
+  'shark/util/storage/1.0',
+  'douyu/context',
+  'douyu/com/zoom-dp',
 ], function (e, i, t, n, o, a) {
   var s = {
-      storageName: "zoomtip",
-      storageVal: "1",
+      storageName: 'zoomtip',
+      storageVal: '1',
       storageTime: 604800,
       isPop: !1,
       init: function () {
         this.handleCookie(),
           this.pop(),
-          i.on("mod.layout.screen.change", function (e) {
+          i.on('mod.layout.screen.change', function (e) {
             s.detect() && s.pop();
           });
       },
@@ -3547,7 +3547,7 @@ define("douyu/com/zoom", [
       detect: function () {
         return (
           (this.ua = navigator.userAgent.toLowerCase()),
-          -1 == this.ua.indexOf("windows") ? !1 : !n.get(this.storageName)
+          -1 == this.ua.indexOf('windows') ? !1 : !n.get(this.storageName)
         );
       },
       cal: function () {
@@ -3556,7 +3556,7 @@ define("douyu/com/zoom", [
         return (
           void 0 !== window.devicePixelRatio
             ? (e = window.devicePixelRatio)
-            : ~this.ua.indexOf("msie")
+            : ~this.ua.indexOf('msie')
             ? i.deviceXDPI &&
               i.logicalXDPI &&
               (e = i.deviceXDPI / i.logicalXDPI)
@@ -3575,19 +3575,19 @@ define("douyu/com/zoom", [
           n = 432,
           o = (100 * t) / i,
           a = (100 * n) / i;
-        e(".pop-zoom-container").css({
-          width: o + "px",
-          height: a + "px",
-          marginLeft: -o / 2 + "px",
-          marginTop: -a / 2 + "px",
+        e('.pop-zoom-container').css({
+          width: o + 'px',
+          height: a + 'px',
+          marginLeft: -o / 2 + 'px',
+          marginTop: -a / 2 + 'px',
         });
       },
       pop: function () {
         var t = this.cal();
         if (!n.get(this.storageName) && !this.isPop && 100 !== t) {
           var a =
-              o.get("sys.web_url") +
-              "app/douyu/res/com/sg-zoom-error.png?20160823",
+              o.get('sys.web_url') +
+              'app/douyu/res/com/sg-zoom-error.png?20160823',
             s = [
               '<div class="pop-zoom-container">',
               '<div class="pop-zoom">',
@@ -3596,29 +3596,29 @@ define("douyu/com/zoom", [
               '">',
               '<div class="pop-zoom-close">close</div>',
               '<div class="pop-zoom-hide"></div>',
-              "</div>",
-              "</div>",
-            ].join("");
-          e("body").append(s),
+              '</div>',
+              '</div>',
+            ].join('');
+          e('body').append(s),
             this.bindEvt(),
             (this.isPop = !this.isPop),
-            i.trigger("dys.com.zoom.pop.show");
+            i.trigger('dys.com.zoom.pop.show');
         }
         this.resize();
       },
       close: function () {
-        e(".pop-zoom-container").remove(),
+        e('.pop-zoom-container').remove(),
           (this.isPop = !this.isPop),
-          i.trigger("dys.com.zoom.pop.close");
+          i.trigger('dys.com.zoom.pop.close');
       },
       bindEvt: function () {
         var t = this;
-        e(".pop-zoom-close").on("click", function () {
+        e('.pop-zoom-close').on('click', function () {
           t.close();
         }),
-          e(".pop-zoom-hide").on("click", function () {
+          e('.pop-zoom-hide').on('click', function () {
             n.set(t.storageName, t.storageVal, t.storageTime),
-              i.trigger("dys.com.zoom.pop.zoomtip"),
+              i.trigger('dys.com.zoom.pop.zoomtip'),
               t.close();
           });
       },
@@ -3639,7 +3639,7 @@ var getScreenScaleNum = function () {
   return (
     void 0 !== window.devicePixelRatio
       ? (e = window.devicePixelRatio)
-      : ~this.ua.indexOf("msie")
+      : ~this.ua.indexOf('msie')
       ? i.deviceXDPI && i.logicalXDPI && (e = i.deviceXDPI / i.logicalXDPI)
       : void 0 !== window.outerWidth &&
         void 0 !== window.innerWidth &&
@@ -3657,13 +3657,13 @@ var getScreenScaleNum = function () {
 
 ```javascript
 module.exports = {
-  presets: ["@vue/app"],
+  presets: ['@vue/app'],
   plugins: [
     [
-      "component",
+      'component',
       {
-        libraryName: "element-ui",
-        styleLibraryName: "theme-chalk",
+        libraryName: 'element-ui',
+        styleLibraryName: 'theme-chalk',
       },
     ],
   ],
@@ -3737,7 +3737,7 @@ export default {
         window.open(data.website);
       } else {
         // this.$store.commit("setActivityContent", data.content);
-        this.$router.push({ path: "/activity/detail", query: { id: data.id } });
+        this.$router.push({ path: '/activity/detail', query: { id: data.id } });
       }
     },
   },
@@ -3771,25 +3771,25 @@ export default {
       window._bd_share_config = {
         common: {
           bdSnsKey: {},
-          bdText: "",
-          bdMini: "2",
+          bdText: '',
+          bdMini: '2',
           bdMiniList: false,
-          bdPic: "",
-          bdStyle: "1",
-          bdSize: "24",
+          bdPic: '',
+          bdStyle: '1',
+          bdSize: '24',
         },
         share: {},
         selectShare: {
           bdContainerClass: null,
-          bdSelectMiniList: ["weixin", "tsina", "qzone"],
+          bdSelectMiniList: ['weixin', 'tsina', 'qzone'],
         },
       };
-      const $el = document.querySelector("#baiduShare");
+      const $el = document.querySelector('#baiduShare');
       $el && document.body.removeChild($el);
-      const s = document.createElement("script");
-      s.type = "text/javascript";
-      s.id = "baiduShare";
-      s.src = "";
+      const s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.id = 'baiduShare';
+      s.src = '';
       document.body.appendChild(s);
     },
   },
@@ -3803,7 +3803,7 @@ const routeData = this.$router.resolve({
   path: lang ? `/${lang}/news/detail` : `news/detail`,
   query: { id },
 });
-window.open(routeData.href, "_blank");
+window.open(routeData.href, '_blank');
 ```
 
 **151. webpack 按需引入组件、函数的写法** 1.
@@ -3896,9 +3896,9 @@ background-image: linear-gradient(
 
 ```javascript
 if (/htkj001\.oss|rryn/.test(config.url)) {
-  config.headers["Content-Type"] = false;
+  config.headers['Content-Type'] = false;
 } else {
-  config.headers["Content-Type"] = "application/x-www-form-urlencoded";
+  config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 }
 ```
 
@@ -4005,16 +4005,16 @@ git config core.ignorecase false
 class SomeComponent extends React.PureComponent {
   get instructions() {
     if (this.props.do) {
-      return "click the button: ";
+      return 'click the button: ';
     }
-    return "Do NOT click the button: ";
+    return 'Do NOT click the button: ';
   }
 
   render() {
     return (
       <div>
         {this.instructions}
-        <Button onClick={() => alert("!")} />
+        <Button onClick={() => alert('!')} />
       </div>
     );
   }
@@ -4031,11 +4031,11 @@ class SomeComponent extends React.PureComponent {
 
 ```javascript
 config.module
-  .rule("js")
-  .include.add(resolve("test"))
-  .add(resolve("src"))
-  .add(resolve("/node_modules/element-ui/packages"))
-  .add(resolve("/node_modules/element-ui/src"));
+  .rule('js')
+  .include.add(resolve('test'))
+  .add(resolve('src'))
+  .add(resolve('/node_modules/element-ui/packages'))
+  .add(resolve('/node_modules/element-ui/src'));
 ```
 
 **168. GOjs 流程图增删编辑**
@@ -4048,11 +4048,11 @@ function addCounter(e, obj) {
   var data = node.data;
   myDiagram.model.addNodeData({
     key: Date.parse(new Date()),
-    name: "George V",
-    gender: "M",
-    birthYear: "1865",
-    deathYear: "1936",
-    reign: "1910-1936",
+    name: 'George V',
+    gender: 'M',
+    birthYear: '1865',
+    deathYear: '1936',
+    reign: '1910-1936',
     parent: data.key,
   });
   myDiagram.rebuildParts();
@@ -4186,9 +4186,9 @@ box-shadow: 0 8px 20px #666; /* 第一个左右偏移 第二个上下偏移 第�
 
 ```javascript
 // 有效清空 不会导致数据遗留
-loadData().then(res => {
+loadData().then((res) => {
   this.dataList = [];
-  this.dataList = res.map(v => {
+  this.dataList = res.map((v) => {
     v.name = 1;
     return v;
   });
@@ -4196,8 +4196,8 @@ loadData().then(res => {
 
 // 有时候会无效清空 导致数据遗留
 this.dataList = [];
-loadData().then(res => {
-  this.dataList = res.map(v => {
+loadData().then((res) => {
+  this.dataList = res.map((v) => {
     v.name = 1;
     return v;
   });
@@ -4325,7 +4325,7 @@ confirmPay(data) {
 - 客户端
 
 ```javascript
-const mqtt = require("mqtt");
+const mqtt = require('mqtt');
 export default {
   data() {
     return {
@@ -4337,31 +4337,31 @@ export default {
   },
   methods: {
     createClient() {
-      console.log("create");
-      this.client = mqtt.connect("mqtt://127.0.0.1:7410", {
+      console.log('create');
+      this.client = mqtt.connect('mqtt://127.0.0.1:7410', {
         connectTimeout: 5000,
       });
-      this.client.on("connect", () => {
+      this.client.on('connect', () => {
         // persence 和  /hello/word 相当于监听的路由 不在这里写 收不到信息
-        this.client.subscribe("presence", err => {
+        this.client.subscribe('presence', (err) => {
           if (!err) {
-            this.client.publish("presence", "Hello mqtt");
+            this.client.publish('presence', 'Hello mqtt');
           }
         });
 
-        this.client.subscribe("/hello/world", err => {
+        this.client.subscribe('/hello/world', (err) => {
           if (!err) {
-            this.client.publish("/hello/world", "Hello word");
+            this.client.publish('/hello/world', 'Hello word');
           }
         });
       });
       // 当有消息传递过来 topic就是监听的路由
-      this.client.on("message", function (topic, message) {
+      this.client.on('message', function (topic, message) {
         // message is Buffer
-        console.log(topic, message.toString(), "msg");
+        console.log(topic, message.toString(), 'msg');
         // this.client.end();
       });
-      this.client.on("error", error => {
+      this.client.on('error', (error) => {
         // message is Buffer
         console.log(error);
         this.client.end();
@@ -4374,13 +4374,13 @@ export default {
 - 服务端 用的 node
 
 ```javascript
-var mosca = require("mosca");
+var mosca = require('mosca');
 // 连接的数据库 这里只用模拟没连数据库
 var ascoltatore = {
   //using ascoltatore
-  type: "mongo",
-  url: "mongodb://localhost:27017/mqtt",
-  pubsubCollection: "ascoltatori",
+  type: 'mongo',
+  url: 'mongodb://localhost:27017/mqtt',
+  pubsubCollection: 'ascoltatori',
   mongo: {},
 };
 
@@ -4395,35 +4395,35 @@ var settings = {
 };
 
 var message = {
-  topic: "/hello/world",
-  payload: "abcde", // or a Buffer
+  topic: '/hello/world',
+  payload: 'abcde', // or a Buffer
   qos: 0, // 0, 1, or 2
   retain: false, // or true
 };
 
 var server = new mosca.Server(settings);
 
-server.on("clientConnected", function (client) {
+server.on('clientConnected', function (client) {
   // 推送消息
   server.publish(message, function () {
-    console.log("done!");
+    console.log('done!');
   });
 });
 
 // fired when a message is received
-server.on("published", function (packet, client) {
-  console.log("Published", packet.payload.toString());
+server.on('published', function (packet, client) {
+  console.log('Published', packet.payload.toString());
 });
 
 // server.on('clientDisconnected', function(client) {
 //     console.log('Client Disconnected:', client.id)
 // })
 
-server.on("ready", setup);
+server.on('ready', setup);
 
 // fired when the mqtt server is ready
 function setup() {
-  console.log("Mosca server is up and running");
+  console.log('Mosca server is up and running');
 }
 ```
 
@@ -4437,8 +4437,8 @@ function setup() {
 ```javascript
 // 基础图片路径 这个是放在public文件夹下的  public/images/gateway....
 // 这里一定要用相对路径 用绝对路径的话 打包之后会受路径影响不显示 亲测
-const basicImg = "images/gateway/basic.png";
-const imgUrl = "images/gateway/";
+const basicImg = 'images/gateway/basic.png';
+const imgUrl = 'images/gateway/';
 // 然后图片的命名与后端传来的key对应 比如 key是gateway 你的图片名字就是 gateway.png
 
 // 那么如何判断图片能否正常加载呢？  就用new Image 去构造一个图片对象
@@ -4455,7 +4455,7 @@ export default {
         };
         img.onerror = () => {
           img = null;
-          reject(new Error("没有图片"));
+          reject(new Error('没有图片'));
         };
       });
     },
@@ -4464,7 +4464,7 @@ export default {
       const lng = data.longitude;
       const lat = data.latitude;
       let iconImg = null;
-      const url = imgUrl + data.type + ".png";
+      const url = imgUrl + data.type + '.png';
       await this.createImg(url)
         .then(() => {
           iconImg = url;
@@ -4477,20 +4477,20 @@ export default {
         enableClicking: true,
       }); // 创建标注
       marker.htData = data;
-      marker.removeEventListener("click", this.showTerminalWindow);
-      marker.addEventListener("click", this.showTerminalWindow);
+      marker.removeEventListener('click', this.showTerminalWindow);
+      marker.addEventListener('click', this.showTerminalWindow);
       return marker;
     },
     // 这里有个注意点 我踩了个坑 自己不理解async   async返回的也是个promise对象  哈哈
     addMarkerToMap(arr) {
-      const newArr = arr.filter(v => {
+      const newArr = arr.filter((v) => {
         return v.longitude && v.latitude;
       });
       this.markerWindow = [];
       newArr.forEach((v, k) => {
         // 一开始直接添加到map中 都是空的 async返回的也是个promise 哦！
         this.createMarker(v)
-          .then(markder => {
+          .then((markder) => {
             this.map.addOverlay(markder);
           })
           .catch(() => {});
@@ -4533,15 +4533,15 @@ export default {
 - 全局指令
 
 ```javascript
-import Vue from "vue";
-import store from "@/store/store";
+import Vue from 'vue';
+import store from '@/store/store';
 //注册一个v-allowed指令
-Vue.directive("allowed", {
+Vue.directive('allowed', {
   inserted: function (el, bingding) {
     let roles = store.getters.roles;
     //判断权限
     if (Array.isArray(roles) && roles.length > 0) {
-      let allow = bingding.value.some(item => {
+      let allow = bingding.value.some((item) => {
         return roles.includes(item);
       });
       if (!allow) {
@@ -4557,7 +4557,7 @@ Vue.directive("allowed", {
 - 引用
 
 ```javascript
-import "./directive/premissionBtn";
+import './directive/premissionBtn';
 ```
 
 - 那自定义指令如何使用呢？
@@ -4590,8 +4590,8 @@ TS 有个好处就是你引入方法会告诉你参数是什么类型返回什�
 - 之后是写配置文件，比如我的 webpack 的 alias 配置如下, common 中是我的公共方法
 
 ```javascript
-chainWebpack: config => {
-  config.resolve.alias.set("@common", resolve("src/common"));
+chainWebpack: (config) => {
+  config.resolve.alias.set('@common', resolve('src/common'));
 };
 ```
 
@@ -4618,11 +4618,11 @@ chainWebpack: config => {
  *
  * @param {String} msg 提示的消息
  */
-export const ht_notify_error = msg => {
+export const ht_notify_error = (msg) => {
   ht_notify({
-    title: "非常抱歉...",
+    title: '非常抱歉...',
     message: msg,
-    type: "error",
+    type: 'error',
   });
 };
 ```
@@ -4837,8 +4837,8 @@ box-shadow: 30px 15px #8e1a19, 45px 15px #ac0500, 75px 15px #f73f0c, 90px 15px
 
 ```js
 form = {
-  name: "",
-  password: "",
+  name: '',
+  password: '',
 };
 ```
 
@@ -4883,7 +4883,7 @@ function deepClone(obj) {
   //递归拷贝
   if (obj instanceof RegExp) return new RegExp(obj);
   if (obj instanceof Date) return new Date(obj);
-  if (obj === null || typeof obj !== "object") {
+  if (obj === null || typeof obj !== 'object') {
     //如果不是复杂数据类型，直接返回
     return obj;
   }
@@ -4915,7 +4915,7 @@ function deepClone(obj) {
 
 ```javascript
 // 点击浏览器返回按钮，404页面刷新
-window.addEventListener("pageshow", function (event) {
+window.addEventListener('pageshow', function (event) {
   //event.persisted属性为true时，表示当前文档是从往返缓存中获取
   if (event.persisted) location.reload();
 });
@@ -4976,7 +4976,7 @@ function inherit(subType, superType) {
 
 function Super() {}
 Super.speak = function () {
-  console.log("666", this);
+  console.log('666', this);
 };
 
 function Sub() {}
@@ -5008,10 +5008,10 @@ var s = new Sub();
         if (file && /text/.test(file.type)) {
           var fileRead = new FileReader();
           fileRead.onload = function (result) {
-            var $el = document.getElementById("textContent");
+            var $el = document.getElementById('textContent');
             $el.value = this.result;
           };
-          fileRead.readAsText(file, "gbk");
+          fileRead.readAsText(file, 'gbk');
         }
       }
     </script>
@@ -5113,10 +5113,10 @@ $.ajax({
   url: www.javascript.com,
   data: data,
   success: () => {
-    console.log("发送成功!");
+    console.log('发送成功!');
   },
 });
-console.log("代码执行结束");
+console.log('代码执行结束');
 
 // ajax进入Event Table，注册回调函数success。
 // 执行console.log('代码执行结束')。
@@ -5135,7 +5135,7 @@ console.log("代码执行结束");
 
 ```javascript
 function trigger(el, type) {
-  const e = document.createEvent("HTMLEvents");
+  const e = document.createEvent('HTMLEvents');
   e.initEvent(type, true, true);
   el.dispatchEvent(e);
 }
@@ -5147,12 +5147,12 @@ function trigger(el, type) {
 - 右键复制粘贴和剪切可以通过监听 document 的 selectionChange 解决
 
 ```javascript
-document.addEventListener("selectionchange", () => {
+document.addEventListener('selectionchange', () => {
   // 获取当前focus/激活的元素
   const el = document.activeElement;
   // 如果vmodel存在  触发一下input事件  干嘛用的？
   if (el && el.vmodel) {
-    trigger(el, "input");
+    trigger(el, 'input');
   }
 });
 ```
@@ -5169,17 +5169,17 @@ document.addEventListener("selectionchange", () => {
 if (
   isIE &&
   !isIE9 &&
-  el.tagName === "TEXTAREA" &&
-  key === "placeholder" &&
-  value !== "" &&
+  el.tagName === 'TEXTAREA' &&
+  key === 'placeholder' &&
+  value !== '' &&
   !el.__ieph
 ) {
-  const blocker = e => {
+  const blocker = (e) => {
     // 阻止事件冒泡并且阻止相同事件的其他侦听器被调用。
     e.stopImmediatePropagation();
-    el.removeEventListener("input", blocker);
+    el.removeEventListener('input', blocker);
   };
-  el.addEventListener("input", blocker);
+  el.addEventListener('input', blocker);
   // $flow-disable-line
   el.__ieph = true; /* IE placeholder patched */
 }
@@ -5189,7 +5189,7 @@ el.setAttribute(key, value);
 **250. \u202D 隐藏字符**
 
 ```javascript
-"\u202D3777308808";
+'\u202D3777308808';
 // "‭3777308808"
 ```
 
@@ -5208,7 +5208,7 @@ for (let i = 0; i < 5; i++) {
   });
 }
 p.then(() => {
-  console.log("完成");
+  console.log('完成');
 });
 // 0 1 2 3 4 完成
 ```
@@ -5256,13 +5256,13 @@ var Dog = function (name) {
   this.name = name;
 };
 Dog.prototype.bark = function () {
-  console.log("wangwang");
+  console.log('wangwang');
 };
 Dog.prototype.sayName = function () {
-  console.log("my name is " + this.name);
+  console.log('my name is ' + this.name);
 };
 
-var simao = _new(Dog, "simao");
+var simao = _new(Dog, 'simao');
 
 simao instanceof Dog; // true
 ```
@@ -5271,25 +5271,25 @@ simao instanceof Dog; // true
 
 ```javascript
 async function async1() {
-  console.log("async1 start");
+  console.log('async1 start');
   await async2();
-  console.log("async1 end");
+  console.log('async1 end');
 }
 async function async2() {
-  console.log("async2");
+  console.log('async2');
 }
-console.log("script start");
+console.log('script start');
 setTimeout(function () {
-  console.log("setTimeout");
+  console.log('setTimeout');
 }, 0);
 async1();
 new Promise(function (resolve) {
-  console.log("promise1");
+  console.log('promise1');
   resolve();
 }).then(function () {
-  console.log("promise2");
+  console.log('promise2');
 });
-console.log("script end");
+console.log('script end');
 ```
 
 - **一轮宏任务**
@@ -5312,13 +5312,13 @@ console.log("script end");
 
 ```javascript
 const decodingMap = {
-  "&lt;": "<",
-  "&gt;": ">",
-  "&quot;": '"',
-  "&amp;": "&",
-  "&#10;": "\n",
-  "&#9;": "\t",
-  "&#39;": "'",
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&amp;': '&',
+  '&#10;': '\n',
+  '&#9;': '\t',
+  '&#39;': "'",
 };
 ```
 
@@ -5339,15 +5339,15 @@ const decodingMap = {
 **256. nodejs 调用 tiny 的接口压图片**
 
 ```javascript
-const fs = require("fs");
-const path = require("path");
-const tinify = require("tinify");
+const fs = require('fs');
+const path = require('path');
+const tinify = require('tinify');
 // 在这里填入key  免费的一个月只有500张 别想用我的 hhh
-tinify.key = "";
+tinify.key = '';
 
 // root是文件目录
-const root = "./index.files/",
-  exts = [".jpg", ".png"],
+const root = './index.files/',
+  exts = ['.jpg', '.png'],
   max = 5200000; // 5MB == 5242848.754299136
 
 fileList(root);
@@ -5356,7 +5356,7 @@ fileList(root);
 function fileList(folder) {
   fs.readdir(folder, (err, files) => {
     if (err) console.error(err);
-    files.forEach(file => {
+    files.forEach((file) => {
       fileFilter(folder + file);
     });
   });
@@ -5375,7 +5375,7 @@ function fileFilter(file) {
       const source = tinify.fromFile(file);
       source.toFile(file);
     }
-    if (stats.isDirectory()) fileList(file + "/");
+    if (stats.isDirectory()) fileList(file + '/');
   });
 }
 ```
@@ -5410,32 +5410,32 @@ function getPercentWithPrecision(valueList, idx, precision) {
   if (sum === 0) {
     return 0;
   }
-  console.log("sum", sum);
+  console.log('sum', sum);
   // sum 9
   var digits = Math.pow(10, precision); // digits 100
-  console.log("digits", digits);
+  console.log('digits', digits);
   var votesPerQuota = valueList.map(function (val) {
     return ((isNaN(val) ? 0 : val) / sum) * digits * 100; // 扩大比例，这样可以确保整数部分是已经确定的议席配额，小数部分是余额
   });
-  console.log("votesPerQuota", votesPerQuota);
+  console.log('votesPerQuota', votesPerQuota);
   // votesPerQuota [ 2222.222222222222, 4444.444444444444, 3333.333333333333 ] 每一个项获得的议席配额，整数部分是已经确定的议席配额，小数部分是余额
   var targetSeats = digits * 100; // targetSeats 10000 全部的议席
-  console.log("targetSeats", targetSeats);
+  console.log('targetSeats', targetSeats);
   var seats = votesPerQuota.map(function (votes) {
     // Assign automatic seats.
     return Math.floor(votes);
   });
-  console.log("seats", seats);
+  console.log('seats', seats);
   // seats [ 2222, 4444, 3333 ] 获取配额的整数部分
   var currentSum = seats.reduce(function (acc, val) {
     return acc + val;
   }, 0);
-  console.log("currentSum", currentSum);
+  console.log('currentSum', currentSum);
   // 9999 表示已经配额了9999个议席，还剩下一个议席
   var remainder = votesPerQuota.map(function (votes, idx) {
     return votes - seats[idx];
   });
-  console.log("remainder", remainder);
+  console.log('remainder', remainder);
   // [ 0.2222222222221717, 0.4444444444443434, 0.33333333333303017 ]得到每一项的余额
   // Has remainding votes. 如果还有剩余的坐席就继续分配
   while (currentSum < targetSeats) {
@@ -5485,11 +5485,11 @@ let bar = await barPromise;
 
 ```javascript
 encodeURIComponent(
-  "http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html "
+  'http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html ',
 );
 // "http%3A%2F%2F127.0.0.1%3A5501%2Fexamples%2Fwebgl_loader_3ds_demo.html%20"
 
-encodeURI("http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html ");
+encodeURI('http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html ');
 // "http://127.0.0.1:5501/examples/webgl_loader_3ds_demo.html%20"
 ```
 
@@ -5632,8 +5632,8 @@ var currentBackground = new THREE.Color(0xff0000);
 - 于是将`__reactEventHandlers$vn2qg9nk8zg`保存为全局变量`temp1`
 
 ```javascript
-const $dom = document.getElementById("user-mobile");
-$dom.value = "123456789";
+const $dom = document.getElementById('user-mobile');
+$dom.value = '123456789';
 temp1.onChange({ target: $dom });
 ```
 
@@ -5820,14 +5820,14 @@ function getDate() {
 
 ```javascript
 var DracoDecoderModule = function (DracoDecoderModule) {};
-if (typeof exports === "object" && typeof module === "object")
+if (typeof exports === 'object' && typeof module === 'object')
   module.exports = DracoDecoderModule;
-else if (typeof define === "function" && define["amd"])
+else if (typeof define === 'function' && define['amd'])
   define([], function () {
     return DracoDecoderModule;
   });
-else if (typeof exports === "object")
-  exports["DracoDecoderModule"] = DracoDecoderModule;
+else if (typeof exports === 'object')
+  exports['DracoDecoderModule'] = DracoDecoderModule;
 ```
 
 **300. 项目开始前的规划很重要，如何拆分模块，代码等**
@@ -5931,7 +5931,7 @@ const degreesPerRadian = 180.0 / Math.PI;
 
 ```javascript
 model: {
-  url: "模型目录";
+  url: '模型目录';
 }
 ```
 
@@ -5964,7 +5964,7 @@ npm_mirror: https://npm.taobao.org/mirrors/npm/
 
 ```scss
 $colorList: 2dd382, 2dd358, eb6120;
-$jing: "#";
+$jing: '#';
 @each $type in $colorList {
   .td-#{$type} {
     background: #{$jing}#{$type};
@@ -5989,43 +5989,43 @@ $jing: "#";
 **314. 翻墙后无法 node 请求墙外站点** 1.用 shadowsocks 能正常浏览网页，但是用 node 脚本请求的时候无法访问，于是查到这篇文章[翻墙后无法 node 请求墙外站点](https://cnodejs.org/topic/593d631a325c502917ef0881),找到原因，原来是因为`node不会自动通过代理服务器访问，`，又看到`ShadowSocks会产生代理连接，在你的nodejs程序里指定网路走这个代理即可，任何网络操作的库都可以设置代理，另外参考翻墙后。` 2. 于是查`如何用Shadowsocks(R)代理非浏览器软件`，找到这篇[如何用 Shadowsocks(R)代理非浏览器软件](<https://vimcaw.github.io/blog/2018/03/12/%E5%A6%82%E4%BD%95%E7%94%A8Shadowsocks(R)%E4%BB%A3%E7%90%86%E9%9D%9E%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BD%AF%E4%BB%B6%E3%80%81%E6%B8%B8%E6%88%8F/>) 3. 复制请求头，然后把 proxy 写上`http://127.0.0.1:1080`即可
 
 ```javascript
-const request = require("request");
+const request = require('request');
 
 function action(index) {
   request(
     {
-      url: "https://hongzhi.li/",
-      method: "get",
-      proxy: "http://127.0.0.1:1080",
+      url: 'https://hongzhi.li/',
+      method: 'get',
+      proxy: 'http://127.0.0.1:1080',
       headers: {
         // ":authority": "hongzhi.li",
         // ":method": "GET",
         // ":path": "/",
         // ":scheme": "https",
         accept:
-          "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9",
-        "cache-control": "no-cache",
+          'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'accept-encoding': 'gzip, deflate, br',
+        'accept-language': 'zh-CN,zh;q=0.9',
+        'cache-control': 'no-cache',
         cookie:
-          "__cfduid=dfbcf9cd7cd04cf561e2e420830530db71585626448; _ga=GA1.2.1145598630.1585626450; _gid=GA1.2.378198327.1585626450",
-        pragma: "no-cache",
-        "sec-fetch-dest": "document",
-        "sec-fetch-mode": "navigate",
-        "sec-fetch-site": "cross-site",
-        "sec-fetch-user": "?1",
-        "upgrade-insecure-requests": 1,
-        "user-agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+          '__cfduid=dfbcf9cd7cd04cf561e2e420830530db71585626448; _ga=GA1.2.1145598630.1585626450; _gid=GA1.2.378198327.1585626450',
+        pragma: 'no-cache',
+        'sec-fetch-dest': 'document',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-site': 'cross-site',
+        'sec-fetch-user': '?1',
+        'upgrade-insecure-requests': 1,
+        'user-agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
       },
     },
     function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log("请求成功" + index); // 请求成功的处理逻辑
+        console.log('请求成功' + index); // 请求成功的处理逻辑
       } else {
-        console.log("error");
+        console.log('error');
       }
-    }
+    },
   );
 }
 
@@ -6067,12 +6067,12 @@ model: {
 <script>
 export default {
   model: {
-    prop: "selected",
-    event: "change",
+    prop: 'selected',
+    event: 'change',
   },
   props: {
     selected: {
-      default: "",
+      default: '',
     },
   },
   data() {
@@ -6081,7 +6081,7 @@ export default {
   computed: {},
   methods: {
     handleSelectChange(value) {
-      this.$emit("change", value);
+      this.$emit('change', value);
     },
   },
 };
@@ -6100,15 +6100,15 @@ export default {
 </template>
 
 <script>
-import SelectVue from "./Select";
+import SelectVue from './Select';
 
 export default {
   components: {
-    "ht-select": SelectVue,
+    'ht-select': SelectVue,
   },
   data() {
     return {
-      testValue: "1",
+      testValue: '1',
     };
   },
 };
@@ -6281,19 +6281,19 @@ location ~* \.(?:css|js)$ {
 
 ```javascript
 var form = new FormData();
-form.append("file", vm.$refs.upload.files[0]);
-form.append("id", id);
-form.append("type", type);
+form.append('file', vm.$refs.upload.files[0]);
+form.append('id', id);
+form.append('type', type);
 var config = {
-  onUploadProgress: progressEvent => {
+  onUploadProgress: (progressEvent) => {
     var complete =
-      (((progressEvent.loaded / progressEvent.total) * 100) | 0) + "%";
+      (((progressEvent.loaded / progressEvent.total) * 100) | 0) + '%';
     this.progress = complete;
   },
 };
-axios.post(`api/uploadFile`, form, config).then(res => {
-  if (res.data.status === "success") {
-    console.log("上传成功");
+axios.post(`api/uploadFile`, form, config).then((res) => {
+  if (res.data.status === 'success') {
+    console.log('上传成功');
   }
 });
 ```
@@ -6309,11 +6309,11 @@ axios.post(`api/uploadFile`, form, config).then(res => {
 export function login(params) {
   return fetch({
     url: LOGIN,
-    method: "post",
+    method: 'post',
     params,
     auth: {
-      username: "web",
-      password: "web",
+      username: 'web',
+      password: 'web',
     },
   });
 }
@@ -6368,7 +6368,7 @@ npm i -D husky lint-staged @commitlint/cli @commitlint/config-conventional
 
 ```js
 module.exports = {
-  extends: ["@commitlint/config-conventional"],
+  extends: ['@commitlint/config-conventional'],
 };
 ```
 
@@ -6412,20 +6412,20 @@ const getActiveStatus = computed(() => index => {
 - 避免与业务层耦合度高，举个例子
 
 ```javascript
-import axios from "@/libs/http";
-import { formatDataByType } from "@libs/assist";
-import * as types from "@/api/types";
+import axios from '@/libs/http';
+import { formatDataByType } from '@libs/assist';
+import * as types from '@/api/types';
 
-export const getDurgTypeList = params => {
+export const getDurgTypeList = (params) => {
   return axios
     .get(types.GETRootTypeList, params)
-    .then(res => formatDataByType(res.data));
+    .then((res) => formatDataByType(res.data));
 };
 
-export const getDrugTypeByIdAndKeyword = params => {
+export const getDrugTypeByIdAndKeyword = (params) => {
   return axios
     .get(types.GETDrugTypeByIdAndKeyword, params)
-    .then(res => formatDataByType(res.data));
+    .then((res) => formatDataByType(res.data));
 };
 ```
 
@@ -6460,10 +6460,10 @@ export const getDrugTypeByIdAndKeyword = params => {
 </template>
 
 <script>
-import { computed } from "@vue/composition-api";
-import routes from "@router/menuList";
-import MenuItem from "./MenuItem";
-import MenuContain from "./MenuContain";
+import { computed } from '@vue/composition-api';
+import routes from '@router/menuList';
+import MenuItem from './MenuItem';
+import MenuContain from './MenuContain';
 
 export default {
   components: { MenuItem, MenuContain },
@@ -6492,8 +6492,8 @@ export default {
 - 新的思路是用 hooks 想出来的 通过一个外部变量维护 visible 父子通过改变这个变量去控制显示隐藏 就避免了 emit props 这些东西
 
 ```js
-import { useDialog } from "@hooks/index";
-import { ref, onBeforeUnmount } from "@vue/composition-api";
+import { useDialog } from '@hooks/index';
+import { ref, onBeforeUnmount } from '@vue/composition-api';
 
 // 在外部管理 它会始终存在直到组件销毁 相当于一个小型vuex
 // 我们只通过方法去改变而不能直接改变
@@ -6540,7 +6540,7 @@ export class Subject {
    * @param {function} updateFn
    */
   addObserve(key, updateFn) {
-    const index = this.observes.findIndex(v => v.key === key);
+    const index = this.observes.findIndex((v) => v.key === key);
     const observe = { key, updateFn };
     index > -1
       ? this.observes.splice(index, 1, observe)
@@ -6552,7 +6552,7 @@ export class Subject {
   }
 
   notify() {
-    this.observes.forEach(v => v.updateFn());
+    this.observes.forEach((v) => v.updateFn());
   }
 }
 ```
@@ -6560,17 +6560,17 @@ export class Subject {
 **346. onbeforeunload 来显示离开提示**
 
 ```js
-import { onUnmounted } from "@vue/composition-api";
+import { onUnmounted } from '@vue/composition-api';
 
 export default function useBeforeunload() {
   window.onbeforeunload = function () {
-    return "确定离开吗？";
+    return '确定离开吗？';
   };
 
   onUnmounted(() => remove());
 
   function remove() {
-    console.log("un");
+    console.log('un');
     window.onbeforeunload = null;
   }
   return { remove };
@@ -6599,21 +6599,21 @@ export default function useBeforeunload() {
 
 ```scss
 $colorList: (
-    type: "primary",
+    type: 'primary',
     color: $primaryColor,
   ), (
-    type: "success",
+    type: 'success',
     color: $successColor,
   ),
   (
-    type: "warning",
+    type: 'warning',
     color: $warningColor,
   ), (
-    type: "danger",
+    type: 'danger',
     color: $dangerColor,
   ),
   (
-    type: "info",
+    type: 'info',
     color: $infoColor,
   );
 
@@ -6761,9 +6761,9 @@ function hanldeDiseaseChoicedChange() {
     if (!$el) {
       return;
     }
-    const tagList = Array.from($el.querySelectorAll(".el-tag"));
+    const tagList = Array.from($el.querySelectorAll('.el-tag'));
     let maxWidth = Math.max(
-      ...tagList.map(v => {
+      ...tagList.map((v) => {
         const text = v.textContent;
         const cacheWidth = cacheTagWidthObj[text];
         if (isId(cacheWidth)) {
@@ -6773,7 +6773,7 @@ function hanldeDiseaseChoicedChange() {
           cacheTagWidthObj[v.textContent] = offsetWidth;
           return offsetWidth;
         }
-      })
+      }),
     );
     const minWidth = maxWidth < 192 ? 192 : maxWidth + 20;
     diseaseSelectWidth.value = minWidth + 55;
@@ -6784,11 +6784,11 @@ function hanldeDiseaseChoicedChange() {
 **372. toLocaleString 的妙用**
 
 ```javascript
-new Date().toLocaleString("ja-JP-u-ca-chinese");
+new Date().toLocaleString('ja-JP-u-ca-chinese');
 // "一,二三四,五六七,八九〇"
 
-new Number(1234567890).toLocaleString("zh-Hans-CN-u-nu-hanidec");
-("庚子年7月24日 16:36:57");
+new Number(1234567890).toLocaleString('zh-Hans-CN-u-nu-hanidec');
+('庚子年7月24日 16:36:57');
 
 let num = 223232332;
 num.toLocaleString();
@@ -6857,18 +6857,18 @@ ASCII 编码中有些字符是不能用来在终端中打印显示的，比如'\
 m 代表结束控制符序列
 
 ```javascript
-const NODE_EMPTY_TEXT_STYLE = "\x1B[0m";
+const NODE_EMPTY_TEXT_STYLE = '\x1B[0m';
 
 // 一开始是 \033 这种eslint会报错 在严格模式下不准使用八进制之类的
 // 将 \033改为\x1B就行了
 console.log(`
-${"\x1B[41;32;1;30m"} 注意 ${NODE_EMPTY_TEXT_STYLE}
-项目拆分成${"\x1B[91;1m"}多入口${NODE_EMPTY_TEXT_STYLE}了，访问地址出现变动
-${"\x1B[31m"}1.${NODE_EMPTY_TEXT_STYLE}能力平台 协议://域名:端口/index.html
-${"\x1B[32m"}2.${NODE_EMPTY_TEXT_STYLE}体验平台 协议://域名:端口/index.html
-${"\x1B[33m"}3.${NODE_EMPTY_TEXT_STYLE}AI门户   协议://域名:端口/door.html
+${'\x1B[41;32;1;30m'} 注意 ${NODE_EMPTY_TEXT_STYLE}
+项目拆分成${'\x1B[91;1m'}多入口${NODE_EMPTY_TEXT_STYLE}了，访问地址出现变动
+${'\x1B[31m'}1.${NODE_EMPTY_TEXT_STYLE}能力平台 协议://域名:端口/index.html
+${'\x1B[32m'}2.${NODE_EMPTY_TEXT_STYLE}体验平台 协议://域名:端口/index.html
+${'\x1B[33m'}3.${NODE_EMPTY_TEXT_STYLE}AI门户   协议://域名:端口/door.html
 
-${"\x1B[42;31;1m"} 例如 ${NODE_EMPTY_TEXT_STYLE}
+${'\x1B[42;31;1m'} 例如 ${NODE_EMPTY_TEXT_STYLE}
 访问AI门户  http://localhost:8080/door.html
  `);
 ```
@@ -6932,9 +6932,9 @@ graph.changeData();
 5. 设置 disabled 和 active 状态
 
 ```javascript
-graph.findAll("node", node => {
+graph.findAll('node', (node) => {
   const nodeId = node._cfg.id;
-  graph.setItemState(nodeId, "disabled", true);
+  graph.setItemState(nodeId, 'disabled', true);
 });
 ```
 
@@ -6945,10 +6945,10 @@ const key2Event = {
   Backspace: deleteNode,
   Enter: insertBrother,
   Tab: insertChild,
-  "ctrl-z": handleCancel,
-  "ctrl-y": handleDeCancel,
-  "ctrl-c": handleCopyNode,
-  "ctrl-v": handlePasteNode,
+  'ctrl-z': handleCancel,
+  'ctrl-y': handleDeCancel,
+  'ctrl-c': handleCopyNode,
+  'ctrl-v': handlePasteNode,
 };
 /**
  * 键盘事件的逻辑
@@ -6960,7 +6960,7 @@ export default function useKeyEvent(key2Event, getEditStatus) {
   /**
    * 触发键盘事件快捷操作
    */
-  const ctrlArr = ["Meta", "Control"];
+  const ctrlArr = ['Meta', 'Control'];
   function handlekeyDown(event) {
     if (getEditStatus()) {
       return;
@@ -6968,13 +6968,13 @@ export default function useKeyEvent(key2Event, getEditStatus) {
     // event.preventDefault();
     let key = event.key;
     // 兼容苹果笔记本和windows系统 键盘差异
-    if (key === "Delete") {
-      key = "Backspace";
+    if (key === 'Delete') {
+      key = 'Backspace';
     }
     // 阻止tab（避免切换点击区域）、 ctrl+z、 ctrl+y、ctrl+c、ctrl+v默认事件  重写了这几个行为
     if (
-      key === "Tab" ||
-      (ctrolActiveStatus && ["z", "y", "c", "v"].includes(key))
+      key === 'Tab' ||
+      (ctrolActiveStatus && ['z', 'y', 'c', 'v'].includes(key))
     ) {
       event.preventDefault();
     }
@@ -6982,9 +6982,9 @@ export default function useKeyEvent(key2Event, getEditStatus) {
     // 是否点击了ctrl 或common键
     ctrlArr.includes(key) && (ctrolActiveStatus = true);
 
-    key = `${ctrolActiveStatus ? "ctrl-" : ""}${key}`;
+    key = `${ctrolActiveStatus ? 'ctrl-' : ''}${key}`;
     const fn = key2Event[key];
-    typeof fn === "function" && fn();
+    typeof fn === 'function' && fn();
   }
 
   function handleKeyUp(event) {
@@ -7009,14 +7009,14 @@ export default function useKeyEvent(key2Event, getEditStatus) {
 // 然后更新宽高调用graph.refreshItem(id); 这个方法
 
 // 定义一个自定义node
-G6.registerNode("dom-node", {
+G6.registerNode('dom-node', {
   setState(name, value, item) {
     const group = item.getContainer();
-    const shape = group.get("children")[0]; // 顺序根据 draw 时确定
+    const shape = group.get('children')[0]; // 顺序根据 draw 时确定
     shape.attrs[name] = value;
   },
   draw: (cfg, group) => {
-    return group.addShape("dom", {
+    return group.addShape('dom', {
       attrs: {
         x: 0,
         y: 0,
@@ -7032,7 +7032,7 @@ G6.registerNode("dom-node", {
 	      ${cfg.label}
 	      </p>`;
         },
-        name: "p-shape",
+        name: 'p-shape',
       },
     });
   },
@@ -7041,31 +7041,31 @@ G6.registerNode("dom-node", {
 // 实例化
 const { width, height } = refs.contain.getBoundingClientRect();
 graph = new G6.TreeGraph({
-  container: "mountNode", // String | HTMLElement，必须，在 Step 1 中创建的容器 id 或容器本身
+  container: 'mountNode', // String | HTMLElement，必须，在 Step 1 中创建的容器 id 或容器本身
   width, // Number，必须，图的宽度
   height, // Number，必须，图的高度
   // 必须设置为svg  不然自定义node不出来
-  renderer: "svg",
+  renderer: 'svg',
   modes: {
     default: [
       {
-        type: "collapse-expand",
+        type: 'collapse-expand',
         onChange: function onChange(item, collapsed) {
-          const data = item.get("model").data;
+          const data = item.get('model').data;
           data.collapsed = collapsed;
           return true;
         },
       },
-      "drag-canvas",
-      "zoom-canvas",
+      'drag-canvas',
+      'zoom-canvas',
     ],
   },
   // 定义布局
   layout: {
-    type: "compactBox",
-    direction: "LR",
+    type: 'compactBox',
+    direction: 'LR',
     // 核心
-    getHeight: node => {
+    getHeight: (node) => {
       return Math.ceil(node.label.length / 7) * 26 || 26;
     },
     getWidth: () => {
@@ -7079,14 +7079,14 @@ graph = new G6.TreeGraph({
     },
   },
   defaultNode: {
-    type: "dom-node",
+    type: 'dom-node',
     anchorPoints: [
       [0, 0.5],
       [1, 0.5],
     ],
     style: {
-      fill: "#cee3fc",
-      stroke: "#C6E5FF",
+      fill: '#cee3fc',
+      stroke: '#C6E5FF',
     },
   },
 });
@@ -7165,18 +7165,18 @@ server {
 1. 搞个入口文件 比如`package/index.js`
 
 ```javascript
-import PaintedChart from "@/views/statistic/index.js";
+import PaintedChart from '@/views/statistic/index.js';
 
 const components = [PaintedChart];
 
 const install = function (Vue) {
-  components.forEach(component => {
+  components.forEach((component) => {
     Vue.component(component.name, component);
   });
 };
 
 /* istanbul ignore if */
-if (typeof window !== "undefined" && window.Vue) {
+if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
 
@@ -7248,27 +7248,27 @@ const proxyFile = (function () {
 **399. webpack5 上手**
 
 ```javascript
-const HtmlWebpackPlugin = require("html-webpack-plugin"); // 通过 npm 安装
-const webpack = require("webpack"); // 访问内置的插件
-const path = require("path");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过 npm 安装
+const webpack = require('webpack'); // 访问内置的插件
+const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const config = {
   // 构建目标 默认是node  要改成web 热更新才有用
-  target: "web",
-  entry: "./src/main.js",
+  target: 'web',
+  entry: './src/main.js',
   output: {
-    filename: "render.js",
-    path: path.resolve(__dirname, "dist"),
-    scriptType: "text/javascript",
+    filename: 'render.js',
+    path: path.resolve(__dirname, 'dist'),
+    scriptType: 'text/javascript',
   },
   module: {
     rules: [
       {
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,
-        use: "babel-loader",
+        use: 'babel-loader',
       },
     ],
   },
@@ -7276,13 +7276,13 @@ const config = {
     new webpack.ProgressPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      scriptLoading: "blocking",
-      inject: "head",
+      template: './src/index.html',
+      scriptLoading: 'blocking',
+      inject: 'head',
     }),
   ],
   devServer: {
-    contentBase: path.join(__dirname, "public"), // boolean | string | array, static file location
+    contentBase: path.join(__dirname, 'public'), // boolean | string | array, static file location
     hot: true, // hot module replacement. Depends on HotModuleReplacementPlugin
     noInfo: true, // only errors & warns on hot reload
     open: true,
@@ -7294,10 +7294,10 @@ const config = {
 };
 
 module.exports = (env, argv) => {
-  if (argv.mode === "development") {
-    config.devtool = "source-map";
+  if (argv.mode === 'development') {
+    config.devtool = 'source-map';
   }
-  if (argv.mode === "production") {
+  if (argv.mode === 'production') {
     //...
     config.optimization = {
       minimize: true,
@@ -7389,10 +7389,10 @@ server{
 
 ```js
 // 「不太推荐的做法」
-import { reactive } from "vue";
+import { reactive } from 'vue';
 export default {
   setup() {
-    let obj = { name: "零一", age: 23 }; // 原始对象
+    let obj = { name: '零一', age: 23 }; // 原始对象
     const state = reactive(obj); // 将obj包装成响应式
 
     return { state };
@@ -7401,11 +7401,11 @@ export default {
 ```
 
 ```js
-import { reactive } from "vue";
+import { reactive } from 'vue';
 export default {
   setup() {
     // 不再先声明原始对象
-    const state = reactive({ name: "零一", age: 23 });
+    const state = reactive({ name: '零一', age: 23 });
 
     return { state };
   },
@@ -7629,10 +7629,10 @@ export default {
 **422. jsdoc 对象如何描述**
 
 ```js
-import useIFlyCollector from "@hooks/useIFlyCollector";
-import { XINJIANG_GET_USER_INFO } from "@js/idataEventName";
-import useMobileDetect from "@hooks/useMobileDetect";
-import { getWechatVersion } from "@js/utils";
+import useIFlyCollector from '@hooks/useIFlyCollector';
+import { XINJIANG_GET_USER_INFO } from '@js/idataEventName';
+import useMobileDetect from '@hooks/useMobileDetect';
+import { getWechatVersion } from '@js/utils';
 
 /**
  * @typedef Options 链接里携带的参数
@@ -7699,14 +7699,14 @@ export default function useIflyCollectorData() {
 1. 如果你比较的是 nodeenv 的变量引用的话 那么压缩的时候会保留这段代码 如
 
 ```js
-const isProd = process.env.NODE_ENV === "production";
+const isProd = process.env.NODE_ENV === 'production';
 
 if (isProd) {
   // xxx 压缩之后里的代码会保留
 }
 
 // 如果你直接比较
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   // 这里的代码压缩后会删除 如果结果是false
 }
 ```
@@ -7720,18 +7720,18 @@ if (process.env.NODE_ENV === "production") {
 ```js
 const text = new Array(10000)
   .fill(1)
-  .map(v => {
-    return "哈哈哈哈哈哈哈哈哈哈或;";
+  .map((v) => {
+    return '哈哈哈哈哈哈哈哈哈哈或;';
   })
-  .join("");
-console.time("a");
-text.replace(/;/g, "<br>");
-console.timeEnd("a");
+  .join('');
+console.time('a');
+text.replace(/;/g, '<br>');
+console.timeEnd('a');
 // a: 2.648681640625 ms
 
-console.time("a");
-text.split(";").join(";<br>");
-console.timeEnd("a");
+console.time('a');
+text.split(';').join(';<br>');
+console.timeEnd('a');
 // a: 1.241943359375 ms
 ```
 
@@ -7825,7 +7825,7 @@ console.timeEnd("a");
 
       .box-404-wrap .box .clearfix:after,
       .box-404-wrap .box .clearfix:before {
-        content: " ";
+        content: ' ';
         display: table;
       }
 
@@ -7967,7 +7967,7 @@ export const chunkLoadErrorPattern = /^Loading chunk/gi;
 /**
  * 当chunk发生改变时
  */
-export const CHUNK_LOAD_ERROR_MSG = "页面资源发生改变，请刷新页面~";
+export const CHUNK_LOAD_ERROR_MSG = '页面资源发生改变，请刷新页面~';
 
 router.onError(function (error) {
   const { message } = error;
@@ -8008,12 +8008,12 @@ function svgToImage(svg: string): string {
 1. 小程序为例
 
 ```js
-function scrollToLastItem(selector = "", getDomQuery) {
+function scrollToLastItem(selector = '', getDomQuery) {
   // hooks中没有this 所以从外部取
   const query = getDomQuery();
   query.selectViewport().scrollOffset();
   query.select(selector).boundingClientRect();
-  query.exec(res => {
+  query.exec((res) => {
     const lastIndex = res.length - 1;
     const scrollData = res[lastIndex - 1];
     const domData = res[lastIndex];
@@ -8039,3 +8039,40 @@ function scrollToLastItem(selector = "", getDomQuery) {
 2. disabled 属性规定应该禁用 input 元素。
    被禁用的 input 元素既不可用，也不可点击。可以设置 disabled 属性，直到满足某些其他的条件为止（比如选择了一个复选框等等）。然后，就需要通过 JavaScript 来删除 disabled 值，将 input 元素的值切换为可用。
    注释：disabled 属性无法与 <input type="hidden"> 一起使用。
+
+**439. canvas 指定区域指定颜色更换**
+
+```js
+ /**
+   * 替换某个canvas的某个区域中的颜色a为颜色b
+   * @param ctx canvas的context对象
+   * @param left 起始x坐标
+   * @param top 起始y坐标
+   * @param width 从起始x坐标开始 多宽
+   * @param height 从起始坐标y开始 多高
+   * @param colorArr 颜色a 为像素点数组 如 [r,g,b,a] 注意a是255
+   * @param replaceColorArr 颜色b 如 [r,g,b,a] 注意a是255
+   */
+  replaceCanvasAreaColor(
+    ctx: CanvasRenderingContext2D,
+    left: number,
+    top: number,
+    width: number,
+    height: number,
+    colorArr: number[],
+    replaceColorArr: number[]
+  ) {
+    const imgData = ctx.getImageData(left, top, width, height);
+    const buff = imgData.data;
+    for (let i = 0, l = imgData.width * imgData.height * 4; i < l; i += 4) {
+      const item = [buff[i], buff[i + 1], buff[i + 2], buff[i + 3]];
+      if (item[0] === colorArr[0] && item[1] === colorArr[1] && item[2] === colorArr[2] && item[3] === colorArr[3]) {
+        buff[i] = replaceColorArr[0];
+        buff[i + 1] = replaceColorArr[1];
+        buff[i + 2] = replaceColorArr[2];
+        buff[i + 3] = replaceColorArr[3];
+      }
+    }
+    ctx.putImageData(imgData, left, top);
+  }
+```
