@@ -8076,3 +8076,24 @@ function scrollToLastItem(selector = '', getDomQuery) {
     ctx.putImageData(imgData, left, top);
   }
 ```
+
+**446. ts 索引签名 可以用于 obj 的 key 定义类型**
+
+```js
+type MenuData = { [path: string]: { id: string, name: string }[] };
+
+function deepGetMenuData(menuList: NavItem[], menuData: MenuData) {
+  if (Array.isArray(menuList)) {
+    menuList.forEach((item) => {
+      const { path, name, children } = item;
+      menuData[path] = [
+        {
+          id: path,
+          name,
+        },
+      ];
+      deepGetMenuData(children, menuData);
+    });
+  }
+}
+```
