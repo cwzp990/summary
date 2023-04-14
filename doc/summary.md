@@ -8097,3 +8097,33 @@ function deepGetMenuData(menuList: NavItem[], menuData: MenuData) {
   }
 }
 ```
+
+**447. ts 中循环 enum**
+
+```js
+// 不能用 for in ，里面的变量会识别成 i
+/**
+ * 配合饿了么的颜色类型和自己扩展的
+ */
+enum COLOR_TYPE {
+  PRIMARY = "primary",
+  SUCCESS = "success",
+  WARNING = "warning",
+  INFO = "info",
+  DANGER = "danger",
+  PURPLE = "purple",
+}
+
+/**
+ * 标签的颜色列表
+ */
+const tagColorList: COLOR_TYPE[] = [];
+Object.entries(COLOR_TYPE).forEach(([key, val]) => {
+  if (key !== COLOR_TYPE.INFO) {
+    tagColorList.push(val);
+  }
+});
+
+export { COLOR_TYPE, tagColorList };
+```js
+
