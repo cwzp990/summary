@@ -8125,5 +8125,56 @@ Object.entries(COLOR_TYPE).forEach(([key, val]) => {
 });
 
 export { COLOR_TYPE, tagColorList };
-```js
+```
 
+**448. element-plus 按需引入自定义主题遇到的问题**
+
+- @import 被废弃了
+
+- ElementPlusResolver 要使用 importStyle: "sass", 如果自动引入里面也用了 要两个都用
+
+- 有个坏处就是你全局加的如果有别的 scss 改动别的 scss element 的也会编译一次。
+
+```js
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { join } from "path";
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import { SCSS_DIR_PATH, PROGRAM_NAME } from "./src/assets/ts/config";
+
+function resolve(dir) {
+  return join(__dirname, dir);
+}
+
+const elementPlusResolverInstance = ElementPlusResolver({
+  importStyle: "sass",
+});
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  base: "./",
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @use "${SCSS_DIR_PATH}/element-ui-var.scss" as *;
+        `,
+      },
+    },
+  },
+  plugins: [
+    Components({
+      resolvers: [elementPlusResolverInstance],
+      dts: "./src/components.d.ts",
+    }),
+
+    AutoImport({
+      resolvers: [elementPlusResolverInstance],
+
+      dts: "./src/auto-imports.d.ts",
+    }),
+  ],
+});
+```
