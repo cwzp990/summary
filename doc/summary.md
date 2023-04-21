@@ -117,8 +117,11 @@ var glob = {
 **10. 神奇的`<pre>`标签**
 
 - `<pre>` 标签可定义预格式化的文本。
+
 - 被包围在 `<pre>` 标签 元素中的文本通常会保留空格和换行符。而文本也会呈现为等宽字体。
+
 - 一个场景： 比如我要解析出来的文本保留用户在`textarea`中输入的换行等，就可以使用这个标签。
+
 - 1. `pre`元素是块级元素，但是只能包含文本或行内元素。也就是说，任何块级元素（常见为可以导致段落断开的标签）都不能位于 pre 元素中。
   2. `pre`元素中允许的文本可以包含物理样式和基于内容的样式变化，还有链接、图像和水平分隔线。当把其他标签，比如`<a>`标签放到`<pre>`块中时，就像放在 HTML/XHTML 文档的其他部分中一样即可。
   3. 制表符 tab 在`<pre>`标签定义的块当中可以起到应有的作用，每个制表符占据 8 个字符的位置，但并不推荐使用 tab，因为在不同的浏览器中，tab 的表现形式各不相同。在用`<pre>`标签格式化的文档段中使用**空格**，可以确保文本正确的水平位置。
@@ -144,9 +147,9 @@ var glob = {
 **13. substring、 substr、 slice**
 
 ```javascript
-	substr(start [, length])
-	substring(start [, end])
-	slice(start [, end])
+    substr(start [, length])
+    substring(start [, end])
+    slice(start [, end])
 ```
 
 - substring 有个神奇的地方 就是 start， end ，两个参数 谁小 谁就是 start
@@ -235,20 +238,20 @@ console.log(y.x);
 // 输出什么 ？
 // undefined 和 6
 /**
-	 * 非严格模式
-	 * 首先 函数 a 定义在全局环境执行 它里面的this就是指向了window，return 的this也是window
-	 * 当执行 x = a(5);的时候 this.x = 5，函数返回了this，this是window对象，又被重新赋值给了x， 此时x又是window对象。
-	 * 如果我们不返回this，就会是这个结果。
-	 * function a(xxx){
-	       this.x=xxx
-	   }
-	   a(5) 
-	   console.log(x) //5
-	 * 但是我们返回了this;
-	 * 当执行 y = a(6); 这个时候 x 就是 6 了，而返回的this被赋值给了y。
-	 * 所以当打印x.x时， x是Number类型，基本类型，x.x 所以是undefined
-	 * 而y.x就是 window.x x是6 所以是 6
-	 */
+     * 非严格模式
+     * 首先 函数 a 定义在全局环境执行 它里面的this就是指向了window，return 的this也是window
+     * 当执行 x = a(5);的时候 this.x = 5，函数返回了this，this是window对象，又被重新赋值给了x， 此时x又是window对象。
+     * 如果我们不返回this，就会是这个结果。
+     * function a(xxx){
+           this.x=xxx
+       }
+       a(5) 
+       console.log(x) //5
+     * 但是我们返回了this;
+     * 当执行 y = a(6); 这个时候 x 就是 6 了，而返回的this被赋值给了y。
+     * 所以当打印x.x时， x是Number类型，基本类型，x.x 所以是undefined
+     * 而y.x就是 window.x x是6 所以是 6
+     */
 ```
 
 **18. label for**
@@ -262,10 +265,10 @@ console.log(y.x);
 
 ```JAVASCRIPT
 start: {
-	console.log(1);
-	console.log(2);
-	break start
-	console.log(3);
+    console.log(1);
+    console.log(2);
+    break start
+    console.log(3);
 }
 // 1 2
 还有双重for循环的场景 有兴趣可以MDN看一下
@@ -316,17 +319,17 @@ arr.sort((a, b) => (!~a || !~b ? b : a - b));
 ```javascript
 /*
  * 正常来讲
- *	$.ajax().done( ( response )=> {
- *		window.parent.modal.hide();
- *		window.parent.IframeB.hide();
- *	})
+ *    $.ajax().done( ( response )=> {
+ *        window.parent.modal.hide();
+ *        window.parent.IframeB.hide();
+ *    })
  * 但是到这里由于Iframe-C的问题产生了跨域
  * 于是换了个思路
  * 请求成功后 给URL加一个hash然后刷新当前页面
  * $.ajax().done( ( response )=> {
- *		window.location.hash = '?active=true';
- *		window.location.reload();
- *	})
+ *        window.location.hash = '?active=true';
+ *        window.location.reload();
+ *    })
  * 然后在引起跨域的问题之前 (我是放在了<body>之后) 检查url的hash值
  * var body = document.body || document.getElementsByClassName('body')[0];
  * /\?active\=true/.test(window.location.href) && (  window.parent.modal.hide(), window.parent.IframeB.hide() )
@@ -355,11 +358,11 @@ arr.sort((a, b) => (!~a || !~b ? b : a - b));
 <script>
   // 暴露一个全局方法供Iframe调用
   function uploadFileCallback = function( data, errorMsg ){
-  	if( errorMsg ){
-  		alert( errorMsg );
-  		return
-  	}
-  	document.getElementById('titles').innerHTML = data;
+      if( errorMsg ){
+          alert( errorMsg );
+          return
+      }
+      document.getElementById('titles').innerHTML = data;
   }
 </script>
 ```
@@ -440,10 +443,10 @@ function spreadJSON (result, json, parentKey) {
         const value = json[key];
         const concatKey = parentKey + (parentKey ? '.' : '') + key;
         if (Object.prototype.toString.call(value) === '[object Object]'){
-			spreadJSON (result, value, concatKey)
-		}else {
-			result[concatKey] = value
-		};
+            spreadJSON (result, value, concatKey)
+        }else {
+            result[concatKey] = value
+        };
       })
       return result;
     }
@@ -463,14 +466,17 @@ spreadJSON ({}, m, '')
 **28. Postcss-cli 的简单使用**
 
 - 今天把项目中的 css 单独使用 postcss 优化了一下
-
 1. npm i -g|-D postcss-cli 安装 postcss-cli
-2. npm i -g autoprefixer 安装插件
-3. cd node_modules/.bin 一定要进入这个文件夹
-4. 在 3 进入的文件夹中 根据相对路径找到你要优化的 css （我的是放在了根目录的 css 文件中）
-5. postcss ../../css/common.css -o ../../css/outcommon.css -u autoprefixer
-6. 然后你就拿到了加了兼容的新的 css 样式
 
+2. npm i -g autoprefixer 安装插件
+
+3. cd node_modules/.bin 一定要进入这个文件夹
+
+4. 在 3 进入的文件夹中 根据相对路径找到你要优化的 css （我的是放在了根目录的 css 文件中）
+
+5. postcss ../../css/common.css -o ../../css/outcommon.css -u autoprefixer
+
+6. 然后你就拿到了加了兼容的新的 css 样式
 - 还有很多插件（现在貌似 200+）还没用到 有时间一起研究
 
 **29. IOS9 和低版本安卓 不支持 let！**
@@ -521,16 +527,16 @@ spreadJSON ({}, m, '')
 
 ```HTML
 <colgroup>
-	<col style="width: 60px">
-	<col style="width: 100px">
-	<col style="width: 209px">
-	<col style="width: 50px">
-	<col style="width: 60px">
-	<col style="width: 209px">
-	<col style="width: 209px">
-	<col style="width: 80px">
-	<col style="width: 110px">
-	<col style="width: 60px">
+    <col style="width: 60px">
+    <col style="width: 100px">
+    <col style="width: 209px">
+    <col style="width: 50px">
+    <col style="width: 60px">
+    <col style="width: 209px">
+    <col style="width: 209px">
+    <col style="width: 80px">
+    <col style="width: 110px">
+    <col style="width: 60px">
 </colgroup>
 ```
 
@@ -543,24 +549,24 @@ spreadJSON ({}, m, '')
 ```JAVASCRIPT
 saveDom()
 function saveDom(){
-	var changeInputTimeId = null,
-		changeTextTimeId = null;
-	$('input').on( 'input', function(e){
-		clearTimeout( changeInputTimeId )
-		var $this = $(this);
-		setTimeout( function(){
-			$this.attr( 'value', $this.val() )
-		}, 200 )
-	} )
+    var changeInputTimeId = null,
+        changeTextTimeId = null;
+    $('input').on( 'input', function(e){
+        clearTimeout( changeInputTimeId )
+        var $this = $(this);
+        setTimeout( function(){
+            $this.attr( 'value', $this.val() )
+        }, 200 )
+    } )
 
-	$('textarea').on( 'input', function(e){
-		clearTimeout( changeTextTimeId )
-		var $this = $(this);
-		setTimeout( function(){
-			// TEXTAREA必须是val和text
-			$this.text( $this.val() )
-		}, 200 )
-	} )
+    $('textarea').on( 'input', function(e){
+        clearTimeout( changeTextTimeId )
+        var $this = $(this);
+        setTimeout( function(){
+            // TEXTAREA必须是val和text
+            $this.text( $this.val() )
+        }, 200 )
+    } )
 }
 ```
 
@@ -569,19 +575,24 @@ function saveDom(){
 > 传送门 [DOM 操作成本到底高在哪儿？](https://segmentfault.com/a/1190000014070240?utm_source=feed-content)
 
 - **reflow(回流)**: 根据 Render Tree 布局(几何属性)，意味着元素的内容、结构、位置或尺寸发生了变化，需要重新计算样式和渲染树；
+
 - **repaint(重绘)**: 意味着元素发生的改变只影响了节点的一些样式（背景色，边框颜色，文字颜色等），只需要应用新样式绘制这个元素就可以了；
+
 - reflow 回流的成本开销要高于 repaint 重绘，一个节点的回流往往回导致子节点以及同级节点的回流；
+
 - **引起 reflow 回流**
+  
   1. 页面第一次渲染（初始化）
   2. DOM 树变化（如：增删节点）
   3. Render 树变化（如：padding 改变）
   4. 浏览器窗口 resize
   5. 获取元素的某些属性：
   6. 浏览器为了获得正确的值也会提前触发回流，这样就使得浏览器的优化失效了，这些属性包括 offsetLeft、offsetTop、offsetWidth、offsetHeight、 scrollTop/Left/Width/Height、clientTop/Left/Width/Height、调用了 getComputedStyle()或者 IE 的 currentStyle
+
 - **引起 repaint 重绘** 1. reflow 回流必定引起 repaint 重绘，重绘可以单独触发 2. 背景色、颜色、字体改变（注意：字体大小发生变化时，会触发回流）
 
 - **优化方式**
-
+  
   1. 避免逐个修改节点样式，尽量一次性修改
   2. 使用 DocumentFragment 将需要多次修改的 DOM 元素缓存，最后一次性 append 到真实 DOM 中渲染
   3. 可以将需要多次修改的 DOM 元素设置 display: none，操作完再显示。（因为隐藏元素不在 render 树内，因此修改隐藏元素不会触发回流重绘）
@@ -651,14 +662,14 @@ function saveDom(){
 **42. Vue ElementUI 的导航栏刷新后默认选择的没了**
 
 ```javascript
-	<el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-		<!-- 设置成route模式 然后设置默认选择的路由 -->
+    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+        <!-- 设置成route模式 然后设置默认选择的路由 -->
         <el-menu :default-openeds="openIndex" :router="true" :default-active="this.$route.path">
             <el-submenu index="1">
                 <template slot="title"><i class="el-icon-message"></i>导航一</template>
                 <el-menu-item-group>
                 <template slot="title">分组一</template>
-				<!-- 设置成route模式 index设置成路由 -->
+                <!-- 设置成route模式 index设置成路由 -->
                 <el-menu-item index="/table" >表格1
                 </el-menu-item>
                 <el-menu-item index="/table2">表格2
@@ -697,9 +708,9 @@ console.log(a[d]);
 Object内置toString 和 valueOf 方法;
 这种情况a[b] = 123 会默认调用对象的toString()
 所以就是 a['object Objcet'] = 123;
-		a['object Object'] = 345;
-		a['object Array'] = 333;
-		*/
+        a['object Object'] = 345;
+        a['object Array'] = 333;
+        */
 /*
 如果是多个对象
 var g = [ {name: 666}, {age: 666}, {job: 777} ]
@@ -925,12 +936,12 @@ document.body.addEventListener('touchstart', function () { //...空函数即可}
 
 ```javascript
 {
-	path: '/index',
-	component: index
+    path: '/index',
+    component: index
 },
 {
-	path: '/me',
-	component: me
+    path: '/me',
+    component: me
 }
 ```
 
@@ -938,12 +949,12 @@ document.body.addEventListener('touchstart', function () { //...空函数即可}
 
 ```javascript
 {
-	path: '/index',
-	component: index
+    path: '/index',
+    component: index
 },
 {
-	path: '/me',
-	component: index
+    path: '/me',
+    component: index
 }
 ```
 
@@ -967,9 +978,9 @@ document.body.addEventListener('touchstart', function () { //...空函数即可}
 
 ```javascript
 methods: {
-	refuse(event){
-		event.target.disabled = true;
-	}
+    refuse(event){
+        event.target.disabled = true;
+    }
 }
 ```
 
@@ -1062,28 +1073,28 @@ import viewer from 'viewerjs'
 import '../../../../node_modules/viewerjs/dist/viewer.min.css'
 
 export default{
-	data() {
+    data() {
         return {
             viewerId: null
-		}
+        }
     }
-	methods: {
-		getData(){
-			ajax().then( (res)=>{
-				// 渲染dom的逻辑
-				this.$nextTick( ()=>{
-					// 我的场景是一个弹窗中显示图片 因为弹窗是个组件，所以并不会每次关闭都销毁
-					// 所以我选择每次获取数据后销毁viewer
-					// 如果你的场景每次进入需要重新created的话，应该是不需要销毁的
-					// 如果你需要更新图片列表 可以使用update方法
-					// 注意要用新版本 老版本的没有update方法
+    methods: {
+        getData(){
+            ajax().then( (res)=>{
+                // 渲染dom的逻辑
+                this.$nextTick( ()=>{
+                    // 我的场景是一个弹窗中显示图片 因为弹窗是个组件，所以并不会每次关闭都销毁
+                    // 所以我选择每次获取数据后销毁viewer
+                    // 如果你的场景每次进入需要重新created的话，应该是不需要销毁的
+                    // 如果你需要更新图片列表 可以使用update方法
+                    // 注意要用新版本 老版本的没有update方法
                     this.viewerId && this.viewerId.destroy()
-					// 假设你的图片列表的id是images
+                    // 假设你的图片列表的id是images
                     this.viewerId = new viewer(document.getElementById('images'));
                 } )
-			})
-		}
-	}
+            })
+        }
+    }
 }
 ```
 
@@ -1278,27 +1289,26 @@ export const bytesToSize = (bytes) => {
 
 ```javascript
 export default{
-	data(){
-		return {
-			reloadStatus: this.$store.state.reloadStatus
-		}
-	},
-	watch: {
-		reloadStatus( cur, old ){
-			console.log( cur ) // 无效
-		}
-	}
+    data(){
+        return {
+            reloadStatus: this.$store.state.reloadStatus
+        }
+    },
+    watch: {
+        reloadStatus( cur, old ){
+            console.log( cur ) // 无效
+        }
+    }
 }
 
 // 怎么办呢
 // 可以使用computed
 
 computed: {
-	reloadStatus() {
-		return this.$store.state.indexRefresh
-	}
+    reloadStatus() {
+        return this.$store.state.indexRefresh
+    }
 },
-
 ```
 
 **78. Vue 使用 highcharts 的扩展**
@@ -1661,14 +1671,14 @@ let data = {"body":[{"icon":"fa fa-cloud","sort":5,"type":"PAGE","parentId":0,"i
 
 function getAllId( data ){
     let str = '',
-	regexp = /,"id":(\d+)(?=,)/g,
-	matchStr = '',
-	idArr = [];
+    regexp = /,"id":(\d+)(?=,)/g,
+    matchStr = '',
+    idArr = [];
     try {
-	str = JSON.stringify( data );
+    str = JSON.stringify( data );
     } catch (error) {}
     while(matchStr = regexp.exec( str )){
-	idArr.push( matchStr[1] )
+    idArr.push( matchStr[1] )
     }
     return idArr
 }
@@ -1734,6 +1744,7 @@ axios({})
 ```
 
 - form 表单下载
+  
   > 参考 [隐藏 form 表单下载文件](https://blog.csdn.net/java_trainee/article/details/73647806)
 
 ```javascript
@@ -1776,11 +1787,11 @@ function downloadFile(actoinURL,filePath,fileName){
 
 ```javascript
 module.exports = {
-	configureWebpack: {
-		plugins: {
-			new XXX()
-		}
-	}
+    configureWebpack: {
+        plugins: {
+            new XXX()
+        }
+    }
 }
 ```
 
@@ -1990,13 +2001,13 @@ const flatArr = flattenArray(arr);
 </template>
 <script>
 export default{
-	return{
-		data(){
-			composition: false
-		}
-	},
-	methods: {
-		seriaDelete($event, index) {
+    return{
+        data(){
+            composition: false
+        }
+    },
+    methods: {
+        seriaDelete($event, index) {
             const $val = this.seriaNums[index];
             if (this.composition) {
                 if ($val.length <= 0) {
@@ -2007,7 +2018,7 @@ export default{
                 }
             }
         },
-	}
+    }
 }
 </script>
 ```
@@ -2259,6 +2270,7 @@ SolidGauge(Highcharts);
 ```
 
 - 终极版真正按需加载 懒加载
+  
   > 场景是滚动到某个距离 加载 echarts
 
 ```vue
@@ -2491,7 +2503,7 @@ VSCode Snippets VueHelper Ysgrifennwr Color Theme // 最爱的猪蹄
 - 如果按钮不是用 input，而是用 button，并且没有加 type，IE 下默认为 type=button，FX 默认为 type=submit。
 - 其他表单元素如 textarea、select 不影响，radio checkbox 不影响触发规则，但本身在 FX 下会响应回车键，在 IE 下不响应。
 - type=”image”的 input，效果等同于 type=”submit”，不知道为什么会设计这样一种 type，不推荐使用，应该用 CSS 添加背景图合适些
--
+- 
 
 ```javascript
 // 我在一个form表单中  写了个没有type的button  当 inupt 按回车时  触发了这个button的click事件  把这个 button 声明为type=button就行了
@@ -2613,17 +2625,14 @@ export default class HelloWorld extends Vue {
 
 - 需求： 鼠标滚轮在百度地图上滚动时，页面不随之滚动
 - 问题：
-
-1.  最开始使用的是鼠标进入父元素（此处为`.content`）时，`.content`设置为`overflow:hidden`
-2.  鼠标离开`.content`时，`.content`设置为`overflow:auto`
-3.  这种做法能满足需求 但是会有抖动的问题
-4.  后来发现了一个更大的问题 快速在百度地图上滚动滚轮的后 再次让`.content`设置为`overflow:auto`，虽然滚动条还在，但是滚动失效了！！！
-
+1. 最开始使用的是鼠标进入父元素（此处为`.content`）时，`.content`设置为`overflow:hidden`
+2. 鼠标离开`.content`时，`.content`设置为`overflow:auto`
+3. 这种做法能满足需求 但是会有抖动的问题
+4. 后来发现了一个更大的问题 快速在百度地图上滚动滚轮的后 再次让`.content`设置为`overflow:auto`，虽然滚动条还在，但是滚动失效了！！！
 - 解决方案
-
-1.  换了种思路 鼠标进入`.content`的时候，让`document`监听`mousewheel`和`DOMMouseScroll`事件 并阻止默认事件
-2.  鼠标移除`.content`的时候移除`mousewheel`和`DOMMouseScroll`的事件监听
-3.  很完美 不会有抖动的问题也不会无法滚动了
+1. 换了种思路 鼠标进入`.content`的时候，让`document`监听`mousewheel`和`DOMMouseScroll`事件 并阻止默认事件
+2. 鼠标移除`.content`的时候移除`mousewheel`和`DOMMouseScroll`的事件监听
+3. 很完美 不会有抖动的问题也不会无法滚动了
 
 ```javascript
 methods: {
@@ -2635,8 +2644,8 @@ stopWheel (event) {
        event.preventDefault()
    },
 hiddenHtml () {
-	document.addEventListener('mousewheel', this.stopWheel)
-	document.addEventListener('DOMMouseScroll', this.stopWheel)
+    document.addEventListener('mousewheel', this.stopWheel)
+    document.addEventListener('DOMMouseScroll', this.stopWheel)
 },
 }
 ```
@@ -2670,10 +2679,9 @@ a == 1 && a == 2 && a == 3; // true
 ```
 
 - 原理
-
 1. 符合对象类型再喝基础值类型进行表达式操作时，会基于“场景”自动调用`toString`或是`valueOf`方法，以最为'恰当'的方式，自动完成表达式的计算
-2. 全等表达式会比较数据类型，符合对象类型不会进行隐式转换，即不执行`toString`或`valueOf`方法直接参与比较计算
 
+2. 全等表达式会比较数据类型，符合对象类型不会进行隐式转换，即不执行`toString`或`valueOf`方法直接参与比较计算
 - 方法 2
 
 ```javascript
@@ -2857,7 +2865,7 @@ typeRenderFuc (h, { column, $index }) {
                         value: $this.searchBody.type
                     },
                     on: {
-					// 竟然是input 触发的改变。。。
+                    // 竟然是input 触发的改变。。。
                         input (v) {
                             console.log(v)
                         }
@@ -3197,7 +3205,7 @@ GlobalFunction.prototype.selectText = function (
     loaderOptions: {
       stylus: {
         "resolve url": true,
-		// 这里的文件只能写方法和变量 不然每个组件都会生成style 很坑
+        // 这里的文件只能写方法和变量 不然每个组件都会生成style 很坑
         import: ["./src/theme", "./src/assets/styl/utils"]
       }
     }
@@ -3244,12 +3252,15 @@ The Web Application Hacker's Handbook
 **134. 静态页面、伪静态页面、SPA、SSR、预渲染之间的联系**
 
 - 查阅资料得知 爬虫对 URL 和查看网页源码时候查看到的 DOM 结构有很强的依赖关系
+
 - SPA 页面众所周知查看网页源码后，除了你写的`index.html`里面的内容 没有生成的真实 DOM 结构（通过 JS 动态增删，部分搜索引擎拿不到这些），而且 url 不用`history`模式，生成的都带#号，完全不利于 SEO
+
 - 而 SSR 服务端渲染，就拿`Nuxt`来说，可以生成真正的静态页和伪静态页（在服务端生成或者你本地生成后传到服务端里），查看源码的时候，能看到生成的 DOM 结构，而不再仅仅是`index.html`里面的内容，而且 URL 不带#号等，所以利于 SEO 优化
+
 - 预渲染使用的原理类似于服务端渲染，生成真正的静态 html， 有个插件 叫做`PrerenderSpaPlugin` 可以做预渲染
-
+  
   > 摘自 https://segmentfault.com/q/1010000012069735
-
+  
   1. 预渲染在构建阶段就已经生成了匹配预渲染路径的 html 文件，你的每个路由都可以作为入口文件。
   2. 预渲染后其对应文件夹下都有一个 index.html，作为路口文件，之后在跳转走的是前端路由，并不再请求 html 文件。
   3. 首屏预渲染对还需要请求易变数据的页面不太合适，因为展示的 html 很可能是上次预渲染的 html，等到请求完毕返回数据后再展示最新的 html 会引起客户的误解和疑惑。
@@ -3268,22 +3279,22 @@ The Web Application Hacker's Handbook
 // targetScroll 目标滚动距离 理由setTimeout控制 最好用 requestAnimtaionFrame
 lazyMove(targetScroll) {
   this.request.timeId = setTimeout(() => {
-	const curScroll = window.scrollY
-	const toScroll = (targetScroll - curScroll) / 2
-	// 向上滚动  当前的距离 1000 目标距离0  下一次 就是-500
-	// 所以目标滚动距离 - 当前滚动距离是 负数
-	// 向下滚动的话 当前距离 1000  目标距离 2000 下一次 就是 +500
-	// 所以目标滚动距离 - 当前滚动距离 正数
-	// 最后我们要滚动的距离就是 当前的滚动距离 + 下一次的（正/负）滚动距离
-	// 你的目标滚动位置是不会变得 所以下次调用还是穿这个目标滚动距离 再算下一次的距离
-	if (Math.abs(curScroll - targetScroll) <= 2) {
-	  window.scrollTo(0, targetScroll)
-	  clearTimeout(this.request.timeId)
-	} else {
-	  // 下一次的滚动距离 如果是向上 那就减去 向下 那就加上
-	  window.scrollTo(0, curScroll + toScroll)
-	  this.lazyMove(targetScroll)
-	}
+    const curScroll = window.scrollY
+    const toScroll = (targetScroll - curScroll) / 2
+    // 向上滚动  当前的距离 1000 目标距离0  下一次 就是-500
+    // 所以目标滚动距离 - 当前滚动距离是 负数
+    // 向下滚动的话 当前距离 1000  目标距离 2000 下一次 就是 +500
+    // 所以目标滚动距离 - 当前滚动距离 正数
+    // 最后我们要滚动的距离就是 当前的滚动距离 + 下一次的（正/负）滚动距离
+    // 你的目标滚动位置是不会变得 所以下次调用还是穿这个目标滚动距离 再算下一次的距离
+    if (Math.abs(curScroll - targetScroll) <= 2) {
+      window.scrollTo(0, targetScroll)
+      clearTimeout(this.request.timeId)
+    } else {
+      // 下一次的滚动距离 如果是向上 那就减去 向下 那就加上
+      window.scrollTo(0, curScroll + toScroll)
+      this.lazyMove(targetScroll)
+    }
   }, 30)
 ```
 
@@ -3320,7 +3331,7 @@ chainWebpack: (config) => {
   */
   axios: {
     // credentials: true,
-	// 如果你的接口有域名 就不需要baseUrl 你的baseURl一定要和你的服务器地址一致 不然首次进入会无法获取数据 这个坑搞了我好久 托马的
+    // 如果你的接口有域名 就不需要baseUrl 你的baseURl一定要和你的服务器地址一致 不然首次进入会无法获取数据 这个坑搞了我好久 托马的
     baseURL: HOST,
     // prefix: '/pub'
     // See https://github.com/nuxt-community/axios-module#options
@@ -3403,116 +3414,115 @@ module.exports = {
 
 // 然后自己改造下
 _ajax({
-	url: '/api/oss/getUploadUrl',
-	headers: {
-		Authorization: JSON.stringify({
-					deviceType: ,
-					// 我们项目要传token
-					token:
-				}),
-		'Content-Type':'application/x-www-form-urlencolde'
-	},
-	sucBack: function(res){
-		try {
-			 res = JSON.parse(res).body
-			 _sendFile(res)
-		} catch (error) {
+    url: '/api/oss/getUploadUrl',
+    headers: {
+        Authorization: JSON.stringify({
+                    deviceType: ,
+                    // 我们项目要传token
+                    token:
+                }),
+        'Content-Type':'application/x-www-form-urlencolde'
+    },
+    sucBack: function(res){
+        try {
+             res = JSON.parse(res).body
+             _sendFile(res)
+        } catch (error) {
 
-		}
-	}
+        }
+    }
 })
 // 将图片发送给oss 获取fileId
 function _sendFile(data){
-	var fData = new FormData();
-	fData.append("key", data.key);
-	fData.append("success_action_status", "200");
-	fData.append("OSSAccessKeyId", data.OSSAccessKeyId);
-	fData.append("Signature", data.Signature);
-	fData.append("policy", data.policy);
-	fData.append("file", input.files[0]);
-	_ajax({
-		url: '/api/oss/getFileId',// + data.url,
-		data: fData,
-		sucBack: function(res){
-			try {
-				res = JSON.parse(res).body
-				_getImgLink(res.fileId)
-			} catch (error) {
-				console.log(error)
-			}
-		},
-		errBack: function(err){
-			console.log(err)
-		}
-	})
+    var fData = new FormData();
+    fData.append("key", data.key);
+    fData.append("success_action_status", "200");
+    fData.append("OSSAccessKeyId", data.OSSAccessKeyId);
+    fData.append("Signature", data.Signature);
+    fData.append("policy", data.policy);
+    fData.append("file", input.files[0]);
+    _ajax({
+        url: '/api/oss/getFileId',// + data.url,
+        data: fData,
+        sucBack: function(res){
+            try {
+                res = JSON.parse(res).body
+                _getImgLink(res.fileId)
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        errBack: function(err){
+            console.log(err)
+        }
+    })
 }
 
 // 根据fileId获取图片链接
 function _getImgLink(id){
-	_ajax({
-		url: '/api/oss/getImg?fileId=' + id,
-		type: 'get',
-		sucBack: function(res){
-			try {
-			// 最后这里是添加到编辑器中的  根据场景需求自己调整
-				res= JSON.parse(res).body
-				var link = res.link;
-				loader = me.document.getElementById(loadingId);
-				loader.setAttribute('src', link);
-				loader.setAttribute('_src', link);
-				loader.setAttribute('title', '');
-				loader.setAttribute('alt', '');
-				loader.removeAttribute('id');
-				domUtils.removeClasses(loader, 'loadingclass');
-			} catch (error) {
+    _ajax({
+        url: '/api/oss/getImg?fileId=' + id,
+        type: 'get',
+        sucBack: function(res){
+            try {
+            // 最后这里是添加到编辑器中的  根据场景需求自己调整
+                res= JSON.parse(res).body
+                var link = res.link;
+                loader = me.document.getElementById(loadingId);
+                loader.setAttribute('src', link);
+                loader.setAttribute('_src', link);
+                loader.setAttribute('title', '');
+                loader.setAttribute('alt', '');
+                loader.removeAttribute('id');
+                domUtils.removeClasses(loader, 'loadingclass');
+            } catch (error) {
 
-			}
+            }
 
-		},
-		errBack: function(err){
-			console.log(err)
-		}
-	})
+        },
+        errBack: function(err){
+            console.log(err)
+        }
+    })
 }
 
 // ajax封装
 function _ajax(options){
-	var option = options || {}
-	option.type = options.type || 'post'
-	option.data = options.data || null
-	option.url = options.url || ''
-	option.headers = options.headers || null
-	option.data = options.data || null
-	option.sucBack = options.sucBack || null
-	option.errBack = options.errBack || null
+    var option = options || {}
+    option.type = options.type || 'post'
+    option.data = options.data || null
+    option.url = options.url || ''
+    option.headers = options.headers || null
+    option.data = options.data || null
+    option.sucBack = options.sucBack || null
+    option.errBack = options.errBack || null
 
-	var xhr = new XMLHttpRequest()
+    var xhr = new XMLHttpRequest()
 
-	xhr.onerror = function(error){
-		typeof option.errBack === 'function' && option.errBack(error)
-	}
+    xhr.onerror = function(error){
+        typeof option.errBack === 'function' && option.errBack(error)
+    }
 
-	xhr.open(option.type, option.url, true)
+    xhr.open(option.type, option.url, true)
 
-	if(option.headers){
-		for( i in option.headers ){
-			if( option.headers.hasOwnProperty( i ) ){
-				xhr.setRequestHeader( i, option.headers[i] )
-			}
-		}
-	}
+    if(option.headers){
+        for( i in option.headers ){
+            if( option.headers.hasOwnProperty( i ) ){
+                xhr.setRequestHeader( i, option.headers[i] )
+            }
+        }
+    }
 
-	xhr.send(option.data)
+    xhr.send(option.data)
 
-	xhr.onreadystatechange = function stateChange() {
-		if (xhr.readyState === 4) {
-			if (xhr.status === 304 || (xhr.status >= 200 && xhr.status < 300)) {
-				typeof option.sucBack === 'function' && option.sucBack(xhr.responseText)
-			}
-		}
-	}
+    xhr.onreadystatechange = function stateChange() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 304 || (xhr.status >= 200 && xhr.status < 300)) {
+                typeof option.sucBack === 'function' && option.sucBack(xhr.responseText)
+            }
+        }
+    }
 }
-
 ```
 
 **141. JS 获取浏览器缩放比例**
@@ -3817,27 +3827,26 @@ import("./toastify").then(module => {
 module.toast("Hello World");
 });
 
-````
-
+```
 2.
 ```javascript
 syncLoadEcharts () {
-	return new Promise((resolve, reject) => {
-		require.ensure(
-			[],
-			function () {
-				echarts = require('echarts/lib/echarts')
-				require('echarts/lib/chart/line')
-				// 引入提示框和标题组件
-				require('echarts/lib/component/tooltip')
-				require('echarts/lib/component/title')
-				resolve('success')
-			},
-			'syncEcharts'
-		)
-	})
+    return new Promise((resolve, reject) => {
+        require.ensure(
+            [],
+            function () {
+                echarts = require('echarts/lib/echarts')
+                require('echarts/lib/chart/line')
+                // 引入提示框和标题组件
+                require('echarts/lib/component/tooltip')
+                require('echarts/lib/component/title')
+                resolve('success')
+            },
+            'syncEcharts'
+        )
+    })
 },
-````
+```
 
 **152. 少用 ID,会增加全局变量**
 
@@ -3929,17 +3938,18 @@ if (/htkj001\.oss|rryn/.test(config.url)) {
 > (前端技术周刊 2018-12-24：移动无限加载)[https://segmentfault.com/a/1190000017893879]
 
 1. 滚动事件
-
+   
    - (移动 Web 的滚动)[http://www.alloyteam.com/2017/04/secrets-of-mobile-web-scroll-bars-and-drop-refresh/]
    - (高性能滚动及页面渲染优化)[http://web.jobbole.com/86158/]
    - (移动端滚动事件大起底)[https://github.com/merrier/mobile-scroll-events]
 
 2. 懒加载
-
+   
    - (Lazyload 三种实现方式)[https://zhuanlan.zhihu.com/p/25455672]
    - (懒加载和预加载)[https://www.jianshu.com/p/4876a4fe7731]
 
 3. 无限滚动
+   
    - (React 之无限滚动)[https://zhuanlan.zhihu.com/p/32075662]
    - (Vue.js 一个超长列表无限滚动加载的解决方案)[https://juejin.im/entry/5819993fbf22ec0068aab054]
    - (设计高性能无限滚动加载，了解高效页面秘密)[https://zhuanlan.zhihu.com/p/25767226]
@@ -4090,12 +4100,13 @@ function minusCounter(e, obj) {
 **171. addEventListener 的 中的 passive 可以优化滚动 如果你不需要 preventDefault**
 
 - options 可选
+
 - 一个指定有关 listener 属性的可选参数对象。可用的选项如下：
 
-- 1.  capture: Boolean，表示 listener 会在该类型的事件捕获阶段传播到该 EventTarget 时触发。
-  2.  once: Boolean，表示 listener 在添加之后最多只调用一次。如果是 true， listener 会在其被调用之后自动移除。
-  3.  passive: Boolean，表示 listener 永远不会调用 preventDefault()。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告。
-  4.  mozSystemGroup: 只能在 XBL 或者是 Firefox' chrome 使用，这是个 Boolean，表示 listener 被添加到 system group。
+- 1. capture: Boolean，表示 listener 会在该类型的事件捕获阶段传播到该 EventTarget 时触发。
+  2. once: Boolean，表示 listener 在添加之后最多只调用一次。如果是 true， listener 会在其被调用之后自动移除。
+  3. passive: Boolean，表示 listener 永远不会调用 preventDefault()。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告。
+  4. mozSystemGroup: 只能在 XBL 或者是 Firefox' chrome 使用，这是个 Boolean，表示 listener 被添加到 system group。
 
 **172. @contextmenu.prevent vue 中使用这个可以阻止右键菜单**
 
@@ -5312,10 +5323,10 @@ console.log('script end');
 
 ```javascript
 const decodingMap = {
-  '&lt;': '<',
-  '&gt;': '>',
-  '&quot;': '"',
-  '&amp;': '&',
+  '<': '<',
+  '>': '>',
+  '"': '"',
+  '&': '&',
   '&#10;': '\n',
   '&#9;': '\t',
   '&#39;': "'",
@@ -5620,10 +5631,10 @@ var currentBackground = new THREE.Color(0xff0000);
 
 ```javascript
 {
-	key: "handlePhoneChange",
-	value: function(t) {
-	    this.phoneNumber = t.target.value && t.target.value.trim(),
-	    this.clearError()
+    key: "handlePhoneChange",
+    value: function(t) {
+        this.phoneNumber = t.target.value && t.target.value.trim(),
+        this.clearError()
 }
 ```
 
@@ -5859,7 +5870,7 @@ const degreesPerRadian = 180.0 / Math.PI;
 // 计算面积
     // points是 [{lng, lat,},...]
     // positions 是 [Cartesian3, Cartesian3...]
-	// 单位平方公里
+    // 单位平方公里
    function getAreaNum(points, positions) {
       let res = 0;
       //拆分三角曲面
@@ -5950,6 +5961,7 @@ model: {
 1. 验证 nvm 是否安装成功：在 cmd 输入 nvm version，有提示 nvm 版本信息，即安装 成功
 
 2. 然后输入 nvm root，查看到 nvm 的路径信息，我的是 C:\Users\Administrator\AppData\Roaming\nvm，所以在资源管理器上打开这个路径，找到里面的 settings.txt，并打开
+
 3. 在文本的最后一行中加入这两行代码
 
 ```text
@@ -6046,12 +6058,10 @@ action(index);
 -
 
 ```javascript
-
 model: {
     prop: '这个是传进来的props，比如你v-modle="text",那你的props里面就要写个text',
     event: '这个是触发的事件名字，比如你写了个input 你@input="$emit('testEvent')",那你这里就要写上testEvent'
 }
-
 ```
 
 - 子
@@ -7026,11 +7036,11 @@ G6.registerNode('dom-node', {
 
         html() {
           return `<p 
-	      contenteditable
+          contenteditable
               data-id=${cfg.id} 
-	      title="${cfg.label}">
-	      ${cfg.label}
-	      </p>`;
+          title="${cfg.label}">
+          ${cfg.label}
+          </p>`;
         },
         name: 'p-shape',
       },
@@ -7122,9 +7132,9 @@ graph.refreshItem(id);
 server {
         listen       3333;
         server_name   172.31.242.57;
-	    client_max_body_size 100m;
+        client_max_body_size 100m;
 
-		proxy_set_header Host $host;
+        proxy_set_header Host $host;
         proxy_set_header Cookie $http_cookie;
 
         error_page 500 502 503 504 /50x.html;
@@ -7132,11 +7142,11 @@ server {
             root html;
         }
 
-		#root /disk1/cdss/web/dist;
-		#index index.html;
+        #root /disk1/cdss/web/dist;
+        #index index.html;
 
         location /imts/ {
-		    proxy_pass http://localhost:2233/;
+            proxy_pass http://localhost:2233/;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -7145,13 +7155,13 @@ server {
         }
 
         location / {
-			add_header 'Access-Control-Allow-Origin' '*';
-			include  uwsgi_params;
-			proxy_pass http://172.31.200.110:8701/;
-			proxy_set_header Host $http_host;
-			proxy_set_header Cookie $http_cookie;
+            add_header 'Access-Control-Allow-Origin' '*';
+            include  uwsgi_params;
+            proxy_pass http://172.31.200.110:8701/;
+            proxy_set_header Host $http_host;
+            proxy_set_header Cookie $http_cookie;
 
-			client_max_body_size 10m;
+            client_max_body_size 10m;
         }
     }
 ```
@@ -7187,10 +7197,9 @@ export default {
 ```
 
 2. `package.json`打包 build 命令改为 ` "build": "vue-cli-service build --target lib --name cdssChart ./package/index.js"`
-
 - cdssChart 是 npm 包名
-- ./package/index.js 是打包入口
 
+- ./package/index.js 是打包入口
 3. 给 vue 页面添加一个 index.js 让页面暴露出去 在`src/views/statistic/`目录下
 
 ```JavaScript
@@ -7213,7 +7222,6 @@ export default {
   install,
   PaintedChart
 };
-
 ```
 
 4. 然后运行 npm run build 发布到私有 npm 上就行了
@@ -7346,7 +7354,7 @@ module.exports = (env, argv) => {
 ```.conf
 server{
   # 一开始没加443 所以不行
-	 listen       443 ssl;
+     listen       443 ssl;
                 server_name ncp.iflyhealth.com;
                 ssl_ciphers  HIGH:!aNULL:!MD5;
         ssl_prefer_server_ciphers  on;
@@ -7362,15 +7370,15 @@ server{
         proxy_set_header Host $host;
         proxy_set_header Cookie $http_cookie;
 
-				location / {
-					alias /home/avator-demo/;
-					try_files $uri $uri/ @router;
-					if ($request_filename ~* .*\.(?:htm|html)$)
-					{
-						add_header Cache-Control "no-cache, no-store";
-					}
-				}
-	}
+                location / {
+                    alias /home/avator-demo/;
+                    try_files $uri $uri/ @router;
+                    if ($request_filename ~* .*\.(?:htm|html)$)
+                    {
+                        add_header Cache-Control "no-cache, no-store";
+                    }
+                }
+    }
 ```
 
 **408. node_modules/node-sass/vendor 报错**
@@ -7417,55 +7425,103 @@ export default {
 > 这是一些踩的坑和经验 UI 框架是 uview 还么开发完
 
 1. sass-loader 的版本 @10.1.1 sass-loader 请使用低于 @11.0.0 的版本
+
 2. 用 ref(null)的形式定义 ref 实例的时候会报错，虽然不影响使用。
+
 3. 自定义 tabbar 的方式是先从微信官网拉一个自定义 tabbar 的项目，然后从这个自定义项目中复制`custom-tab-bar`放到`src`目录下。注意 pages.json 中的 tabBar.custom 要设为 true，同时开启`usingComponents`，而且要使用原生小程序代码编写！
+
 4. 自定义 tabbar 切换的时候先不要设置图标，通过全局数据存储当前跳转的 index，在每个 tabbar 主页面的 onshow 再去切换
+
 5. 重置样式需要在页面级别去写 组件组别不行
+
 6. tabs 组件引入页面真机报错 不能用
+
 7. 由于没有当前组件的 this composition-api 在做 ui 的时候并不好用
+
 8. 使用 scroll-into-view 的时候需要给子设置:id="item.id"
+
 9. 底部横条的兼容方案 https://ask.dcloud.net.cn/article/35564
+
 10. 修改内容 热更新报错 必须重启 恶心至极 重启电脑解决
+
 11. uniapp 中的:key 极其重要 直接影响值的获取
+
 12. u-button 自带节流 延迟 500ms 绝了！
+
 13. Array size is not a small enough positive integer 部分手机（包括部分安卓机）不支持 n in Number 的写法，只支持 n in Array，所以会报数组错误
+
 14. https://www.cnblogs.com/ljx20180807/p/9907922.html 地图定位
+
 15. setup 里的数据不需要响应式的时候，设置为引用类型就可以在 onload 等周期里更新数据了
+
 16. data(){这里的 this。xxx return {}} 会冲突
+
 17. 小程序 navigate 传参的时候 如果里面有链接 记得 encode 一下 不然传参会被截断
+
 18. https://www.jianshu.com/p/0853e36925e3 订阅消息的踩坑记录
+
 19. onshow 周期打包成网页的时候子组件并没有渲染，而在小程序时候子组件是渲染过得
+
 20. form 校验规则 rules 无法通过 props 传递， [参见](https://www.uviewui.com/components/form.html#form%E7%BB%84%E4%BB%B6%E7%BB%91%E5%AE%9Amodel%E5%8F%82%E6%95%B0)
+
 21. onLoad 和 uni.getLaunchOptionsSync 两个方法拿到的参数，不是一致的： 当从其他页面（小程序）跳转过来的时候，两次(本小程序在后台没有结束的话)传参不一致，则 onload 会被触发两次，且两次的参数正确，而 uni.getLaunchOptionsSync 方法拿到的是第一次的参数。
+
 22. sass-loader 的版本 @10.1.1 sass-loader 请使用低于 @11.0.0 的版本
+
 23. 用 ref(null)的形式定义 ref 实例的时候会报错，虽然不影响使用。
+
 24. 自定义 tabbar 的方式是先从微信官网拉一个自定义 tabbar 的项目，然后从这个自定义项目中复制`custom-tab-bar`放到`src`目录下。注意 pages.json 中的 tabBar.custom 要设为 true，同时开启`usingComponents`，而且要使用原生小程序代码编写！
+
 25. 自定义 tabbar 切换的时候先不要设置图标，通过全局数据存储当前跳转的 index，在每个 tabbar 主页面的 onshow 再去切换
+
 26. 重置样式需要在页面级别去写 组件组别不行
+
 27. tabs 组件引入页面真机报错 不能用
+
 28. 由于没有当前组件的 this composition-api 在做 ui 的时候并不好用
+
 29. 使用 scroll-into-view 的时候需要给子设置:id="item.id"
+
 30. 底部横条的兼容方案 https://ask.dcloud.net.cn/article/35564
+
 31. 修改内容 热更新报错 必须重启 恶心至极 重启电脑解决
+
 32. uniapp 中的:key 极其重要 直接影响值的获取
+
 33. u-button 自带节流 延迟 500ms 绝了！
+
 34. Array size is not a small enough positive integer 部分手机（包括部分安卓机）不支持 n in Number 的写法，只支持 n in Array，所以会报数组错误
+
 35. https://www.cnblogs.com/ljx20180807/p/9907922.html 地图定位
+
 36. setup 里的数据不需要响应式的时候，设置为引用类型就可以在 onload 等周期里更新数据了
+
 37. data(){这里的 this。xxx return {}} 会冲突
+
 38. 小程序 navigate 传参的时候 如果里面有链接 记得 encode 一下 不然传参会被截断
+
 39. https://www.jianshu.com/p/0853e36925e3 订阅消息的踩坑记录
+
 40. onshow 周期打包成网页的时候子组件并没有渲染，而在小程序时候子组件是渲染过得
+
 41. form 校验规则 rules 无法通过 props 传递， [参见](https://www.uviewui.com/components/form.html#form%E7%BB%84%E4%BB%B6%E7%BB%91%E5%AE%9Amodel%E5%8F%82%E6%95%B0)
+
 42. onLoad 和 uni.getLaunchOptionsSync 两个方法拿到的参数，不是一致的： 当从其他页面（小程序）跳转过来的时候，两次(本小程序在后台没有结束的话)传参不一致，则 onload 会被触发两次，且两次的参数正确，而 uni.getLaunchOptionsSync 方法拿到的是第一次的参数。
+
 43. upload， 正式版调用需要单独设置域名，微信后台-》开发-》开发管理-》开发设置-》服务器域名下的 uploadFile 合法域名， 需要配置，否则体验版没问题，正式版上传会失败
+
 44. 如果是多环境的 某个代码只能某个环境使用 一定要考虑加上条件编译控制
+
 45. u-avatar 里面传 url 的时候，打包 h5，相对路径（整个项目的 public 是相对的）会出错， 得到的路径会有页面的路径，不能正常使用
+
 46. modal 框在 ios 下会有个白边 是 u-mode-center-box 这个样式影响的
+
 47. h5 中 先 crate 再 load 再 show 视频全屏会频繁触发 show 周期 注意了
 
 48. 因为 npm 上面的 postcss-px-to-viewport 包并不支持 include 的用法，需要使用 github 上面的包
+
 49. https://blog.csdn.net/qq_35430000/article/details/116117367
+
 50. ```js
     {
       'postcss-px-to-viewport': {
@@ -7487,7 +7543,9 @@ export default {
           }
     }
     ```
+
 51. uniapp 的选择器如果要跨组件的话 要 `.class（选择器） >>> xxx` .class 要为当前组件能选到的选择器
+
 52. 如果组件循环引用了 h5 端 可能无法渲染 使用懒加载可以 但是懒加载在小程序端不能很好的渲染
 
 **412. postcss-px-to-viewport npm 下载不支持 include exclude**
@@ -7528,7 +7586,6 @@ export default {
     </script>
   </body>
 </html>
-
 ```
 
 **414. JS 高程第四版比第三版多了很多内容 要好好看看消化消化**
@@ -7564,25 +7621,25 @@ export default {
 
 **418. 选择 Object 还是 Map**
 
-1.  内存占用
-    Object 和 Map 的工程级实现在不同浏览器间存在明显差异，但存储单个键/值对所占用的内存数量
-    都会随键的数量线性增加。批量添加或删除键/值对则取决于各浏览器对该类型内存分配的工程实现。
-    `不同浏览器的情况不同，但给定固定大小的内存，Map 大约可以比 Object 多存储 50%的键/值对。`
-2.  插入性能
-    向 Object 和 Map 中插入新键/值对的消耗大致相当，不过插入 Map 在所有浏览器中一般会稍微快
-    一点儿。对这两个类型来说，插入速度并不会随着键/值对数量而线性增加。`如果代码涉及大量插入操 作，那么显然 Map 的性能更佳。`
-3.  查找速度
-    与插入不同，从大型 Object 和 Map 中查找键/值对的性能差异极小，但如果只包含少量键/值对，
-    则 Object 有时候速度更快。在把 Object 当成数组使用的情况下（比如使用连续整数作为属性），浏
-    览器引擎可以进行优化，在内存中使用更高效的布局。这对 Map 来说是不可能的。对这两个类型而言，
-    查找速度不会随着键/值对数量增加而线性增加。`如果代码涉及大量查找操作，那么某些情况下可能选 择 Object 更好一些。`
-4.  删除性能
-    使用 delete 删除 Object 属性的性能一直以来饱受诟病，目前在很多浏览器中仍然如此。为此，
-    出现了一些伪删除对象属性的操作，包括把属性值设置为 undefined 或 null。但很多时候，这都是一
-    种讨厌的或不适宜的折中。而对大多数浏览器引擎来说，Map 的 delete()操作都比插入和查找更快。
-    `如果代码涉及大量删除操作，那么毫无疑问应该选择 Map。`
-5.  顺序
-    Map 会维护插入值的顺序 Object 会根据默认规则排序
+1. 内存占用
+   Object 和 Map 的工程级实现在不同浏览器间存在明显差异，但存储单个键/值对所占用的内存数量
+   都会随键的数量线性增加。批量添加或删除键/值对则取决于各浏览器对该类型内存分配的工程实现。
+   `不同浏览器的情况不同，但给定固定大小的内存，Map 大约可以比 Object 多存储 50%的键/值对。`
+2. 插入性能
+   向 Object 和 Map 中插入新键/值对的消耗大致相当，不过插入 Map 在所有浏览器中一般会稍微快
+   一点儿。对这两个类型来说，插入速度并不会随着键/值对数量而线性增加。`如果代码涉及大量插入操 作，那么显然 Map 的性能更佳。`
+3. 查找速度
+   与插入不同，从大型 Object 和 Map 中查找键/值对的性能差异极小，但如果只包含少量键/值对，
+   则 Object 有时候速度更快。在把 Object 当成数组使用的情况下（比如使用连续整数作为属性），浏
+   览器引擎可以进行优化，在内存中使用更高效的布局。这对 Map 来说是不可能的。对这两个类型而言，
+   查找速度不会随着键/值对数量增加而线性增加。`如果代码涉及大量查找操作，那么某些情况下可能选 择 Object 更好一些。`
+4. 删除性能
+   使用 delete 删除 Object 属性的性能一直以来饱受诟病，目前在很多浏览器中仍然如此。为此，
+   出现了一些伪删除对象属性的操作，包括把属性值设置为 undefined 或 null。但很多时候，这都是一
+   种讨厌的或不适宜的折中。而对大多数浏览器引擎来说，Map 的 delete()操作都比插入和查找更快。
+   `如果代码涉及大量删除操作，那么毫无疑问应该选择 Map。`
+5. 顺序
+   Map 会维护插入值的顺序 Object 会根据默认规则排序
 
 **419. Set 和 Map**
 
@@ -8177,4 +8234,33 @@ export default defineConfig({
     }),
   ],
 });
+```
+
+**449. vite import.met.env undefined**
+
+http://events.jianshu.io/p/4973bd983e96
+
+> There's a chicken-egg problem here: Vite expects to resolve .env files from project root, but project root can be made different by the config file. So if we resolve .env before resolving the config file, we can only resolve it from CWD, which would then break the case where the user puts .env files in a nested root specified via config. 摘自 Evan You 的回复
+
+必须以 VITE 开头
+
+```js
+// dotenv 需要单独npm install
+export default ({ mode }) => {
+  require('dotenv').config({ path: `./.env.${mode}` });
+  // now you can access config with process.env.{configName}
+  return defineConfig({
+      plugins: [vue()],
+      base:process.env.VITE_APP_NAME
+  })
+}
+
+// 第二种方式
+import { loadEnv } from 'vite'
+export default ({ mode }) => {
+  return defineConfig({
+          plugins: [vue()],
+          base:loadEnv(mode, process.cwd()).VITE_APP_NAME
+      })
+}
 ```
