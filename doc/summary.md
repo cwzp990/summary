@@ -8193,25 +8193,25 @@ export { COLOR_TYPE, tagColorList };
 - 有个坏处就是你全局加的如果有别的 scss 改动别的 scss element 的也会编译一次。
 
 ```js
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import { join } from "path";
-import AutoImport from "unplugin-auto-import/vite";
-import Components from "unplugin-vue-components/vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
-import { SCSS_DIR_PATH, PROGRAM_NAME } from "./src/assets/ts/config";
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import { join } from 'path';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import { SCSS_DIR_PATH, PROGRAM_NAME } from './src/assets/ts/config';
 
 function resolve(dir) {
   return join(__dirname, dir);
 }
 
 const elementPlusResolverInstance = ElementPlusResolver({
-  importStyle: "sass",
+  importStyle: 'sass',
 });
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "./",
+  base: './',
   css: {
     preprocessorOptions: {
       scss: {
@@ -8224,13 +8224,13 @@ export default defineConfig({
   plugins: [
     Components({
       resolvers: [elementPlusResolverInstance],
-      dts: "./src/components.d.ts",
+      dts: './src/components.d.ts',
     }),
 
     AutoImport({
       resolvers: [elementPlusResolverInstance],
 
-      dts: "./src/auto-imports.d.ts",
+      dts: './src/auto-imports.d.ts',
     }),
   ],
 });
@@ -8264,3 +8264,25 @@ export default ({ mode }) => {
       })
 }
 ```
+
+**451. ts 当返回两种类型时，如何使用不报错？**
+
+> 就是用户自定义的类型保护拉！
+
+```js
+function isTableItemType(data: TreeItemType | TableItem): data is TableItem {
+  return typeof (data as TableItem).scriptName === "string";
+}
+
+/**
+ * 获取脚本或者分类名称
+ */
+function getTreeItemName(isLeaf: boolean, data: TreeItemType | TableItem) {
+  if (isTableItemType(data)) {
+    console.log("是tableItem类型");
+  }
+  return isLeaf ? (data as TableItem).scriptName : (data as TreeItemType).name;
+}
+```
+
+- 如 type Content = 类型 1|类型 2，类型 1 类型 2 返回的类型不同 代码里使用 Content 就会导致两种返回值没法确定。。
