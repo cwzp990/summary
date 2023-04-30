@@ -8286,3 +8286,22 @@ function getTreeItemName(isLeaf: boolean, data: TreeItemType | TableItem) {
 ```
 
 - 如 type Content = 类型 1|类型 2，类型 1 类型 2 返回的类型不同 代码里使用 Content 就会导致两种返回值没法确定。。
+        
+**452. v-for 使用 v-model 要使用 index 的方式取值**
+
+**453. axios 与 application/x-www-form-urlencoded**
+
+使用 application/x-www-form-urlencoded 类型时 要使用 URLSearchParams()传参
+        
+因为 axios 会默认序列化 JavaScript 对象为 JSON
+        
+**454. element-plus 按需引入 Message 相关没样式**
+
+> https://blog.csdn.net/Delete_89x/article/details/126430049
+
+```js
+import "element-plus/theme-chalk/el-loading.css";
+import "element-plus/theme-chalk/el-message.css";
+import "element-plus/theme-chalk/el-notification.css";
+import "element-plus/theme-chalk/el-message-box.css";
+```
