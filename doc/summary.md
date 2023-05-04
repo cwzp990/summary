@@ -466,6 +466,7 @@ spreadJSON ({}, m, '')
 **28. Postcss-cli 的简单使用**
 
 - 今天把项目中的 css 单独使用 postcss 优化了一下
+
 1. npm i -g|-D postcss-cli 安装 postcss-cli
 
 2. npm i -g autoprefixer 安装插件
@@ -477,6 +478,7 @@ spreadJSON ({}, m, '')
 5. postcss ../../css/common.css -o ../../css/outcommon.css -u autoprefixer
 
 6. 然后你就拿到了加了兼容的新的 css 样式
+
 - 还有很多插件（现在貌似 200+）还没用到 有时间一起研究
 
 **29. IOS9 和低版本安卓 不支持 let！**
@@ -581,7 +583,7 @@ function saveDom(){
 - reflow 回流的成本开销要高于 repaint 重绘，一个节点的回流往往回导致子节点以及同级节点的回流；
 
 - **引起 reflow 回流**
-  
+
   1. 页面第一次渲染（初始化）
   2. DOM 树变化（如：增删节点）
   3. Render 树变化（如：padding 改变）
@@ -592,7 +594,7 @@ function saveDom(){
 - **引起 repaint 重绘** 1. reflow 回流必定引起 repaint 重绘，重绘可以单独触发 2. 背景色、颜色、字体改变（注意：字体大小发生变化时，会触发回流）
 
 - **优化方式**
-  
+
   1. 避免逐个修改节点样式，尽量一次性修改
   2. 使用 DocumentFragment 将需要多次修改的 DOM 元素缓存，最后一次性 append 到真实 DOM 中渲染
   3. 可以将需要多次修改的 DOM 元素设置 display: none，操作完再显示。（因为隐藏元素不在 render 树内，因此修改隐藏元素不会触发回流重绘）
@@ -1744,7 +1746,7 @@ axios({})
 ```
 
 - form 表单下载
-  
+
   > 参考 [隐藏 form 表单下载文件](https://blog.csdn.net/java_trainee/article/details/73647806)
 
 ```javascript
@@ -2270,7 +2272,7 @@ SolidGauge(Highcharts);
 ```
 
 - 终极版真正按需加载 懒加载
-  
+
   > 场景是滚动到某个距离 加载 echarts
 
 ```vue
@@ -2503,7 +2505,7 @@ VSCode Snippets VueHelper Ysgrifennwr Color Theme // 最爱的猪蹄
 - 如果按钮不是用 input，而是用 button，并且没有加 type，IE 下默认为 type=button，FX 默认为 type=submit。
 - 其他表单元素如 textarea、select 不影响，radio checkbox 不影响触发规则，但本身在 FX 下会响应回车键，在 IE 下不响应。
 - type=”image”的 input，效果等同于 type=”submit”，不知道为什么会设计这样一种 type，不推荐使用，应该用 CSS 添加背景图合适些
-- 
+-
 
 ```javascript
 // 我在一个form表单中  写了个没有type的button  当 inupt 按回车时  触发了这个button的click事件  把这个 button 声明为type=button就行了
@@ -2625,11 +2627,14 @@ export default class HelloWorld extends Vue {
 
 - 需求： 鼠标滚轮在百度地图上滚动时，页面不随之滚动
 - 问题：
+
 1. 最开始使用的是鼠标进入父元素（此处为`.content`）时，`.content`设置为`overflow:hidden`
 2. 鼠标离开`.content`时，`.content`设置为`overflow:auto`
 3. 这种做法能满足需求 但是会有抖动的问题
 4. 后来发现了一个更大的问题 快速在百度地图上滚动滚轮的后 再次让`.content`设置为`overflow:auto`，虽然滚动条还在，但是滚动失效了！！！
+
 - 解决方案
+
 1. 换了种思路 鼠标进入`.content`的时候，让`document`监听`mousewheel`和`DOMMouseScroll`事件 并阻止默认事件
 2. 鼠标移除`.content`的时候移除`mousewheel`和`DOMMouseScroll`的事件监听
 3. 很完美 不会有抖动的问题也不会无法滚动了
@@ -2679,9 +2684,11 @@ a == 1 && a == 2 && a == 3; // true
 ```
 
 - 原理
+
 1. 符合对象类型再喝基础值类型进行表达式操作时，会基于“场景”自动调用`toString`或是`valueOf`方法，以最为'恰当'的方式，自动完成表达式的计算
 
 2. 全等表达式会比较数据类型，符合对象类型不会进行隐式转换，即不执行`toString`或`valueOf`方法直接参与比较计算
+
 - 方法 2
 
 ```javascript
@@ -3258,9 +3265,9 @@ The Web Application Hacker's Handbook
 - 而 SSR 服务端渲染，就拿`Nuxt`来说，可以生成真正的静态页和伪静态页（在服务端生成或者你本地生成后传到服务端里），查看源码的时候，能看到生成的 DOM 结构，而不再仅仅是`index.html`里面的内容，而且 URL 不带#号等，所以利于 SEO 优化
 
 - 预渲染使用的原理类似于服务端渲染，生成真正的静态 html， 有个插件 叫做`PrerenderSpaPlugin` 可以做预渲染
-  
+
   > 摘自 https://segmentfault.com/q/1010000012069735
-  
+
   1. 预渲染在构建阶段就已经生成了匹配预渲染路径的 html 文件，你的每个路由都可以作为入口文件。
   2. 预渲染后其对应文件夹下都有一个 index.html，作为路口文件，之后在跳转走的是前端路由，并不再请求 html 文件。
   3. 首屏预渲染对还需要请求易变数据的页面不太合适，因为展示的 html 很可能是上次预渲染的 html，等到请求完毕返回数据后再展示最新的 html 会引起客户的误解和疑惑。
@@ -3827,7 +3834,7 @@ import("./toastify").then(module => {
 module.toast("Hello World");
 });
 
-```
+````
 2.
 ```javascript
 syncLoadEcharts () {
@@ -3846,7 +3853,7 @@ syncLoadEcharts () {
         )
     })
 },
-```
+````
 
 **152. 少用 ID,会增加全局变量**
 
@@ -3938,18 +3945,18 @@ if (/htkj001\.oss|rryn/.test(config.url)) {
 > (前端技术周刊 2018-12-24：移动无限加载)[https://segmentfault.com/a/1190000017893879]
 
 1. 滚动事件
-   
+
    - (移动 Web 的滚动)[http://www.alloyteam.com/2017/04/secrets-of-mobile-web-scroll-bars-and-drop-refresh/]
    - (高性能滚动及页面渲染优化)[http://web.jobbole.com/86158/]
    - (移动端滚动事件大起底)[https://github.com/merrier/mobile-scroll-events]
 
 2. 懒加载
-   
+
    - (Lazyload 三种实现方式)[https://zhuanlan.zhihu.com/p/25455672]
    - (懒加载和预加载)[https://www.jianshu.com/p/4876a4fe7731]
 
 3. 无限滚动
-   
+
    - (React 之无限滚动)[https://zhuanlan.zhihu.com/p/32075662]
    - (Vue.js 一个超长列表无限滚动加载的解决方案)[https://juejin.im/entry/5819993fbf22ec0068aab054]
    - (设计高性能无限滚动加载，了解高效页面秘密)[https://zhuanlan.zhihu.com/p/25767226]
@@ -7197,9 +7204,11 @@ export default {
 ```
 
 2. `package.json`打包 build 命令改为 ` "build": "vue-cli-service build --target lib --name cdssChart ./package/index.js"`
+
 - cdssChart 是 npm 包名
 
 - ./package/index.js 是打包入口
+
 3. 给 vue 页面添加一个 index.js 让页面暴露出去 在`src/views/statistic/`目录下
 
 ```JavaScript
@@ -8286,22 +8295,51 @@ function getTreeItemName(isLeaf: boolean, data: TreeItemType | TableItem) {
 ```
 
 - 如 type Content = 类型 1|类型 2，类型 1 类型 2 返回的类型不同 代码里使用 Content 就会导致两种返回值没法确定。。
-        
+
 **452. v-for 使用 v-model 要使用 index 的方式取值**
 
 **453. axios 与 application/x-www-form-urlencoded**
 
 使用 application/x-www-form-urlencoded 类型时 要使用 URLSearchParams()传参
-        
+
 因为 axios 会默认序列化 JavaScript 对象为 JSON
-        
+
 **454. element-plus 按需引入 Message 相关没样式**
 
 > https://blog.csdn.net/Delete_89x/article/details/126430049
 
 ```js
-import "element-plus/theme-chalk/el-loading.css";
-import "element-plus/theme-chalk/el-message.css";
-import "element-plus/theme-chalk/el-notification.css";
-import "element-plus/theme-chalk/el-message-box.css";
+import 'element-plus/theme-chalk/el-loading.css';
+import 'element-plus/theme-chalk/el-message.css';
+import 'element-plus/theme-chalk/el-notification.css';
+import 'element-plus/theme-chalk/el-message-box.css';
+```
+
+**455. last-of-type 可以设置同级含有不同元素的样式**
+
+**456. 当数据为固定数组时，利用 ts 生成枚举类型**
+
+```js
+/**
+ * 分页的带大小设置
+ */
+export const pageSizes = [10, 20, 30, 40] as const;
+
+/**
+ * pagination作为搜索项的类型
+ */
+export interface PaginationSearchParams {
+  // 10 | 20 | 30 | 40
+  pageSize: typeof pageSizes[number];
+}
+type ValueOf<T> = T[keyof T];
+
+const obj = {
+  1: "111",
+  2: "222",
+} as const;
+// 如果不加as const  labellist 是string
+
+type LabelList = ValueOf<typeof obj>; // '111' | '222'
+type ValueList = keyof typeof obj; // 1 | 2
 ```
