@@ -8396,3 +8396,15 @@ const tag2Component: ComputedRef<{ [x: number]: typeof ComponentColumn }> =
     };
   });
 ```
+
+**460. flex 布局为什么 flex:1 宽度不一致**
+
+> 【转载】flex:1 不等分的问题
+
+因为 依照 flex 的自动调整计算规范是不包含 padding 的。w3 规范这里的部分提到 flexItem 的可用空间要减去 margin、border、padding。所以想要均分的话，需要套个 margin、border、padding 一样的 div。
+
+**461. flex 布局当宽度不固定时，文字如何溢出隐藏？**
+
+[flex文字溢出]: https://blog.csdn.net/qq_31150171/article/details/122461592
+
+父元素 width:0 即可,要设置溢出...的元素不能再是 flex 布局了
