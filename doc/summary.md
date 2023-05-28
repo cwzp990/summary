@@ -8408,3 +8408,11 @@ const tag2Component: ComputedRef<{ [x: number]: typeof ComponentColumn }> =
 [flex文字溢出]: https://blog.csdn.net/qq_31150171/article/details/122461592
 
 父元素 width:0 即可,要设置溢出...的元素不能再是 flex 布局了
+
+**452. ts 将对象里的类型变为|null**
+
+```js
+type WithNull<T extends object> = {
+  [P in keyof T]: T[P] | null;
+};
+```
