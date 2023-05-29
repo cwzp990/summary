@@ -8409,10 +8409,24 @@ const tag2Component: ComputedRef<{ [x: number]: typeof ComponentColumn }> =
 
 父元素 width:0 即可,要设置溢出...的元素不能再是 flex 布局了
 
-**452. ts 将对象里的类型变为|null**
+**462. ts 将对象里的类型变为|null**
 
 ```js
 type WithNull<T extends object> = {
   [P in keyof T]: T[P] | null;
 };
+```
+
+**463. vue 的动画 xx-leave-active**
+
+> 在这个 class 中添加 position:absolute 和具体的位置样式可以避免抖动
+
+**464. backdrop-filter**
+
+属性可以让你为一个元素后面区域添加图形效果（如模糊或颜色偏移）。因为它适用于元素背后的所有元素，为了看到效果，必须使元素或其背景至少部分透明。
+
+```js
+background-image: radial-gradient(transparent 1px, var(--bg-color) 1px);
+background-size: 4px 4px;
+backdrop-filter: saturate(50%) blur(4px);
 ```
