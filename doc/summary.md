@@ -8430,3 +8430,98 @@ background-image: radial-gradient(transparent 1px, var(--bg-color) 1px);
 background-size: 4px 4px;
 backdrop-filter: saturate(50%) blur(4px);
 ```
+
+**465. vue3 createApp 创建动态组件**
+
+> 如果你的 createapp 用 template 方式渲染 打包后就不渲染了 要么 render 要么这种引入组件进来
+
+```js
+import { App, createApp } from "vue";
+import { Dialog, Button } from "@components/index";
+import { MODAL_WIDTH } from "@/assets/ts/modal";
+
+export enum REJECT_TYPE {
+  CANCEL = "cancel",
+  CLOSE = "close",
+}
+
+export default function useCancelYesNoMsgBox() {
+  let instance: any;
+  let app: App<Element>;
+  const root = document.createElement("div");
+
+  function init(content: string) {
+    return new Promise((resolve, reject) => {
+      app = createApp({
+        // template: 'template不能用 开发环境好的 但是打包后就不渲染了',
+        // render函数可以渲染
+        // render(){}
+        components: {
+          Dialog,
+          Button,
+        },
+        setup(props, ctx) {
+          const visible = ref(true);
+
+          return {
+            content,
+            visible,
+            MODAL_WIDTH,
+            handleConfirm() {
+              visible.value = false;
+              resolve("");
+              destory();
+            },
+            handleCancel() {
+              visible.value = false;
+              reject(REJECT_TYPE.CANCEL);
+              destory();
+            },
+            handleCloseDialog() {
+              visible.value = false;
+              reject(REJECT_TYPE.CLOSE);
+              destory();
+            },
+          };
+        },
+      });
+      // 推荐使用这种方式 CancelYesNoMsgDialog就是单文件vue组件
+      // 后面一个参数是传递给这个组件的props
+      app = createApp(CancelYesNoMsgDialog, {
+        content,
+        onClose() {
+          reject(REJECT_TYPE.CLOSE);
+          destory();
+        },
+        onConfirm() {
+          resolve("");
+          destory();
+        },
+        onCancel() {
+          reject(REJECT_TYPE.CANCEL);
+          destory();
+        },
+      });
+
+      const body = document.body || document.getElementsByTagName("body")[0];
+      instance = app.mount(root);
+      body.appendChild(instance.$el);
+    });
+  }
+
+  function destory() {
+    setTimeout(() => {
+      if (instance && app) {
+        // console.log(instance.$el, "--", root, app);
+        app.unmount();
+        instance = null;
+      }
+    }, 300);
+  }
+
+  return {
+    init,
+    destory,
+  };
+}
+```
