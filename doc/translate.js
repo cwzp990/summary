@@ -1,70 +1,80 @@
-const path = require('path')
-const fs = require('fs')
-const readline = require('readline')
+const path = require("path");
+const fs = require("fs");
+const readline = require("readline");
 
-const pathPublic = path.join(__dirname, '/src')
+const pathPublic = path.join(__dirname, "/src");
 
-function getFiles (dir, all) {
-  all = all || []
-  let files = fs.readdirSync(dir)
-  files.forEach(file => {
-    const filePath = path.join(dir, file)
-    const star = fs.statSync(filePath)
+function getFiles(dir, all) {
+  all = all || [];
+  let files = fs.readdirSync(dir);
+  files.forEach((file) => {
+    const filePath = path.join(dir, file);
+    const star = fs.statSync(filePath);
     if (star.isDirectory()) {
-      getFiles(filePath, all)
+      getFiles(filePath, all);
     } else {
-      all.push(filePath)
+      all.push(filePath);
     }
-  })
-  return all
+  });
+  return all;
 }
 
-function findChinese (filePath) {
-  const extname = path.extname(filePath)
-  if (extname === '.html') {
+function findChinese(filePath) {
+  const extname = path.extname(filePath);
+  if (extname === ".html") {
     // do somethings
-    readFile(filePath)
+    readFile(filePath);
   }
-  if (extname === '.js' || extname === '.ts') {
+  if (extname === ".js" || extname === ".ts") {
     // do somethings
   }
-  if (extname === '.vue') {
+  if (extname === ".vue") {
     // do somethings
   }
 }
 
-function readFile (filePath, cb) {
+function readFile(filePath, cb) {
   // 逐行读取汉字
   const rl = readline.createInterface({
     input: fs.createReadStream(filePath),
-    crlfDelay: Infinity
-  })
-  rl.on('line', line => {
+    crlfDelay: Infinity,
+  });
+  rl.on("line", (line) => {
     // do somethins
-    cb && cb(line)
-  })
+    cb && cb(line);
+  });
 }
 
-function isChineseChar (str) {
+function isChineseChar(str) {}
 
-}
-
-function createFiles (filePath) {
+function createFiles(filePath) {
   // 先读取后写入
-  const zhPath = path.join(__dirname, '/src/lang/zh.js')
-  fs.readFile(zhPath, 'utf8', (err, data) => {
-    if (err) throw err
-
-  })
-  fs.writeFile(filePath, data, 'utf8', err => {
-    if (err) throw err
-  })
+  const zhPath = path.join(__dirname, "/src/lang/zh.js");
+  fs.readFile(zhPath, "utf8", (err, data) => {
+    if (err) throw err;
+  });
+  fs.writeFile(filePath, data, "utf8", (err) => {
+    if (err) throw err;
+  });
 }
 
 // 获取文件路径
-let allPath = getFiles(pathPublic)
+let allPath = getFiles(pathPublic);
 
 // 根据路径查找汉字
-allPath.forEach(path => {
-  findChinese(path)
-})
+allPath.forEach((path) => {
+  findChinese(path);
+});
+
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    console.log("wicresoft");
+    resolve("success");
+  }, 1000);
+});
+promise.then((res) => {
+  console.log(res);
+});
+promise.then((res) => {
+  console.log(res);
+});
