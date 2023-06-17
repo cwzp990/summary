@@ -8638,3 +8638,40 @@ const build: BuildOptions = {
 
 export default build;
 ```
+
+**458. vite 因为 AutoImport 点击页面重新渲染问题解决**
+
+```js
+import fs from "fs";
+import { DepOptimizationOptions } from "vite";
+
+/**
+ * 强制预构建 避免每次进路由时重新加载
+ * 首次加载会变慢
+ * 如果你进入路由发现页面重新加载了 看下控制台是因为什么加载的  new dependencies optimized: xxx
+ * 然后把xxx放到这里来就能强制预构建 避免这个问题了
+ */
+const optimizeDepKeys: string[] = ["keyboardjs", "vue-json-viewer"];
+/**
+ * 强制与构建element的组件
+ * 因为饿了么的组件按需加载 会导致进入某个路由页面重新加载
+ */
+fs.readdirSync("node_modules/element-plus/es/components").forEach((dirname) => {
+  fs.access(
+    `node_modules/element-plus/es/components/${dirname}/style/css.mjs`,
+    (err) => {
+      if (!err) {
+        optimizeDepKeys.push(
+          `element-plus/es/components/${dirname}/style/index`
+        );
+      }
+    }
+  );
+});
+
+const optimizeDeps: DepOptimizationOptions = {
+  include: optimizeDepKeys,
+};
+
+export default optimizeDeps;
+```
