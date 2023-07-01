@@ -8639,7 +8639,7 @@ const build: BuildOptions = {
 export default build;
 ```
 
-**458. vite 因为 AutoImport 点击页面重新渲染问题解决**
+**468. vite 因为 AutoImport 点击页面重新渲染问题解决**
 
 ```js
 import fs from "fs";
@@ -8676,7 +8676,7 @@ const optimizeDeps: DepOptimizationOptions = {
 export default optimizeDeps;
 ```
 
-**459. ts 泛型报不存在 xxx 属性时**
+**469. ts 泛型报不存在 xxx 属性时**
 
 ```js
 type TData = {
@@ -8689,7 +8689,7 @@ type TData = {
 export default function useTypeTreeSearchAll<T extends TData, K>({});
 ```
 
-**460. monacoEditor 打包后没有右键粘贴**
+**470. monacoEditor 打包后没有右键粘贴**
 
 [node-red/node-red-nodes#946]: https://github.com/node-red/node-red-nodes/issues/946
 
@@ -8698,3 +8698,13 @@ export default function useTypeTreeSearchAll<T extends TData, K>({});
 **461. vue 多根节点如果频繁 v-if 切换 在生产会报 insertbefore null 的错误**
 
 > 可以改成 v-show
+
+**471. macos pyenv 设置无效**
+
+```js
+// 安装后进入~ ./zshrc设置环境变量即可
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+```
