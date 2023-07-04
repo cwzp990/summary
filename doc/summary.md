@@ -8758,3 +8758,9 @@ module.exports = {
   // ...
 };
 ```
+
+**474. REMOTE HOST IDENTIFICATION HAS CHANGED!**
+
+- 命令行 ssh-keygen -R github.com 之后就行了
+
+- 意思大概是.ssh/known_hosts 下的 Host key 不匹配造成的，事实上很多时候会出现这个问题，先来了解一下 known_hosts 记录的是什么？ 每次使用 SSH 连接远端服务器，SSH 会把你每个你访问过计算机的公钥 public key 都记录在~/.ssh/known_hosts。当下次访问相同计算机时，OpenSSH 会核对公钥。如果公钥不同，OpenSSH 会发出警告， 避免你受到 DNS Hijack，man-in-the-middle attack 之类的攻击。
