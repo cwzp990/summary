@@ -8809,3 +8809,15 @@ module.exports = {
 - 在当前设备登录自己的微信 然后授权跳到自己的微信上就行了
 
 - 不要使用扫码的方式
+
+**479. TS 重写 Window**
+
+```js
+interface MyWindow extends Window {
+  _webAnalyst: {
+    queueName: string,
+    l?: number,
+  };
+  _wa: WaFuc;
+}
+```
