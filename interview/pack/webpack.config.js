@@ -8,6 +8,8 @@ module.exports = {
     entryB: path.resolve(__dirname, "src/entryB.js"),
   },
 
+  context: process.cwd(),
+
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",

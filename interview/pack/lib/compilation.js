@@ -1,14 +1,31 @@
-const fs = require("fs");
+const fs = require("fs-extra");
 const path = require("path");
+const parser = require("@babel/parser");
 
 class Compilation {
+  constructor(compiler) {
+    this.compiler = compiler;
+    this.context = compiler.context;
+    this.options = compiler.options;
+
+    this.moduleCode = null;
+    // 缓存所有依赖模块对象
+    this.modules = new Set();
+    // 缓存所有入口模块对象
+    this.entries = new Map();
+    // 所有代码块对象
+    this.chunks = new Set();
+    // 缓存本次产出的文件对象
+    this.assets = {};
+  }
+
   build() {
     // 读取配置入口
     const entry = this.getEntry();
 
     // 构建入口模块
     Object.keys(entry).forEach((entryName) => {
-      const entryPath = entry[entryName];
+      const entryPath = entry[entryName]; // 入口文件路径
 
       const entryData = this.buildModule(entryName, entryPath);
 
@@ -84,7 +101,7 @@ class Compilation {
       entryPoint: [moduleName], // 该模块所属的入口文件
     };
 
-    const ast = parse.parse(this.moduleCode, {
+    const ast = parser.parse(this.moduleCode, {
       sourceType: "module",
     });
 
