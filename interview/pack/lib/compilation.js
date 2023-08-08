@@ -108,9 +108,37 @@ class Compilation {
     traverse(ast, {
       CallExpression: (nodePath) => {
         const node = nodePath.node;
-
         if (node.callee.name === "require") {
           const requirePath = node.arguments[0].value;
+          // 寻找模块绝对路径
+          const moduleDirName = path.posix.dirname(modulePath);
+          const absolutePath = tryExtensions(
+            path.posix.join(moduleDirName, requirePath),
+            this.options.resolve.extensions,
+            requirePath,
+            moduleDirName
+          );
+          // 创建 moduleId
+          const moduleId =
+            "./" + path.posix.relative(this.context, absolutePath);
+          // 将 require 变成 __webpack_require__ 语句
+          node.callee = t.identifier("__webpack_require__");
+          // 修改模块路径（参考 this.context 的相对路径）
+          node.arguments = [t.stringLiteral(moduleId)];
+
+          if (
+            !Array.from(this.modules).find((module) => module.id === moduleId)
+          ) {
+            // 在模块的依赖集合中记录子依赖
+            module.dependencies.add(moduleId);
+          } else {
+            // 已经存在模块集合中。虽然不添加进入模块编译 但是仍要在这个模块上记录被依赖的入口模块
+            this.modules.forEach((module) => {
+              if (module.id === moduleId) {
+                module.entryPoint.push(moduleName);
+              }
+            });
+          }
         }
       },
     });
