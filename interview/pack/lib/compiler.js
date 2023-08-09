@@ -1,5 +1,3 @@
-const fs = require("fs-extra");
-const path = require("path");
 const { SyncHook } = require("tapable");
 const Compilation = require("./compilation");
 
@@ -28,6 +26,9 @@ class Compiler {
 
     // 编译模块
     compilation.build();
+
+    // 生成产物
+    compilation.seal();
   }
 
   emit(compilation, cb) {}

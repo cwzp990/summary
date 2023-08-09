@@ -1,6 +1,11 @@
 const fs = require("fs-extra");
 const path = require("path");
 const parser = require("@babel/parser");
+const t = require("@babel/types");
+const traverse = require("@babel/traverse").default;
+const generate = require("@babel/generator").default;
+
+const { tryExtensions, getSourceCode } = require("../utils");
 
 class Compilation {
   constructor(compiler) {
@@ -31,6 +36,34 @@ class Compilation {
 
       this.entries.set(entryName, entryData);
     });
+  }
+
+  seal () {
+    this.entries.forEach((entryName, entryData) => {
+      this.createChunk(entryName, entryData);
+    })
+
+    this.createAssets();
+  }
+
+  createChunk(entryName, entryData) {
+    const chunk = {
+      name: entryName, // 每一个入口文件为一个chunk
+      entryModule: entryData, // entry build后的数据信息
+      modules: Array.from(this.modules).filter((module) => module.entryPoint.includes(entryName)), // 当前chunk所依赖的模块
+    }
+
+    this.chunks.add(chunk);
+  }
+
+  createAssets() {
+    const output = this.options.output;
+
+    // 根据chunk生成assets
+    this.chunks.forEach((chunk) => {
+      const parseFileName = output.filename.replace("[name]", chunk.name);
+      this.assets[parseFileName] = getSourceCode(chunk);
+    })
   }
 
   getEntry() {
@@ -142,6 +175,17 @@ class Compilation {
         }
       },
     });
+
+    const { code } = generate(ast);
+    module._source = code;
+
+    // 递归构建依赖模块
+    module.dependencies.forEach((dependency) => {
+      const depModule = this.buildModule(moduleName, dependency);
+      this.modules.add(depModule);
+    })
+
+    return module;
   }
 }
 
