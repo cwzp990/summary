@@ -39,7 +39,7 @@ class Compilation {
   }
 
   seal () {
-    this.entries.forEach((entryName, entryData) => {
+    this.entries.forEach((entryData, entryName) => {
       this.createChunk(entryName, entryData);
     })
 

@@ -1,5 +1,7 @@
 const { SyncHook } = require("tapable");
 const Compilation = require("./compilation");
+const fs = require("fs-extra");
+const path = require("path");
 
 class Compiler {
   constructor(options) {
@@ -29,9 +31,42 @@ class Compiler {
 
     // 生成产物
     compilation.seal();
+
+    // 输出产物
+    this.emitAssets(compilation, cb)
   }
 
   emit(compilation, cb) {}
+
+  emitAssets(compilation, cb) {
+    const { entries, modules, chunks, assets } = compilation
+    const output = this.options.output
+
+    this.hooks.emit.call()
+
+    if (!fs.existsSync(output.path)) {
+      fs.mkdirSync(output.path)
+    }
+
+    // 将assets内容写入文件系统中
+    Object.keys(assets).forEach(filename => {
+      const filepath = path.join(output.path, filename)
+      const content = assets[filename]
+
+      fs.writeFileSync(filepath, content, 'utf-8')
+    })
+
+    this.hooks.done.call()
+
+    cb && cb(null, {
+      toJSON: () => {
+        entries,
+        modules,
+        chunks,
+        assets
+      }
+    })
+  }
 }
 
 module.exports = Compiler;
