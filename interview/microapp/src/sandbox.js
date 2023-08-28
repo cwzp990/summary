@@ -1,3 +1,13 @@
+import { EventCenterForMicroApp } from "./data";
+
+// 记录addEventListener、removeEventListener原生方法
+const rawWindowAddEventListener = window.addEventListener;
+const rawWindowRemoveEventListener = window.removeEventListener;
+
+/**
+ * 重写全局事件的监听和解绑
+ * @param microWindow 原型对象
+ */
 function effect(microWindow) {
   // 使用Map记录全局事件
   const eventListenerMap = new Map();
