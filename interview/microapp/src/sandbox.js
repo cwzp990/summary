@@ -1,4 +1,4 @@
-import { EventCenterForMicroApp } from "./data";
+import { EventCenterForMicroApp } from "./eventbus";
 
 // 记录addEventListener、removeEventListener原生方法
 const rawWindowAddEventListener = window.addEventListener;
