@@ -8922,3 +8922,22 @@ const num = parseFloat('1.2');
 const num = 1.2 >>> 0;
 const num = '1.2' >>> 0;
 ```
+
+**482. SEO 优化**
+
+- 最好用 ssr 框架，比如 react 的 next，或者 vue 的 nuxt（废话）
+
+- HTML 标签语义化，在适当的位置使用适当的标签
+
+- a 标签都记得设置链接，并且要加上 title 属性加以说明
+
+- img 标签都记得加 alt 属性
+
+- 谨慎使用 display: none，因为搜索引擎会过滤掉 display: none 中的内容
+
+- meta 信息包含 title、keywords、description，有的页面需要单独定制，有的需要通用
+
+- 页面在 html 标签上加 lang="zh-CN"属性，表明文档的语言
+
+- 每个页面最好都要有且仅有一个 h1 标题，尤其是不需要登录的页面（若不喜欢 h1 的默认样式可通过 CSS 设置
+- 
