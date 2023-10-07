@@ -400,3 +400,14 @@ output: {
 8. cross-spawn 执行 shell 命令 process.exit(1);退出
 
 9. github 提供获取模版信息以及版本信息的 api 接口
+
+## css
+
+flex 属性是 flex-grow， flex-shrink 和 flex-basis 的简写，默认值为 0 1 auto。 flex:1 表示 flex: 1 1 0%。
+
+•第一个参数表示：flex-grow 定义项目的放大比例，默认为 0，即如果存在剩余空间，也不放大;
+
+•第二个参数表示：flex-shrink 定义了项目的缩小比例，默认为 1，即如果空问不足，该项目将缩小;
+
+• 第三个参数表示：flex-basis 给上面两个属性分配多余空间之前，计算项目是否有多余空间，默认值为 auto,即
+项目本身的大小。
