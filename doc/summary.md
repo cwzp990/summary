@@ -8916,11 +8916,11 @@ console.log(JSON.stringify(ans) === JSON.stringify(result)); // true
 ```js
 // 不推荐
 const num = parseFloat(1.2);
-const num = parseFloat('1.2');
+const num = parseFloat("1.2");
 
 // 推荐
 const num = 1.2 >>> 0;
-const num = '1.2' >>> 0;
+const num = "1.2" >>> 0;
 ```
 
 **482. SEO 优化**
@@ -8941,3 +8941,24 @@ const num = '1.2' >>> 0;
 
 - 每个页面最好都要有且仅有一个 h1 标题，尤其是不需要登录的页面（若不喜欢 h1 的默认样式可通过 CSS 设置
 
+**483. 判断一个对象是普通对象还是通过类创建的**
+
+```js
+const isPlainObject = (obj: any): boolean => {
+  if (typeof obj !== "object" || obj === null) {
+    return false;
+  }
+
+  let proto = Object.getPrototypeOf(obj);
+  if (proto === null) {
+    return true;
+  }
+
+  let baseProto = proto;
+  while (Object.getPrototypeOf(baseProto) !== null) {
+    baseProto = Object.getPrototypeOf(baseProto);
+  }
+
+  return proto === baseProto;
+};
+```
