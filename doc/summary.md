@@ -9004,3 +9004,19 @@ const isMobile = () => {
   return mobile || android || ios || document.body.clientWidth < 750;
 };
 ```
+
+**486. 判断页面是否在 iframe 框架里**
+
+```js
+const isInIframe = (): boolean => {
+  try {
+    return (
+      self !== top ||
+      self.frameElement?.tagName === "IFRAME" ||
+      window.frames.length !== parent.frames.length
+    );
+  } catch {
+    return true;
+  }
+};
+```
