@@ -9020,3 +9020,19 @@ const isInIframe = (): boolean => {
   }
 };
 ```
+
+**487. 实现一个 compose 函数**
+
+```js
+const compose = (...funcs) => {
+  if (funcs.length === 0) {
+    return (arg) => arg;
+  }
+  if (funcs.length === 1) {
+    return funcs[0];
+  }
+  return funcs.reduce((a, b) => {
+    return (...args) => a(b(...args));
+  });
+};
+```
