@@ -9007,6 +9007,8 @@ const isMobile = () => {
 
 **486. 判断页面是否在 iframe 框架里**
 
+> 目前有很多第三方库可以解决这些问题，还支持了大数运算，并且修复了原生 toFixed 结果不准确的问题，比如 bignumber.js、decimal.js、以及 big.js 等。代码仅供参考，不能用于生产环境！
+
 ```js
 const isInIframe = (): boolean => {
   try {
@@ -9035,4 +9037,78 @@ const compose = (...funcs) => {
     return (...args) => a(b(...args));
   });
 };
+```
+
+**488. 数字精度问题**
+
+```js
+// 加
+function add(arg1, arg2) {
+  let digits1, digits2, maxDigits;
+  try {
+    digits1 = arg1.toString().split(".")[1].length || 0;
+  } catch {
+    digits1 = 0;
+  }
+  try {
+    digits2 = arg2.toString().split(".")[1].length || 0;
+  } catch {
+    digits2 = 0;
+  }
+  maxDigits = 10 ** Math.max(digits1, digits2);
+  return (mul(arg1, maxDigits) + mul(arg2, maxDigits)) / maxDigits;
+}
+
+// 减
+function sub(arg1, arg2) {
+  let digits1, digits2, maxDigits;
+  try {
+    digits1 = arg1.toString().split(".")[1].length || 0;
+  } catch {
+    digits1 = 0;
+  }
+  try {
+    digits2 = arg2.toString().split(".")[1].length || 0;
+  } catch {
+    digits2 = 0;
+  }
+  maxDigits = 10 ** Math.max(digits1, digits2);
+  return (mul(arg1, maxDigits) - mul(arg2, maxDigits)) / maxDigits;
+}
+
+// 乘
+function mul(arg1, arg2) {
+  let digits = 0;
+  const s1 = arg1.toString();
+  const s2 = arg2.toString();
+  try {
+    digits += s1.split(".")[1].length;
+  } catch {}
+  try {
+    digits += s2.split(".")[1].length;
+  } catch {}
+  return (
+    (Number(s1.replace(/\./, "")) * Number(s2.replace(/\./, ""))) / 10 ** digits
+  );
+}
+
+function div(arg1, arg2) {
+  let int1 = 0;
+  let int2 = 0;
+  let digits1;
+  let digits2;
+  try {
+    digits1 = arg1.toString().split(".")[1].length || 0;
+  } catch (e) {
+    digits1 = 0;
+  }
+  try {
+    digits2 = arg2.toString().split(".")[1].length || 0;
+  } catch (e) {
+    digits2 = 0;
+  }
+  int1 = Number(arg1.toString().replace(/\./, ""));
+  int2 = Number(arg2.toString().replace(/\./, ""));
+  return ((int1 / int2) * 10) ** (digits2 - digits1 || 1);
+}
 ```
