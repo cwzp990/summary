@@ -9112,3 +9112,43 @@ function div(arg1, arg2) {
   return ((int1 / int2) * 10) ** (digits2 - digits1 || 1);
 }
 ```
+
+**489. 垂直居中 textarea**
+
+> 不能通过 css 来实现输入的垂直居中，通过动态调整 paddingTop 来偏移文本内容。需要注意的是，多行的时候，需要计算行数，可以通过 set Height 0，然后滚动高度就是输入文字的总高度，算完之后把高度复原，行数 = 文字总高度 / 行高。所以，设置行高很重要，默认是 normal，normal 是字符串，没办法计算的，所以自己手动设一个 lineheight 吧
+
+```js
+<textarea id="text"></textarea>
+textarea {
+  width: 200px;
+  height: 200px;
+  padding: 0;
+  margin: 0;
+  line-height: 1.2;
+  text-align: center;
+  border: 1px solid black;
+  box-sizing: border-box;
+  word-break: break-all;
+  resize: none;
+}
+// 获取行数，注意需要先把paddingtop置0，不然scrollHeight会把padding算进去
+function getLinesCount(textEle, lineHeight) {
+  textEle.style.paddingTop = 0;
+  const h0 = textEle.style.height;
+  textEle.style.height = 0;
+  const h1 = textEle.scrollHeight;
+  textEle.style.height = h0;
+  return Math.floor(h1 / lineHeight);
+}
+
+function update() {
+  const textArea = document.querySelector('#text');
+  const lineHeight = Number(window.getComputedStyle(textArea).lineHeight.slice(0, -2));
+  const h = textArea.getBoundingClientRect().height;
+  const lines = getLinesCount(textArea, lineHeight);
+  const top = h / 2 - (lineHeight * lines) / 2;
+  textArea.style.paddingTop = `${top}px`;
+}
+
+window.onload = update;
+```
