@@ -9170,3 +9170,36 @@ window.onload = update;
 - type 无法被实现 implements，而接口可以被派生类实现
 
 - type 重名会抛出错误，interface 重名会产生合并
+
+**491. 手写 getQueryString**
+
+```js
+const src = "https://www.baidu.com/?id=123&name=aaa&phone=12345";
+
+const getQueryString = (url) => {
+  if (!url.includes("?")) {
+    return null;
+  }
+  const [, search] = url.split("?");
+  const obj = {};
+  search.split("&").forEach((item) => {
+    if (item.includes("=")) {
+      const [key, val] = item.split("=");
+      Reflect.set(obj, key, val);
+    }
+  });
+  return obj;
+};
+
+const getQueryString2 = (url: string) => {
+  if (!url.includes("?")) {
+    return null;
+  }
+  const ans = {};
+  url.replace(/([^?&=]+)=([^&]+)/g, (_, k, v) => (ans[k] = v));
+  return ans;
+};
+
+getQueryString(src);
+// { id: "123", name: "aaa", phone: "12345" }
+```
