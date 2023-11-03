@@ -9203,3 +9203,16 @@ const getQueryString2 = (url: string) => {
 getQueryString(src);
 // { id: "123", name: "aaa", phone: "12345" }
 ```
+
+**22. 手写 Array.flat(Infinity)**
+
+```js
+const isArray = Array.isArray;
+
+const flatDeep = arr => {
+  return arr.reduce((acc, val) => acc.concat(isArray(val) ? flatDeep(val) : val), []);
+};
+
+flatDeep([1, 2, [3, [4, [5, 6]]]]);
+// [1, 2, 3, 4, 5, 6]
+```
