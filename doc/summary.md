@@ -9268,3 +9268,31 @@ const isValid2 = (s: string): boolean => {
   return stack.length === 0;
 };
 ```
+
+**495. 图片加载失败处理方式**
+
+> 图片为空很容易判断：
+
+```js
+<img src={imgSrc || defaultSrc} />
+```
+
+> 图片加载失败，使用图片自带的 error 事件处理即可：
+
+```js
+<img
+  src={imgSrc}
+  onError={event => {
+    event.currentTarget.src = defaultSrc;
+  }}
+/>
+```
+
+> 注意有些加载 404 的图片不会走error 事件，而是走了load事件，那么我们可以通过直接添加一个占位底图来实现，这样如果能加载就会覆盖占位图，如果不能加载那就会显示底下的底图
+
+```js
+<div>
+  <img src={imgSrc} />
+  <img src={defaultSrc} />
+</div>
+```
