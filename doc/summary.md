@@ -9209,8 +9209,11 @@ getQueryString(src);
 ```js
 const isArray = Array.isArray;
 
-const flatDeep = arr => {
-  return arr.reduce((acc, val) => acc.concat(isArray(val) ? flatDeep(val) : val), []);
+const flatDeep = (arr) => {
+  return arr.reduce(
+    (acc, val) => acc.concat(isArray(val) ? flatDeep(val) : val),
+    []
+  );
 };
 
 flatDeep([1, 2, [3, [4, [5, 6]]]]);
@@ -9282,17 +9285,45 @@ const isValid2 = (s: string): boolean => {
 ```js
 <img
   src={imgSrc}
-  onError={event => {
+  onError={(event) => {
     event.currentTarget.src = defaultSrc;
   }}
 />
 ```
 
-> 注意有些加载 404 的图片不会走error 事件，而是走了load事件，那么我们可以通过直接添加一个占位底图来实现，这样如果能加载就会覆盖占位图，如果不能加载那就会显示底下的底图
+> 注意有些加载 404 的图片不会走 error 事件，而是走了 load 事件，那么我们可以通过直接添加一个占位底图来实现，这样如果能加载就会覆盖占位图，如果不能加载那就会显示底下的底图
 
 ```js
 <div>
   <img src={imgSrc} />
   <img src={defaultSrc} />
 </div>
+```
+
+**494. 判断对象中是否存在某个属性的三种方法**
+
+```js
+1. hasOwnProperty()
+
+// hasOwnProperty方法会返回一个布尔值，指示对象自身属性中是否具有指定的属性（不包含原型上的属性）：
+
+({ a: 1 }).hasOwnProperty('a'); // true
+
+({ a: 1 }).hasOwnProperty('toString'); // false
+
+2. in 操作符
+
+// in 操作符会返回一个布尔值，指示对象自身属性中是否具有指定的属性（包含原型上的属性）：
+
+'a' in { a: 1 }; // true
+
+'toString' in { a: 1 }; // true
+
+3. Reflect.has()
+
+// Reflect.has作用与in 操作符相同：
+
+Reflect.has({ a: 1 }, 'a'); // true
+
+Reflect.has({ a: 1 }, 'toString'); // true
 ```
