@@ -9327,3 +9327,49 @@ Reflect.has({ a: 1 }, 'a'); // true
 
 Reflect.has({ a: 1 }, 'toString'); // true
 ```
+
+**495. 实现深拷贝**
+
+1. 简易版
+
+这个方法有些缺点，懂的都懂，不再废话了
+
+```js
+const newData = JSON.parse(JSON.stringify(data));
+```
+
+2. 加强版
+
+```js
+const deepClone = obj => {
+  const ans = Array.isArray(obj) ? [] : {};
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      ans[key] = obj[key] && typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key];
+    }
+  }
+  return ans;
+};
+
+const newData = deepClone(data);
+```
+
+3. 非主流版
+
+structuredClone：原生 js 的深拷贝，因为是新出的，所以兼容差的要死，不建议使用
+
+```js
+const newData = structuredClone(data);
+```
+
+目前只有浏览器可以用，node 环境还不支持，并且只有最新几个版本的浏览器才能用
+
+对了，而且这个方法不能拷贝函数，遇到函数会直接报错
+
+4. 终极版
+
+```js
+import { cloneDeep } from 'lodash';
+
+const newData = cloneDeep(data);
+```
