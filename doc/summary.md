@@ -9373,3 +9373,42 @@ import { cloneDeep } from 'lodash';
 
 const newData = cloneDeep(data);
 ```
+
+**496. 让指定方法最多只能被调用 1 次**
+
+```js
+/**
+ * @param n 最多调用次数
+ * @param func 回调函数
+ */
+function before(n, func) {
+  if (typeof n !== 'number') {
+    throw new TypeError('Expected a number');
+  }
+  if (typeof func !== 'function') {
+    throw new TypeError('Expected a function');
+  }
+  let result;
+  return function (...args) {
+    if (--n >= 0) {
+      result = func.apply(this, args);
+    }
+    if (n < 0) {
+      func = null;
+    }
+    return result;
+  };
+}
+
+function once(func) {
+  return before(1, func);
+}
+
+// 使用：
+
+const initialize = once(doSomething);
+
+initialize(); // 只有第一次有效
+initialize(); // 无效
+initialize(); // 无效
+```
