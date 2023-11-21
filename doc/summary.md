@@ -9412,3 +9412,48 @@ initialize(); // 只有第一次有效
 initialize(); // 无效
 initialize(); // 无效
 ```
+
+**497. 判断是否为原生函数**
+
+> lodash 源码中是这样实现的：
+
+```js
+const reIsNative = RegExp(
+  `^${Function.prototype.toString
+    .call(Object.prototype.hasOwnProperty)
+    .replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
+    .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?')}$`
+);
+
+const isObject = value => {
+  return value && ['object', 'function'].includes(typeof value);
+};
+
+const isNative = value => {
+  return isObject(value) && reIsNative.test(value);
+};
+
+// 使用：
+isNative([].push); // true
+isNative(myFunction); // false
+```
+
+> vue 源码中是这样实现的：
+
+```js
+const reIsNative = /native code/;
+
+const isObject = value => {
+  return value && ['object', 'function'].includes(typeof value);
+};
+
+const isNative = value => {
+  return isObject(value) && reIsNative.test(value.toString());
+};
+
+// 使用：
+isNative([].push); // true
+isNative(myFunction); // false
+```
+
+不知道 lodash 为啥实现的如此复杂，可能是因为 lodash 太老了吧，都多少年了
