@@ -9495,3 +9495,19 @@ let [a, b] = [1, 2];
 
 console.log(a, b); // 2 1
 ```
+
+**499. 打印顺序**
+
+> 下面代码的打印顺序：
+
+```js
+const object = { a2: '', 2: '', 1: '', a1: '' };
+
+for (const key in object) {
+  console.log(key);
+}
+```
+
+先说答案：顺序是 1、2、a2、a1
+
+解释：js 在对对象的 key 进行遍历的时候，会先判断 key 的类型，如果是 number 类型，则会放在前面，并且进行排序，如果是 string 类型，则放在后面，不进行排序（对 number 排序是为了方便内存寻址，string 不能进行四则运算，所以排序没有意义）。
