@@ -9572,3 +9572,96 @@ console.log(11.toString());
 const num = 11;
 const string = num.toString();
 ```
+
+**501.扁平数组转 tree 结构**
+
+> 要求：输入 list，输出对应的 result
+
+```js
+interface ArrayItem {
+  id: number;
+  name: string;
+  parentId: number;
+}
+
+interface TreeItem extends ArrayItem {
+  children?: TreeItem[];
+}
+
+// 输入
+const list: ArrayItem[] = [
+  { id: 1, name: '部门1', parentId: 0 },
+  { id: 2, name: '部门2', parentId: 1 },
+  { id: 3, name: '部门3', parentId: 1 },
+  { id: 4, name: '部门4', parentId: 3 },
+  { id: 5, name: '部门5', parentId: 4 },
+];
+
+// 输出
+const result: TreeItem[] = [
+  {
+    id: 1,
+    name: '部门1',
+    parentId: 0,
+    children: [
+      {
+        id: 2,
+        name: '部门2',
+        parentId: 1,
+      },
+      {
+        id: 3,
+        name: '部门3',
+        parentId: 1,
+        children: [
+          {
+            id: 4,
+            name: '部门4',
+            parentId: 3,
+            children: [
+              {
+                id: 5,
+                name: '部门5',
+                parentId: 4,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];
+```
+
+> 实现：
+
+```js
+const convert = (arr: ArrayItem[]): TreeItem[] => {
+  const result: TreeItem[] = [];
+  const map = new Map<number, TreeItem>();
+  arr.forEach(item => {
+    map.set(item.id, item);
+  });
+  arr.forEach(item => {
+    const parent = map.get(item.parentId);
+    if (parent) {
+      if (parent.children) {
+        parent.children.push(item);
+      } else {
+        parent.children = [item];
+      }
+    } else {
+      result.push(item);
+    }
+  });
+  return result;
+};
+```
+
+> 测试结果：
+
+```js
+const ans = convert(list);
+
+console.log(JSON.stringify(ans) === JSON.stringify(result)); // true
+```
