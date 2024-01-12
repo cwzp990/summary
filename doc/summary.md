@@ -9743,3 +9743,46 @@ obj = null;
 
 - 我们的 api 用了带 body 签名验证的协议，规则复杂，你有了 cookie 也无法用 python 等爬虫类程序冒用他人身份请求我们的接口。
 事实上，我们的系统，不会让你用技术手段偷窃 cookie，因为我们的 cookie 启用了严格的 same-site，并且是 httpOnly 的，这意味着你无法通过 js 代码，或者其他钓鱼获取到用户 cookie。
+
+**504. TS key**
+
+在渲染列表的时候，很多场景中都需要key这个属性，这个属性一般是后端给的，但是上次我发现后端给的数据出现了问题，于是就打算自己加一个key：
+
+```js
+// 在js中是这么写的：
+export const addKey = list => {
+    return list.map(item => ({ ...item, key: Symbol() }));
+};
+
+// 在ts中是这么写的：
+export const addKey = <T>(list: T[]): T[] => {
+    return list.map((item: T) => ({ ...item, key: Symbol() }));
+};
+
+export const addKey = <T>(list: T[]): T[] => {
+    return list.map((item: T) => ({ ...item, key: Symbol() }));
+};
+```
+报错原因：
+这里的原因是，在tsx文件中，编辑器把尖括号当成html标签处理了，所以，为了告诉编辑器这不是一个html标签，我们需要对代码稍微做出一些调整：
+
+```js
+// 方法一：在泛型后面加上一个逗号，即可解决报错
+export const addKey = <T,>(list: T[]): T[] => {
+    return list.map((item: T) => ({ ...item, key: Symbol() }));
+};
+// 上面的方法虽然简单有效，也解决了报错，但是不够优雅
+
+// 方法二：用 extends + 空对象 解决报错
+export const addKey = <T extends {}>(list: T[]): T[] => {
+    return list.map((item: T) => ({ ...item, key: Symbol() }));
+};
+// 上面的方法虽然优雅的解决了报错，但是不够专业
+
+// 方法三：用 extends + Record 解决报错
+export const addKey = <T extends Record<string, any>>(list: T[]): T[] => {
+    return list.map((item: T) => ({ ...item, key: Symbol() }));
+};
+```
+
+上面三种方法都是简单有效的解决方案，看你喜欢，任选其一即可。
