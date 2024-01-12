@@ -9763,7 +9763,9 @@ export const addKey = <T>(list: T[]): T[] => {
     return list.map((item: T) => ({ ...item, key: Symbol() }));
 };
 ```
+
 报错原因：
+
 这里的原因是，在tsx文件中，编辑器把尖括号当成html标签处理了，所以，为了告诉编辑器这不是一个html标签，我们需要对代码稍微做出一些调整：
 
 ```js
