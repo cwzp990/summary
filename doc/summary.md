@@ -9788,3 +9788,7 @@ export const addKey = <T extends Record<string, any>>(list: T[]): T[] => {
 ```
 
 上面三种方法都是简单有效的解决方案，看你喜欢，任选其一即可。
+
+**505. safrai 浏览器 z-index 无效**
+
+ios `-webkit-overflow-scrolling:touch` 是导致失效原因之一 ios 端 z-index 失效，无效问题解决办法 `transform: translateZ(1000px);` 
