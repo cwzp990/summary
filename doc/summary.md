@@ -9341,11 +9341,14 @@ const newData = JSON.parse(JSON.stringify(data));
 2. 加强版
 
 ```js
-const deepClone = obj => {
+const deepClone = (obj) => {
   const ans = Array.isArray(obj) ? [] : {};
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
-      ans[key] = obj[key] && typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key];
+      ans[key] =
+        obj[key] && typeof obj[key] === "object"
+          ? deepClone(obj[key])
+          : obj[key];
     }
   }
   return ans;
@@ -9369,7 +9372,7 @@ const newData = structuredClone(data);
 4. 终极版
 
 ```js
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from "lodash";
 
 const newData = cloneDeep(data);
 ```
@@ -9382,11 +9385,11 @@ const newData = cloneDeep(data);
  * @param func 回调函数
  */
 function before(n, func) {
-  if (typeof n !== 'number') {
-    throw new TypeError('Expected a number');
+  if (typeof n !== "number") {
+    throw new TypeError("Expected a number");
   }
-  if (typeof func !== 'function') {
-    throw new TypeError('Expected a function');
+  if (typeof func !== "function") {
+    throw new TypeError("Expected a function");
   }
   let result;
   return function (...args) {
@@ -9421,15 +9424,18 @@ initialize(); // 无效
 const reIsNative = RegExp(
   `^${Function.prototype.toString
     .call(Object.prototype.hasOwnProperty)
-    .replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
-    .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?')}$`
+    .replace(/[\\^$.*+?()[\]{}|]/g, "\\$&")
+    .replace(
+      /hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,
+      "$1.*?"
+    )}$`
 );
 
-const isObject = value => {
-  return value && ['object', 'function'].includes(typeof value);
+const isObject = (value) => {
+  return value && ["object", "function"].includes(typeof value);
 };
 
-const isNative = value => {
+const isNative = (value) => {
   return isObject(value) && reIsNative.test(value);
 };
 
@@ -9443,11 +9449,11 @@ isNative(myFunction); // false
 ```js
 const reIsNative = /native code/;
 
-const isObject = value => {
-  return value && ['object', 'function'].includes(typeof value);
+const isObject = (value) => {
+  return value && ["object", "function"].includes(typeof value);
 };
 
-const isNative = value => {
+const isNative = (value) => {
   return isObject(value) && reIsNative.test(value.toString());
 };
 
@@ -9501,7 +9507,7 @@ console.log(a, b); // 2 1
 > 下面代码的打印顺序：
 
 ```js
-const object = { a2: '', 2: '', 1: '', a1: '' };
+const object = { a2: "", 2: "", 1: "", a1: "" };
 
 for (const key in object) {
   console.log(key);
@@ -9590,38 +9596,38 @@ interface TreeItem extends ArrayItem {
 
 // 输入
 const list: ArrayItem[] = [
-  { id: 1, name: '部门1', parentId: 0 },
-  { id: 2, name: '部门2', parentId: 1 },
-  { id: 3, name: '部门3', parentId: 1 },
-  { id: 4, name: '部门4', parentId: 3 },
-  { id: 5, name: '部门5', parentId: 4 },
+  { id: 1, name: "部门1", parentId: 0 },
+  { id: 2, name: "部门2", parentId: 1 },
+  { id: 3, name: "部门3", parentId: 1 },
+  { id: 4, name: "部门4", parentId: 3 },
+  { id: 5, name: "部门5", parentId: 4 },
 ];
 
 // 输出
 const result: TreeItem[] = [
   {
     id: 1,
-    name: '部门1',
+    name: "部门1",
     parentId: 0,
     children: [
       {
         id: 2,
-        name: '部门2',
+        name: "部门2",
         parentId: 1,
       },
       {
         id: 3,
-        name: '部门3',
+        name: "部门3",
         parentId: 1,
         children: [
           {
             id: 4,
-            name: '部门4',
+            name: "部门4",
             parentId: 3,
             children: [
               {
                 id: 5,
-                name: '部门5',
+                name: "部门5",
                 parentId: 4,
               },
             ],
@@ -9675,23 +9681,23 @@ console.log(JSON.stringify(ans) === JSON.stringify(result)); // true
 你可以通过调用 register 方法，注册任何你想要清理回调的对象，传入该对象和所含的值;
 
 ```js
-let value1 = 'a';
-let value2 = 'b';
+let value1 = "a";
+let value2 = "b";
 
 //创建一个FinalizationRegistry 对象
-const registry = new FinalizationRegistry(val => {
+const registry = new FinalizationRegistry((val) => {
   //val为使用FinalizationRegistry 对象的register方法注册对象时，传入的第二个参数的值
-  if (val === 'value1') {
-    console.log('value1 被销毁');
+  if (val === "value1") {
+    console.log("value1 被销毁");
   }
-  if (val === 'value2') {
-    console.log('value2 对象被销毁');
+  if (val === "value2") {
+    console.log("value2 对象被销毁");
   }
 });
 
 //注册对象
-registry.register(value1, 'value1');
-registry.register(value2, 'value2');
+registry.register(value1, "value1");
+registry.register(value2, "value2");
 value1 = null;
 value2 = null;
 ```
@@ -9704,7 +9710,7 @@ value2 = null;
 
 ```js
 let obj = {
-  name: 'aaa',
+  name: "aaa",
 };
 
 const foo = new WeakRef(obj);
@@ -9742,31 +9748,31 @@ obj = null;
 - 我们系统的管理页面 cookie 是 1 小时过期，你虽然拿到了我的 cookie，但是我在一小时之内都没登陆过，你拿到的是过期 cookie，进不去我们系统的后台。
 
 - 我们的 api 用了带 body 签名验证的协议，规则复杂，你有了 cookie 也无法用 python 等爬虫类程序冒用他人身份请求我们的接口。
-事实上，我们的系统，不会让你用技术手段偷窃 cookie，因为我们的 cookie 启用了严格的 same-site，并且是 httpOnly 的，这意味着你无法通过 js 代码，或者其他钓鱼获取到用户 cookie。
+  事实上，我们的系统，不会让你用技术手段偷窃 cookie，因为我们的 cookie 启用了严格的 same-site，并且是 httpOnly 的，这意味着你无法通过 js 代码，或者其他钓鱼获取到用户 cookie。
 
 **504. TS key**
 
-在渲染列表的时候，很多场景中都需要key这个属性，这个属性一般是后端给的，但是上次我发现后端给的数据出现了问题，于是就打算自己加一个key：
+在渲染列表的时候，很多场景中都需要 key 这个属性，这个属性一般是后端给的，但是上次我发现后端给的数据出现了问题，于是就打算自己加一个 key：
 
 ```js
 // 在js中是这么写的：
-export const addKey = list => {
-    return list.map(item => ({ ...item, key: Symbol() }));
+export const addKey = (list) => {
+  return list.map((item) => ({ ...item, key: Symbol() }));
 };
 
 // 在ts中是这么写的：
 export const addKey = <T>(list: T[]): T[] => {
-    return list.map((item: T) => ({ ...item, key: Symbol() }));
+  return list.map((item: T) => ({ ...item, key: Symbol() }));
 };
 
 export const addKey = <T>(list: T[]): T[] => {
-    return list.map((item: T) => ({ ...item, key: Symbol() }));
+  return list.map((item: T) => ({ ...item, key: Symbol() }));
 };
 ```
 
 报错原因：
 
-这里的原因是，在tsx文件中，编辑器把尖括号当成html标签处理了，所以，为了告诉编辑器这不是一个html标签，我们需要对代码稍微做出一些调整：
+这里的原因是，在 tsx 文件中，编辑器把尖括号当成 html 标签处理了，所以，为了告诉编辑器这不是一个 html 标签，我们需要对代码稍微做出一些调整：
 
 ```js
 // 方法一：在泛型后面加上一个逗号，即可解决报错
@@ -9791,4 +9797,26 @@ export const addKey = <T extends Record<string, any>>(list: T[]): T[] => {
 
 **505. safrai 浏览器 z-index 无效**
 
-ios `-webkit-overflow-scrolling:touch` 是导致失效原因之一 ios 端 z-index 失效，无效问题解决办法 `transform: translateZ(1000px);` 
+ios `-webkit-overflow-scrolling:touch` 是导致失效原因之一 ios 端 z-index 失效，无效问题解决办法 `transform: translateZ(1000px);`
+
+**506. 实现[ba, bb]之间的随机数**
+
+```js
+function random(ba, bb) {
+  const NUMBER_TYPE = "[object Number]";
+  if (
+    !ba ||
+    !bb ||
+    Object.prototype.toString.call(ba) !== NUMBER_TYPE ||
+    Object.prototype.toString.call(bb) !== NUMBER_TYPE
+  )
+    return;
+  ba = Number(ba);
+  bb = Number(bb);
+  // 如果两者相等，那么每次随机都是这个数
+  if (ba === bb) return ba;
+  // 交换位置
+  if (ba > bb) [ba, bb] = [bb, ba];
+  return Math.floor(Math.random() * (bb - ba + 1) + ba);
+}
+```
