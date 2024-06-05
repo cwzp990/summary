@@ -9867,3 +9867,60 @@ function drawUserInfo() {
   });
 }
 ```
+
+**508. 记一次 vite 项目改造成 qiankun 架构项目**
+
+> 双方都是 hash 模式路由
+
+```js
+// 使用registerMicroApps注册子应用一直报错，后改为loadMicroApp手动加载解决报错以及路由各种问题
+// 子应用是 vite 的使用vite-plugin-qiankun插件配置环境
+{
+  plugins: [
+		// ……
+		qiankun('genGenerator', {
+			// 微应用名字，与主应用注册的微应用名字保持一致
+			useDevMode: true
+		})
+	],
+}
+```
+
+> 主应用内容区域嵌套子应用
+
+```vue
+<template>
+  <section id="gen-generator">
+    <section id="subApp"></section>
+  </section>
+</template>
+
+<script lang="ts" setup>
+import { loadMicroApp } from "qiankun";
+import { MicroApp } from "qiankun/es/interfaces";
+import { onMounted, onUnmounted, onUpdated } from "vue";
+import { useRoute } from "vue-router";
+
+let microApp: MicroApp | null = null;
+const route = useRoute();
+
+onMounted(() => {
+  microApp = loadMicroApp({
+    name: "genGenerator",
+    entry: `http://localhost:3000${route.path}`,
+    container: "#gen-generator",
+  });
+});
+
+onUpdated(() => {
+  microApp?.update && microApp?.update({});
+});
+
+onUnmounted(() => {
+  microApp?.unmount();
+  microApp = null;
+});
+</script>
+
+<style lang="scss"></style>
+```
