@@ -10262,3 +10262,20 @@ export function isInCode(text) {
   return state !== States.text;
 }
 ````
+
+**511. 对象解构赋值 null 会替代默认值**
+
+```js
+let obj = { data: null };
+// undefined
+const { data = [] } = obj;
+// undefined
+data;
+// null
+obj.data = undefined;
+// undefined
+const { data1 = [] } = obj;
+// undefined
+data1;
+// []
+```
