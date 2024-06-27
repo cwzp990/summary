@@ -10103,6 +10103,7 @@ export default function useIflytekSpeech() {
     var date = new Date().toGMTString();
     var algorithm = "hmac-sha256";
     var headers = "host date request-line";
+    var headers = ''
     var signatureOrigin = `host: ${host}\ndate: ${date}\nGET /v2/iat HTTP/1.1`;
     var signatureSha = CryptoJS.HmacSHA256(signatureOrigin, apiSecret);
     var signature = CryptoJS.enc.Base64.stringify(signatureSha);
@@ -10279,3 +10280,11 @@ const { data1 = [] } = obj;
 data1;
 // []
 ```
+
+**512. unocss tailwindcss 的一些写法**
+
+- !important 在你的 class 前面加个！ 如 !text-16
+
+- 媒体查询 sm-max-lg:w-60 lg:w-60
+
+- 背景渐变bg-gradient-to-r from-[#c973ff] via-purple-500 to-[#f62ea4]
