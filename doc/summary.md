@@ -10288,3 +10288,30 @@ data1;
 - 媒体查询 sm-max-lg:w-60 lg:w-60
 
 - 背景渐变bg-gradient-to-r from-[#c973ff] via-purple-500 to-[#f62ea4]
+
+**513. ts 将数组的值作为类型**
+
+```js
+export const promptTypeList = [
+  "写作",
+  "音乐",
+  "营销",
+  "健康",
+  "游戏",
+  "娱乐",
+  "教育",
+  "烹饪",
+  "编码",
+  "产品管理",
+  "商业",
+  "越狱",
+  "其他",
+] as const;
+
+export interface CollectItem {
+  id?: number;
+  title: string;
+  type: (typeof promptTypeList)[number];
+  content: string;
+}
+```
