@@ -10315,3 +10315,38 @@ export interface CollectItem {
   content: string;
 }
 ```
+
+**490. @apply vscode 不识别**
+
+[unocss/unocss#2401](https://github.com/unocss/unocss/issues/2401)
+
+Guys, the solution: .vscode/settings.json
+
+```js
+{
+  "css.customData": [".vscode/unocss.json"]
+}
+```
+
+.vscode/unocss.json
+
+```js
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@apply"
+    },
+    {
+      "name": "@screen"
+    }
+  ]
+}
+```
+
+gitignore
+
+```js
+!.vscode/unocss.json
+!.vscode/settings.json
+```
