@@ -10316,7 +10316,7 @@ export interface CollectItem {
 }
 ```
 
-**490. @apply vscode 不识别**
+**514. @apply vscode 不识别**
 
 [unocss/unocss#2401](https://github.com/unocss/unocss/issues/2401)
 
@@ -10349,4 +10349,16 @@ gitignore
 ```js
 !.vscode/unocss.json
 !.vscode/settings.json
+```
+
+**515. 枚举类型用字符串变量包着就变成值的类型了**
+
+> 触发了分布式条件分发
+
+```js
+/**
+ * 颜色的类型
+ */
+export type ColorType = `${COLOR_TYPE}`;
+// type ColorType = "primary" | "success" | "danger" | "warning" | "default"
 ```
