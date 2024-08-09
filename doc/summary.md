@@ -117,11 +117,8 @@ var glob = {
 **10. 神奇的`<pre>`标签**
 
 - `<pre>` 标签可定义预格式化的文本。
-
 - 被包围在 `<pre>` 标签 元素中的文本通常会保留空格和换行符。而文本也会呈现为等宽字体。
-
 - 一个场景： 比如我要解析出来的文本保留用户在`textarea`中输入的换行等，就可以使用这个标签。
-
 - 1. `pre`元素是块级元素，但是只能包含文本或行内元素。也就是说，任何块级元素（常见为可以导致段落断开的标签）都不能位于 pre 元素中。
   2. `pre`元素中允许的文本可以包含物理样式和基于内容的样式变化，还有链接、图像和水平分隔线。当把其他标签，比如`<a>`标签放到`<pre>`块中时，就像放在 HTML/XHTML 文档的其他部分中一样即可。
   3. 制表符 tab 在`<pre>`标签定义的块当中可以起到应有的作用，每个制表符占据 8 个字符的位置，但并不推荐使用 tab，因为在不同的浏览器中，tab 的表现形式各不相同。在用`<pre>`标签格式化的文档段中使用**空格**，可以确保文本正确的水平位置。
@@ -147,9 +144,9 @@ var glob = {
 **13. substring、 substr、 slice**
 
 ```javascript
-    substr(start [, length])
-    substring(start [, end])
-    slice(start [, end])
+	substr(start [, length])
+	substring(start [, end])
+	slice(start [, end])
 ```
 
 - substring 有个神奇的地方 就是 start， end ，两个参数 谁小 谁就是 start
@@ -238,20 +235,20 @@ console.log(y.x);
 // 输出什么 ？
 // undefined 和 6
 /**
-     * 非严格模式
-     * 首先 函数 a 定义在全局环境执行 它里面的this就是指向了window，return 的this也是window
-     * 当执行 x = a(5);的时候 this.x = 5，函数返回了this，this是window对象，又被重新赋值给了x， 此时x又是window对象。
-     * 如果我们不返回this，就会是这个结果。
-     * function a(xxx){
-           this.x=xxx
-       }
-       a(5) 
-       console.log(x) //5
-     * 但是我们返回了this;
-     * 当执行 y = a(6); 这个时候 x 就是 6 了，而返回的this被赋值给了y。
-     * 所以当打印x.x时， x是Number类型，基本类型，x.x 所以是undefined
-     * 而y.x就是 window.x x是6 所以是 6
-     */
+	 * 非严格模式
+	 * 首先 函数 a 定义在全局环境执行 它里面的this就是指向了window，return 的this也是window
+	 * 当执行 x = a(5);的时候 this.x = 5，函数返回了this，this是window对象，又被重新赋值给了x， 此时x又是window对象。
+	 * 如果我们不返回this，就会是这个结果。
+	 * function a(xxx){
+	       this.x=xxx
+	   }
+	   a(5) 
+	   console.log(x) //5
+	 * 但是我们返回了this;
+	 * 当执行 y = a(6); 这个时候 x 就是 6 了，而返回的this被赋值给了y。
+	 * 所以当打印x.x时， x是Number类型，基本类型，x.x 所以是undefined
+	 * 而y.x就是 window.x x是6 所以是 6
+	 */
 ```
 
 **18. label for**
@@ -265,10 +262,10 @@ console.log(y.x);
 
 ```JAVASCRIPT
 start: {
-    console.log(1);
-    console.log(2);
-    break start
-    console.log(3);
+	console.log(1);
+	console.log(2);
+	break start
+	console.log(3);
 }
 // 1 2
 还有双重for循环的场景 有兴趣可以MDN看一下
@@ -319,17 +316,17 @@ arr.sort((a, b) => (!~a || !~b ? b : a - b));
 ```javascript
 /*
  * 正常来讲
- *    $.ajax().done( ( response )=> {
- *        window.parent.modal.hide();
- *        window.parent.IframeB.hide();
- *    })
+ *	$.ajax().done( ( response )=> {
+ *		window.parent.modal.hide();
+ *		window.parent.IframeB.hide();
+ *	})
  * 但是到这里由于Iframe-C的问题产生了跨域
  * 于是换了个思路
  * 请求成功后 给URL加一个hash然后刷新当前页面
  * $.ajax().done( ( response )=> {
- *        window.location.hash = '?active=true';
- *        window.location.reload();
- *    })
+ *		window.location.hash = '?active=true';
+ *		window.location.reload();
+ *	})
  * 然后在引起跨域的问题之前 (我是放在了<body>之后) 检查url的hash值
  * var body = document.body || document.getElementsByClassName('body')[0];
  * /\?active\=true/.test(window.location.href) && (  window.parent.modal.hide(), window.parent.IframeB.hide() )
@@ -358,11 +355,11 @@ arr.sort((a, b) => (!~a || !~b ? b : a - b));
 <script>
   // 暴露一个全局方法供Iframe调用
   function uploadFileCallback = function( data, errorMsg ){
-      if( errorMsg ){
-          alert( errorMsg );
-          return
-      }
-      document.getElementById('titles').innerHTML = data;
+  	if( errorMsg ){
+  		alert( errorMsg );
+  		return
+  	}
+  	document.getElementById('titles').innerHTML = data;
   }
 </script>
 ```
@@ -443,10 +440,10 @@ function spreadJSON (result, json, parentKey) {
         const value = json[key];
         const concatKey = parentKey + (parentKey ? '.' : '') + key;
         if (Object.prototype.toString.call(value) === '[object Object]'){
-            spreadJSON (result, value, concatKey)
-        }else {
-            result[concatKey] = value
-        };
+			spreadJSON (result, value, concatKey)
+		}else {
+			result[concatKey] = value
+		};
       })
       return result;
     }
@@ -468,15 +465,10 @@ spreadJSON ({}, m, '')
 - 今天把项目中的 css 单独使用 postcss 优化了一下
 
 1. npm i -g|-D postcss-cli 安装 postcss-cli
-
 2. npm i -g autoprefixer 安装插件
-
 3. cd node_modules/.bin 一定要进入这个文件夹
-
 4. 在 3 进入的文件夹中 根据相对路径找到你要优化的 css （我的是放在了根目录的 css 文件中）
-
 5. postcss ../../css/common.css -o ../../css/outcommon.css -u autoprefixer
-
 6. 然后你就拿到了加了兼容的新的 css 样式
 
 - 还有很多插件（现在貌似 200+）还没用到 有时间一起研究
@@ -529,16 +521,16 @@ spreadJSON ({}, m, '')
 
 ```HTML
 <colgroup>
-    <col style="width: 60px">
-    <col style="width: 100px">
-    <col style="width: 209px">
-    <col style="width: 50px">
-    <col style="width: 60px">
-    <col style="width: 209px">
-    <col style="width: 209px">
-    <col style="width: 80px">
-    <col style="width: 110px">
-    <col style="width: 60px">
+	<col style="width: 60px">
+	<col style="width: 100px">
+	<col style="width: 209px">
+	<col style="width: 50px">
+	<col style="width: 60px">
+	<col style="width: 209px">
+	<col style="width: 209px">
+	<col style="width: 80px">
+	<col style="width: 110px">
+	<col style="width: 60px">
 </colgroup>
 ```
 
@@ -551,24 +543,24 @@ spreadJSON ({}, m, '')
 ```JAVASCRIPT
 saveDom()
 function saveDom(){
-    var changeInputTimeId = null,
-        changeTextTimeId = null;
-    $('input').on( 'input', function(e){
-        clearTimeout( changeInputTimeId )
-        var $this = $(this);
-        setTimeout( function(){
-            $this.attr( 'value', $this.val() )
-        }, 200 )
-    } )
+	var changeInputTimeId = null,
+		changeTextTimeId = null;
+	$('input').on( 'input', function(e){
+		clearTimeout( changeInputTimeId )
+		var $this = $(this);
+		setTimeout( function(){
+			$this.attr( 'value', $this.val() )
+		}, 200 )
+	} )
 
-    $('textarea').on( 'input', function(e){
-        clearTimeout( changeTextTimeId )
-        var $this = $(this);
-        setTimeout( function(){
-            // TEXTAREA必须是val和text
-            $this.text( $this.val() )
-        }, 200 )
-    } )
+	$('textarea').on( 'input', function(e){
+		clearTimeout( changeTextTimeId )
+		var $this = $(this);
+		setTimeout( function(){
+			// TEXTAREA必须是val和text
+			$this.text( $this.val() )
+		}, 200 )
+	} )
 }
 ```
 
@@ -577,20 +569,15 @@ function saveDom(){
 > 传送门 [DOM 操作成本到底高在哪儿？](https://segmentfault.com/a/1190000014070240?utm_source=feed-content)
 
 - **reflow(回流)**: 根据 Render Tree 布局(几何属性)，意味着元素的内容、结构、位置或尺寸发生了变化，需要重新计算样式和渲染树；
-
 - **repaint(重绘)**: 意味着元素发生的改变只影响了节点的一些样式（背景色，边框颜色，文字颜色等），只需要应用新样式绘制这个元素就可以了；
-
 - reflow 回流的成本开销要高于 repaint 重绘，一个节点的回流往往回导致子节点以及同级节点的回流；
-
 - **引起 reflow 回流**
-
   1. 页面第一次渲染（初始化）
   2. DOM 树变化（如：增删节点）
   3. Render 树变化（如：padding 改变）
   4. 浏览器窗口 resize
   5. 获取元素的某些属性：
   6. 浏览器为了获得正确的值也会提前触发回流，这样就使得浏览器的优化失效了，这些属性包括 offsetLeft、offsetTop、offsetWidth、offsetHeight、 scrollTop/Left/Width/Height、clientTop/Left/Width/Height、调用了 getComputedStyle()或者 IE 的 currentStyle
-
 - **引起 repaint 重绘** 1. reflow 回流必定引起 repaint 重绘，重绘可以单独触发 2. 背景色、颜色、字体改变（注意：字体大小发生变化时，会触发回流）
 
 - **优化方式**
@@ -664,14 +651,14 @@ function saveDom(){
 **42. Vue ElementUI 的导航栏刷新后默认选择的没了**
 
 ```javascript
-    <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <!-- 设置成route模式 然后设置默认选择的路由 -->
+	<el-aside width="200px" style="background-color: rgb(238, 241, 246)">
+		<!-- 设置成route模式 然后设置默认选择的路由 -->
         <el-menu :default-openeds="openIndex" :router="true" :default-active="this.$route.path">
             <el-submenu index="1">
                 <template slot="title"><i class="el-icon-message"></i>导航一</template>
                 <el-menu-item-group>
                 <template slot="title">分组一</template>
-                <!-- 设置成route模式 index设置成路由 -->
+				<!-- 设置成route模式 index设置成路由 -->
                 <el-menu-item index="/table" >表格1
                 </el-menu-item>
                 <el-menu-item index="/table2">表格2
@@ -710,9 +697,9 @@ console.log(a[d]);
 Object内置toString 和 valueOf 方法;
 这种情况a[b] = 123 会默认调用对象的toString()
 所以就是 a['object Objcet'] = 123;
-        a['object Object'] = 345;
-        a['object Array'] = 333;
-        */
+		a['object Object'] = 345;
+		a['object Array'] = 333;
+		*/
 /*
 如果是多个对象
 var g = [ {name: 666}, {age: 666}, {job: 777} ]
@@ -759,7 +746,7 @@ for (let i = 0, l = arr[0].length; i < l; i++) {
 
 ```javascript
 // 固定参数实现
-const result = (x) => (y) => (z) => x * y * z;
+const result = x => y => z => x * y * z;
 result(3)(4)(4); // 48;
 // 柯里化实现
 function curry(fn) {
@@ -938,12 +925,12 @@ document.body.addEventListener('touchstart', function () { //...空函数即可}
 
 ```javascript
 {
-    path: '/index',
-    component: index
+	path: '/index',
+	component: index
 },
 {
-    path: '/me',
-    component: me
+	path: '/me',
+	component: me
 }
 ```
 
@@ -951,12 +938,12 @@ document.body.addEventListener('touchstart', function () { //...空函数即可}
 
 ```javascript
 {
-    path: '/index',
-    component: index
+	path: '/index',
+	component: index
 },
 {
-    path: '/me',
-    component: index
+	path: '/me',
+	component: index
 }
 ```
 
@@ -980,9 +967,9 @@ document.body.addEventListener('touchstart', function () { //...空函数即可}
 
 ```javascript
 methods: {
-    refuse(event){
-        event.target.disabled = true;
-    }
+	refuse(event){
+		event.target.disabled = true;
+	}
 }
 ```
 
@@ -1075,28 +1062,28 @@ import viewer from 'viewerjs'
 import '../../../../node_modules/viewerjs/dist/viewer.min.css'
 
 export default{
-    data() {
+	data() {
         return {
             viewerId: null
-        }
+		}
     }
-    methods: {
-        getData(){
-            ajax().then( (res)=>{
-                // 渲染dom的逻辑
-                this.$nextTick( ()=>{
-                    // 我的场景是一个弹窗中显示图片 因为弹窗是个组件，所以并不会每次关闭都销毁
-                    // 所以我选择每次获取数据后销毁viewer
-                    // 如果你的场景每次进入需要重新created的话，应该是不需要销毁的
-                    // 如果你需要更新图片列表 可以使用update方法
-                    // 注意要用新版本 老版本的没有update方法
+	methods: {
+		getData(){
+			ajax().then( (res)=>{
+				// 渲染dom的逻辑
+				this.$nextTick( ()=>{
+					// 我的场景是一个弹窗中显示图片 因为弹窗是个组件，所以并不会每次关闭都销毁
+					// 所以我选择每次获取数据后销毁viewer
+					// 如果你的场景每次进入需要重新created的话，应该是不需要销毁的
+					// 如果你需要更新图片列表 可以使用update方法
+					// 注意要用新版本 老版本的没有update方法
                     this.viewerId && this.viewerId.destroy()
-                    // 假设你的图片列表的id是images
+					// 假设你的图片列表的id是images
                     this.viewerId = new viewer(document.getElementById('images'));
                 } )
-            })
-        }
-    }
+			})
+		}
+	}
 }
 ```
 
@@ -1171,7 +1158,7 @@ export default function fetch(options, type) {
           }
         }
       })
-      .catch((error) => {
+      .catch(error => {
         //请求失败时,根据业务判断状态
         if (error.response) {
           let resError = error.response;
@@ -1277,7 +1264,7 @@ export const triggerResize = () => {
 **76. 字节换算**
 
 ```javascript
-export const bytesToSize = (bytes) => {
+export const bytesToSize = bytes => {
   if (bytes === 0) return "0 B";
   var k = 1000, // or 1024
     sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
@@ -1291,26 +1278,27 @@ export const bytesToSize = (bytes) => {
 
 ```javascript
 export default{
-    data(){
-        return {
-            reloadStatus: this.$store.state.reloadStatus
-        }
-    },
-    watch: {
-        reloadStatus( cur, old ){
-            console.log( cur ) // 无效
-        }
-    }
+	data(){
+		return {
+			reloadStatus: this.$store.state.reloadStatus
+		}
+	},
+	watch: {
+		reloadStatus( cur, old ){
+			console.log( cur ) // 无效
+		}
+	}
 }
 
 // 怎么办呢
 // 可以使用computed
 
 computed: {
-    reloadStatus() {
-        return this.$store.state.indexRefresh
-    }
+	reloadStatus() {
+		return this.$store.state.indexRefresh
+	}
 },
+
 ```
 
 **78. Vue 使用 highcharts 的扩展**
@@ -1673,14 +1661,14 @@ let data = {"body":[{"icon":"fa fa-cloud","sort":5,"type":"PAGE","parentId":0,"i
 
 function getAllId( data ){
     let str = '',
-    regexp = /,"id":(\d+)(?=,)/g,
-    matchStr = '',
-    idArr = [];
+	regexp = /,"id":(\d+)(?=,)/g,
+	matchStr = '',
+	idArr = [];
     try {
-    str = JSON.stringify( data );
+	str = JSON.stringify( data );
     } catch (error) {}
     while(matchStr = regexp.exec( str )){
-    idArr.push( matchStr[1] )
+	idArr.push( matchStr[1] )
     }
     return idArr
 }
@@ -1722,16 +1710,16 @@ export const download_blob = (blob, file_name) => {
 };
 
 axios({})
-  .then((res) => {
+  .then(res => {
     download_blob(res, Date.parse(new Date()) + ".xls")
-      .then((data) => {
+      .then(data => {
         console.log(data);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   })
-  .catch((err) => {
+  .catch(err => {
     console.log(err);
   });
 ```
@@ -1746,7 +1734,6 @@ axios({})
 ```
 
 - form 表单下载
-
   > 参考 [隐藏 form 表单下载文件](https://blog.csdn.net/java_trainee/article/details/73647806)
 
 ```javascript
@@ -1789,11 +1776,11 @@ function downloadFile(actoinURL,filePath,fileName){
 
 ```javascript
 module.exports = {
-    configureWebpack: {
-        plugins: {
-            new XXX()
-        }
-    }
+	configureWebpack: {
+		plugins: {
+			new XXX()
+		}
+	}
 }
 ```
 
@@ -1970,7 +1957,7 @@ export const getScrollTop = function () {
 ```javascript
 function flattenArray(arr) {
   const flattened = [].concat(...arr);
-  return flattened.some((item) => Array.isArray(item))
+  return flattened.some(item => Array.isArray(item))
     ? flattenArray(flattened)
     : flattened;
 }
@@ -2003,13 +1990,13 @@ const flatArr = flattenArray(arr);
 </template>
 <script>
 export default{
-    return{
-        data(){
-            composition: false
-        }
-    },
-    methods: {
-        seriaDelete($event, index) {
+	return{
+		data(){
+			composition: false
+		}
+	},
+	methods: {
+		seriaDelete($event, index) {
             const $val = this.seriaNums[index];
             if (this.composition) {
                 if ($val.length <= 0) {
@@ -2020,7 +2007,7 @@ export default{
                 }
             }
         },
-    }
+	}
 }
 </script>
 ```
@@ -2272,7 +2259,6 @@ SolidGauge(Highcharts);
 ```
 
 - 终极版真正按需加载 懒加载
-
   > 场景是滚动到某个距离 加载 echarts
 
 ```vue
@@ -2371,7 +2357,7 @@ let elm = document.getElementById("wq");
 // 设置事件监听.
 elm.addEventListener(
   "click",
-  (e) => {
+  e => {
     console.log(e);
   },
   false
@@ -2628,16 +2614,16 @@ export default class HelloWorld extends Vue {
 - 需求： 鼠标滚轮在百度地图上滚动时，页面不随之滚动
 - 问题：
 
-1. 最开始使用的是鼠标进入父元素（此处为`.content`）时，`.content`设置为`overflow:hidden`
-2. 鼠标离开`.content`时，`.content`设置为`overflow:auto`
-3. 这种做法能满足需求 但是会有抖动的问题
-4. 后来发现了一个更大的问题 快速在百度地图上滚动滚轮的后 再次让`.content`设置为`overflow:auto`，虽然滚动条还在，但是滚动失效了！！！
+1.  最开始使用的是鼠标进入父元素（此处为`.content`）时，`.content`设置为`overflow:hidden`
+2.  鼠标离开`.content`时，`.content`设置为`overflow:auto`
+3.  这种做法能满足需求 但是会有抖动的问题
+4.  后来发现了一个更大的问题 快速在百度地图上滚动滚轮的后 再次让`.content`设置为`overflow:auto`，虽然滚动条还在，但是滚动失效了！！！
 
 - 解决方案
 
-1. 换了种思路 鼠标进入`.content`的时候，让`document`监听`mousewheel`和`DOMMouseScroll`事件 并阻止默认事件
-2. 鼠标移除`.content`的时候移除`mousewheel`和`DOMMouseScroll`的事件监听
-3. 很完美 不会有抖动的问题也不会无法滚动了
+1.  换了种思路 鼠标进入`.content`的时候，让`document`监听`mousewheel`和`DOMMouseScroll`事件 并阻止默认事件
+2.  鼠标移除`.content`的时候移除`mousewheel`和`DOMMouseScroll`的事件监听
+3.  很完美 不会有抖动的问题也不会无法滚动了
 
 ```javascript
 methods: {
@@ -2649,8 +2635,8 @@ stopWheel (event) {
        event.preventDefault()
    },
 hiddenHtml () {
-    document.addEventListener('mousewheel', this.stopWheel)
-    document.addEventListener('DOMMouseScroll', this.stopWheel)
+	document.addEventListener('mousewheel', this.stopWheel)
+	document.addEventListener('DOMMouseScroll', this.stopWheel)
 },
 }
 ```
@@ -2686,7 +2672,6 @@ a == 1 && a == 2 && a == 3; // true
 - 原理
 
 1. 符合对象类型再喝基础值类型进行表达式操作时，会基于“场景”自动调用`toString`或是`valueOf`方法，以最为'恰当'的方式，自动完成表达式的计算
-
 2. 全等表达式会比较数据类型，符合对象类型不会进行隐式转换，即不执行`toString`或`valueOf`方法直接参与比较计算
 
 - 方法 2
@@ -2733,7 +2718,7 @@ this.loadData();
 - 我的解决办法 -> 请求完毕后咋成功回调里直接覆盖数据
 
 ```javascript
-loadData().then((res) => {
+loadData().then(res => {
   Array.isArray(res.contentList) && (this.list = res.contentList);
 });
 ```
@@ -2793,7 +2778,7 @@ text-align: left;
 **156.vueli3 的配置文件另一种写法**
 
 ```javascript
-configureWebpack: (confing) => {
+configureWebpack: confing => {
   config.resolve = {
     extensions: [".js", ".vue", ".json", ".css"],
     alias: {
@@ -2872,7 +2857,7 @@ typeRenderFuc (h, { column, $index }) {
                         value: $this.searchBody.type
                     },
                     on: {
-                    // 竟然是input 触发的改变。。。
+					// 竟然是input 触发的改变。。。
                         input (v) {
                             console.log(v)
                         }
@@ -3031,7 +3016,7 @@ export default {
     $file_upLoad(file, type = "TRACE") {
       return new Promise((resolve, reject) => {
         this.$file_getUploadUrl({ type })
-          .then((res) => {
+          .then(res => {
             res = res.data;
             let data = new FormData();
             data.append("key", res.key);
@@ -3043,18 +3028,18 @@ export default {
 
             this.$http
               .post(`${res.url}/`, data)
-              .then((uploadRes) => {
+              .then(uploadRes => {
                 resolve({
                   data: uploadRes.data,
                   status: uploadRes.status,
                   fileId: res.key,
                 });
               })
-              .catch((err) => {
+              .catch(err => {
                 reject(err);
               });
           })
-          .catch((err) => {
+          .catch(err => {
             reject(err);
           });
       });
@@ -3161,7 +3146,7 @@ console.log(date);
 **172. 获取域名和端口**
 
 ```javascript
-export const getBaseUrl = (url) => {
+export const getBaseUrl = url => {
   var reg = /^((\w+):\/\/([^/:]*)(?::(\d+))?)(.*)/;
   reg.exec(url);
   return RegExp.$1;
@@ -3212,7 +3197,7 @@ GlobalFunction.prototype.selectText = function (
     loaderOptions: {
       stylus: {
         "resolve url": true,
-        // 这里的文件只能写方法和变量 不然每个组件都会生成style 很坑
+		// 这里的文件只能写方法和变量 不然每个组件都会生成style 很坑
         import: ["./src/theme", "./src/assets/styl/utils"]
       }
     }
@@ -3259,11 +3244,8 @@ The Web Application Hacker's Handbook
 **134. 静态页面、伪静态页面、SPA、SSR、预渲染之间的联系**
 
 - 查阅资料得知 爬虫对 URL 和查看网页源码时候查看到的 DOM 结构有很强的依赖关系
-
 - SPA 页面众所周知查看网页源码后，除了你写的`index.html`里面的内容 没有生成的真实 DOM 结构（通过 JS 动态增删，部分搜索引擎拿不到这些），而且 url 不用`history`模式，生成的都带#号，完全不利于 SEO
-
 - 而 SSR 服务端渲染，就拿`Nuxt`来说，可以生成真正的静态页和伪静态页（在服务端生成或者你本地生成后传到服务端里），查看源码的时候，能看到生成的 DOM 结构，而不再仅仅是`index.html`里面的内容，而且 URL 不带#号等，所以利于 SEO 优化
-
 - 预渲染使用的原理类似于服务端渲染，生成真正的静态 html， 有个插件 叫做`PrerenderSpaPlugin` 可以做预渲染
 
   > 摘自 https://segmentfault.com/q/1010000012069735
@@ -3286,29 +3268,29 @@ The Web Application Hacker's Handbook
 // targetScroll 目标滚动距离 理由setTimeout控制 最好用 requestAnimtaionFrame
 lazyMove(targetScroll) {
   this.request.timeId = setTimeout(() => {
-    const curScroll = window.scrollY
-    const toScroll = (targetScroll - curScroll) / 2
-    // 向上滚动  当前的距离 1000 目标距离0  下一次 就是-500
-    // 所以目标滚动距离 - 当前滚动距离是 负数
-    // 向下滚动的话 当前距离 1000  目标距离 2000 下一次 就是 +500
-    // 所以目标滚动距离 - 当前滚动距离 正数
-    // 最后我们要滚动的距离就是 当前的滚动距离 + 下一次的（正/负）滚动距离
-    // 你的目标滚动位置是不会变得 所以下次调用还是穿这个目标滚动距离 再算下一次的距离
-    if (Math.abs(curScroll - targetScroll) <= 2) {
-      window.scrollTo(0, targetScroll)
-      clearTimeout(this.request.timeId)
-    } else {
-      // 下一次的滚动距离 如果是向上 那就减去 向下 那就加上
-      window.scrollTo(0, curScroll + toScroll)
-      this.lazyMove(targetScroll)
-    }
+	const curScroll = window.scrollY
+	const toScroll = (targetScroll - curScroll) / 2
+	// 向上滚动  当前的距离 1000 目标距离0  下一次 就是-500
+	// 所以目标滚动距离 - 当前滚动距离是 负数
+	// 向下滚动的话 当前距离 1000  目标距离 2000 下一次 就是 +500
+	// 所以目标滚动距离 - 当前滚动距离 正数
+	// 最后我们要滚动的距离就是 当前的滚动距离 + 下一次的（正/负）滚动距离
+	// 你的目标滚动位置是不会变得 所以下次调用还是穿这个目标滚动距离 再算下一次的距离
+	if (Math.abs(curScroll - targetScroll) <= 2) {
+	  window.scrollTo(0, targetScroll)
+	  clearTimeout(this.request.timeId)
+	} else {
+	  // 下一次的滚动距离 如果是向上 那就减去 向下 那就加上
+	  window.scrollTo(0, curScroll + toScroll)
+	  this.lazyMove(targetScroll)
+	}
   }, 30)
 ```
 
 **136. vuecli3 引入第三方插件 如 JQ 百度地图**
 
 ```javascript
-chainWebpack: (config) => {
+chainWebpack: config => {
   config.externals({ BMap: "BMap" });
 };
 ```
@@ -3338,7 +3320,7 @@ chainWebpack: (config) => {
   */
   axios: {
     // credentials: true,
-    // 如果你的接口有域名 就不需要baseUrl 你的baseURl一定要和你的服务器地址一致 不然首次进入会无法获取数据 这个坑搞了我好久 托马的
+	// 如果你的接口有域名 就不需要baseUrl 你的baseURl一定要和你的服务器地址一致 不然首次进入会无法获取数据 这个坑搞了我好久 托马的
     baseURL: HOST,
     // prefix: '/pub'
     // See https://github.com/nuxt-community/axios-module#options
@@ -3356,10 +3338,10 @@ chainWebpack: (config) => {
 
 ```javascript
 export default function ({ $axios, redirect }) {
-  $axios.onRequest((config) => {
+  $axios.onRequest(config => {
     // console.log('Making request to ' + config.url)
   });
-  $axios.onError((error) => {
+  $axios.onError(error => {
     console.log(error);
     const code = parseInt(error.response && error.response.status);
     if (code === 400) {
@@ -3367,7 +3349,7 @@ export default function ({ $axios, redirect }) {
     }
   });
 
-  $axios.onResponse((response) => {
+  $axios.onResponse(response => {
     // console.log(response)
   });
 }
@@ -3421,115 +3403,116 @@ module.exports = {
 
 // 然后自己改造下
 _ajax({
-    url: '/api/oss/getUploadUrl',
-    headers: {
-        Authorization: JSON.stringify({
-                    deviceType: ,
-                    // 我们项目要传token
-                    token:
-                }),
-        'Content-Type':'application/x-www-form-urlencolde'
-    },
-    sucBack: function(res){
-        try {
-             res = JSON.parse(res).body
-             _sendFile(res)
-        } catch (error) {
+	url: '/api/oss/getUploadUrl',
+	headers: {
+		Authorization: JSON.stringify({
+					deviceType: ,
+					// 我们项目要传token
+					token:
+				}),
+		'Content-Type':'application/x-www-form-urlencolde'
+	},
+	sucBack: function(res){
+		try {
+			 res = JSON.parse(res).body
+			 _sendFile(res)
+		} catch (error) {
 
-        }
-    }
+		}
+	}
 })
 // 将图片发送给oss 获取fileId
 function _sendFile(data){
-    var fData = new FormData();
-    fData.append("key", data.key);
-    fData.append("success_action_status", "200");
-    fData.append("OSSAccessKeyId", data.OSSAccessKeyId);
-    fData.append("Signature", data.Signature);
-    fData.append("policy", data.policy);
-    fData.append("file", input.files[0]);
-    _ajax({
-        url: '/api/oss/getFileId',// + data.url,
-        data: fData,
-        sucBack: function(res){
-            try {
-                res = JSON.parse(res).body
-                _getImgLink(res.fileId)
-            } catch (error) {
-                console.log(error)
-            }
-        },
-        errBack: function(err){
-            console.log(err)
-        }
-    })
+	var fData = new FormData();
+	fData.append("key", data.key);
+	fData.append("success_action_status", "200");
+	fData.append("OSSAccessKeyId", data.OSSAccessKeyId);
+	fData.append("Signature", data.Signature);
+	fData.append("policy", data.policy);
+	fData.append("file", input.files[0]);
+	_ajax({
+		url: '/api/oss/getFileId',// + data.url,
+		data: fData,
+		sucBack: function(res){
+			try {
+				res = JSON.parse(res).body
+				_getImgLink(res.fileId)
+			} catch (error) {
+				console.log(error)
+			}
+		},
+		errBack: function(err){
+			console.log(err)
+		}
+	})
 }
 
 // 根据fileId获取图片链接
 function _getImgLink(id){
-    _ajax({
-        url: '/api/oss/getImg?fileId=' + id,
-        type: 'get',
-        sucBack: function(res){
-            try {
-            // 最后这里是添加到编辑器中的  根据场景需求自己调整
-                res= JSON.parse(res).body
-                var link = res.link;
-                loader = me.document.getElementById(loadingId);
-                loader.setAttribute('src', link);
-                loader.setAttribute('_src', link);
-                loader.setAttribute('title', '');
-                loader.setAttribute('alt', '');
-                loader.removeAttribute('id');
-                domUtils.removeClasses(loader, 'loadingclass');
-            } catch (error) {
+	_ajax({
+		url: '/api/oss/getImg?fileId=' + id,
+		type: 'get',
+		sucBack: function(res){
+			try {
+			// 最后这里是添加到编辑器中的  根据场景需求自己调整
+				res= JSON.parse(res).body
+				var link = res.link;
+				loader = me.document.getElementById(loadingId);
+				loader.setAttribute('src', link);
+				loader.setAttribute('_src', link);
+				loader.setAttribute('title', '');
+				loader.setAttribute('alt', '');
+				loader.removeAttribute('id');
+				domUtils.removeClasses(loader, 'loadingclass');
+			} catch (error) {
 
-            }
+			}
 
-        },
-        errBack: function(err){
-            console.log(err)
-        }
-    })
+		},
+		errBack: function(err){
+			console.log(err)
+		}
+	})
 }
 
 // ajax封装
 function _ajax(options){
-    var option = options || {}
-    option.type = options.type || 'post'
-    option.data = options.data || null
-    option.url = options.url || ''
-    option.headers = options.headers || null
-    option.data = options.data || null
-    option.sucBack = options.sucBack || null
-    option.errBack = options.errBack || null
+	var option = options || {}
+	option.type = options.type || 'post'
+	option.data = options.data || null
+	option.url = options.url || ''
+	option.headers = options.headers || null
+	option.data = options.data || null
+	option.sucBack = options.sucBack || null
+	option.errBack = options.errBack || null
 
-    var xhr = new XMLHttpRequest()
+	var xhr = new XMLHttpRequest()
 
-    xhr.onerror = function(error){
-        typeof option.errBack === 'function' && option.errBack(error)
-    }
+	xhr.onerror = function(error){
+		typeof option.errBack === 'function' && option.errBack(error)
+	}
 
-    xhr.open(option.type, option.url, true)
+	xhr.open(option.type, option.url, true)
 
-    if(option.headers){
-        for( i in option.headers ){
-            if( option.headers.hasOwnProperty( i ) ){
-                xhr.setRequestHeader( i, option.headers[i] )
-            }
-        }
-    }
+	if(option.headers){
+		for( i in option.headers ){
+			if( option.headers.hasOwnProperty( i ) ){
+				xhr.setRequestHeader( i, option.headers[i] )
+			}
+		}
+	}
 
-    xhr.send(option.data)
+	xhr.send(option.data)
 
-    xhr.onreadystatechange = function stateChange() {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 304 || (xhr.status >= 200 && xhr.status < 300)) {
-                typeof option.sucBack === 'function' && option.sucBack(xhr.responseText)
-            }
-        }
-    }
+	xhr.onreadystatechange = function stateChange() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 304 || (xhr.status >= 200 && xhr.status < 300)) {
+				typeof option.sucBack === 'function' && option.sucBack(xhr.responseText)
+			}
+		}
+	}
 }
+
 ```
 
 **141. JS 获取浏览器缩放比例**
@@ -3835,23 +3818,24 @@ module.toast("Hello World");
 });
 
 ````
+
 2.
 ```javascript
 syncLoadEcharts () {
-    return new Promise((resolve, reject) => {
-        require.ensure(
-            [],
-            function () {
-                echarts = require('echarts/lib/echarts')
-                require('echarts/lib/chart/line')
-                // 引入提示框和标题组件
-                require('echarts/lib/component/tooltip')
-                require('echarts/lib/component/title')
-                resolve('success')
-            },
-            'syncEcharts'
-        )
-    })
+	return new Promise((resolve, reject) => {
+		require.ensure(
+			[],
+			function () {
+				echarts = require('echarts/lib/echarts')
+				require('echarts/lib/chart/line')
+				// 引入提示框和标题组件
+				require('echarts/lib/component/tooltip')
+				require('echarts/lib/component/title')
+				resolve('success')
+			},
+			'syncEcharts'
+		)
+	})
 },
 ````
 
@@ -3956,7 +3940,6 @@ if (/htkj001\.oss|rryn/.test(config.url)) {
    - (懒加载和预加载)[https://www.jianshu.com/p/4876a4fe7731]
 
 3. 无限滚动
-
    - (React 之无限滚动)[https://zhuanlan.zhihu.com/p/32075662]
    - (Vue.js 一个超长列表无限滚动加载的解决方案)[https://juejin.im/entry/5819993fbf22ec0068aab054]
    - (设计高性能无限滚动加载，了解高效页面秘密)[https://zhuanlan.zhihu.com/p/25767226]
@@ -4107,13 +4090,12 @@ function minusCounter(e, obj) {
 **171. addEventListener 的 中的 passive 可以优化滚动 如果你不需要 preventDefault**
 
 - options 可选
-
 - 一个指定有关 listener 属性的可选参数对象。可用的选项如下：
 
-- 1. capture: Boolean，表示 listener 会在该类型的事件捕获阶段传播到该 EventTarget 时触发。
-  2. once: Boolean，表示 listener 在添加之后最多只调用一次。如果是 true， listener 会在其被调用之后自动移除。
-  3. passive: Boolean，表示 listener 永远不会调用 preventDefault()。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告。
-  4. mozSystemGroup: 只能在 XBL 或者是 Firefox' chrome 使用，这是个 Boolean，表示 listener 被添加到 system group。
+- 1.  capture: Boolean，表示 listener 会在该类型的事件捕获阶段传播到该 EventTarget 时触发。
+  2.  once: Boolean，表示 listener 在添加之后最多只调用一次。如果是 true， listener 会在其被调用之后自动移除。
+  3.  passive: Boolean，表示 listener 永远不会调用 preventDefault()。如果 listener 仍然调用了这个函数，客户端将会忽略它并抛出一个控制台警告。
+  4.  mozSystemGroup: 只能在 XBL 或者是 Firefox' chrome 使用，这是个 Boolean，表示 listener 被添加到 system group。
 
 **172. @contextmenu.prevent vue 中使用这个可以阻止右键菜单**
 
@@ -4204,9 +4186,9 @@ box-shadow: 0 8px 20px #666; /* 第一个左右偏移 第二个上下偏移 第�
 
 ```javascript
 // 有效清空 不会导致数据遗留
-loadData().then((res) => {
+loadData().then(res => {
   this.dataList = [];
-  this.dataList = res.map((v) => {
+  this.dataList = res.map(v => {
     v.name = 1;
     return v;
   });
@@ -4214,8 +4196,8 @@ loadData().then((res) => {
 
 // 有时候会无效清空 导致数据遗留
 this.dataList = [];
-loadData().then((res) => {
-  this.dataList = res.map((v) => {
+loadData().then(res => {
+  this.dataList = res.map(v => {
     v.name = 1;
     return v;
   });
@@ -4361,13 +4343,13 @@ export default {
       });
       this.client.on("connect", () => {
         // persence 和  /hello/word 相当于监听的路由 不在这里写 收不到信息
-        this.client.subscribe("presence", (err) => {
+        this.client.subscribe("presence", err => {
           if (!err) {
             this.client.publish("presence", "Hello mqtt");
           }
         });
 
-        this.client.subscribe("/hello/world", (err) => {
+        this.client.subscribe("/hello/world", err => {
           if (!err) {
             this.client.publish("/hello/world", "Hello word");
           }
@@ -4379,7 +4361,7 @@ export default {
         console.log(topic, message.toString(), "msg");
         // this.client.end();
       });
-      this.client.on("error", (error) => {
+      this.client.on("error", error => {
         // message is Buffer
         console.log(error);
         this.client.end();
@@ -4501,14 +4483,14 @@ export default {
     },
     // 这里有个注意点 我踩了个坑 自己不理解async   async返回的也是个promise对象  哈哈
     addMarkerToMap(arr) {
-      const newArr = arr.filter((v) => {
+      const newArr = arr.filter(v => {
         return v.longitude && v.latitude;
       });
       this.markerWindow = [];
       newArr.forEach((v, k) => {
         // 一开始直接添加到map中 都是空的 async返回的也是个promise 哦！
         this.createMarker(v)
-          .then((markder) => {
+          .then(markder => {
             this.map.addOverlay(markder);
           })
           .catch(() => {});
@@ -4559,7 +4541,7 @@ Vue.directive("allowed", {
     let roles = store.getters.roles;
     //判断权限
     if (Array.isArray(roles) && roles.length > 0) {
-      let allow = bingding.value.some((item) => {
+      let allow = bingding.value.some(item => {
         return roles.includes(item);
       });
       if (!allow) {
@@ -4608,7 +4590,7 @@ TS 有个好处就是你引入方法会告诉你参数是什么类型返回什�
 - 之后是写配置文件，比如我的 webpack 的 alias 配置如下, common 中是我的公共方法
 
 ```javascript
-chainWebpack: (config) => {
+chainWebpack: config => {
   config.resolve.alias.set("@common", resolve("src/common"));
 };
 ```
@@ -4636,7 +4618,7 @@ chainWebpack: (config) => {
  *
  * @param {String} msg 提示的消息
  */
-export const ht_notify_error = (msg) => {
+export const ht_notify_error = msg => {
   ht_notify({
     title: "非常抱歉...",
     message: msg,
@@ -5192,7 +5174,7 @@ if (
   value !== "" &&
   !el.__ieph
 ) {
-  const blocker = (e) => {
+  const blocker = e => {
     // 阻止事件冒泡并且阻止相同事件的其他侦听器被调用。
     e.stopImmediatePropagation();
     el.removeEventListener("input", blocker);
@@ -5330,10 +5312,10 @@ console.log("script end");
 
 ```javascript
 const decodingMap = {
-  "<": "<",
-  ">": ">",
-  '"': '"',
-  "&": "&",
+  "&lt;": "<",
+  "&gt;": ">",
+  "&quot;": '"',
+  "&amp;": "&",
   "&#10;": "\n",
   "&#9;": "\t",
   "&#39;": "'",
@@ -5374,7 +5356,7 @@ fileList(root);
 function fileList(folder) {
   fs.readdir(folder, (err, files) => {
     if (err) console.error(err);
-    files.forEach((file) => {
+    files.forEach(file => {
       fileFilter(folder + file);
     });
   });
@@ -5638,10 +5620,10 @@ var currentBackground = new THREE.Color(0xff0000);
 
 ```javascript
 {
-    key: "handlePhoneChange",
-    value: function(t) {
-        this.phoneNumber = t.target.value && t.target.value.trim(),
-        this.clearError()
+	key: "handlePhoneChange",
+	value: function(t) {
+	    this.phoneNumber = t.target.value && t.target.value.trim(),
+	    this.clearError()
 }
 ```
 
@@ -5877,7 +5859,7 @@ const degreesPerRadian = 180.0 / Math.PI;
 // 计算面积
     // points是 [{lng, lat,},...]
     // positions 是 [Cartesian3, Cartesian3...]
-    // 单位平方公里
+	// 单位平方公里
    function getAreaNum(points, positions) {
       let res = 0;
       //拆分三角曲面
@@ -5968,7 +5950,6 @@ model: {
 1. 验证 nvm 是否安装成功：在 cmd 输入 nvm version，有提示 nvm 版本信息，即安装 成功
 
 2. 然后输入 nvm root，查看到 nvm 的路径信息，我的是 C:\Users\Administrator\AppData\Roaming\nvm，所以在资源管理器上打开这个路径，找到里面的 settings.txt，并打开
-
 3. 在文本的最后一行中加入这两行代码
 
 ```text
@@ -6065,10 +6046,12 @@ action(index);
 -
 
 ```javascript
+
 model: {
     prop: '这个是传进来的props，比如你v-modle="text",那你的props里面就要写个text',
     event: '这个是触发的事件名字，比如你写了个input 你@input="$emit('testEvent')",那你这里就要写上testEvent'
 }
+
 ```
 
 - 子
@@ -6302,13 +6285,13 @@ form.append("file", vm.$refs.upload.files[0]);
 form.append("id", id);
 form.append("type", type);
 var config = {
-  onUploadProgress: (progressEvent) => {
+  onUploadProgress: progressEvent => {
     var complete =
       (((progressEvent.loaded / progressEvent.total) * 100) | 0) + "%";
     this.progress = complete;
   },
 };
-axios.post(`api/uploadFile`, form, config).then((res) => {
+axios.post(`api/uploadFile`, form, config).then(res => {
   if (res.data.status === "success") {
     console.log("上传成功");
   }
@@ -6433,16 +6416,16 @@ import axios from "@/libs/http";
 import { formatDataByType } from "@libs/assist";
 import * as types from "@/api/types";
 
-export const getDurgTypeList = (params) => {
+export const getDurgTypeList = params => {
   return axios
     .get(types.GETRootTypeList, params)
-    .then((res) => formatDataByType(res.data));
+    .then(res => formatDataByType(res.data));
 };
 
-export const getDrugTypeByIdAndKeyword = (params) => {
+export const getDrugTypeByIdAndKeyword = params => {
   return axios
     .get(types.GETDrugTypeByIdAndKeyword, params)
-    .then((res) => formatDataByType(res.data));
+    .then(res => formatDataByType(res.data));
 };
 ```
 
@@ -6557,7 +6540,7 @@ export class Subject {
    * @param {function} updateFn
    */
   addObserve(key, updateFn) {
-    const index = this.observes.findIndex((v) => v.key === key);
+    const index = this.observes.findIndex(v => v.key === key);
     const observe = { key, updateFn };
     index > -1
       ? this.observes.splice(index, 1, observe)
@@ -6569,7 +6552,7 @@ export class Subject {
   }
 
   notify() {
-    this.observes.forEach((v) => v.updateFn());
+    this.observes.forEach(v => v.updateFn());
   }
 }
 ```
@@ -6780,7 +6763,7 @@ function hanldeDiseaseChoicedChange() {
     }
     const tagList = Array.from($el.querySelectorAll(".el-tag"));
     let maxWidth = Math.max(
-      ...tagList.map((v) => {
+      ...tagList.map(v => {
         const text = v.textContent;
         const cacheWidth = cacheTagWidthObj[text];
         if (isId(cacheWidth)) {
@@ -6949,7 +6932,7 @@ graph.changeData();
 5. 设置 disabled 和 active 状态
 
 ```javascript
-graph.findAll("node", (node) => {
+graph.findAll("node", node => {
   const nodeId = node._cfg.id;
   graph.setItemState(nodeId, "disabled", true);
 });
@@ -7043,11 +7026,11 @@ G6.registerNode("dom-node", {
 
         html() {
           return `<p 
-          contenteditable
+	      contenteditable
               data-id=${cfg.id} 
-          title="${cfg.label}">
-          ${cfg.label}
-          </p>`;
+	      title="${cfg.label}">
+	      ${cfg.label}
+	      </p>`;
         },
         name: "p-shape",
       },
@@ -7082,7 +7065,7 @@ graph = new G6.TreeGraph({
     type: "compactBox",
     direction: "LR",
     // 核心
-    getHeight: (node) => {
+    getHeight: node => {
       return Math.ceil(node.label.length / 7) * 26 || 26;
     },
     getWidth: () => {
@@ -7139,9 +7122,9 @@ graph.refreshItem(id);
 server {
         listen       3333;
         server_name   172.31.242.57;
-        client_max_body_size 100m;
+	    client_max_body_size 100m;
 
-        proxy_set_header Host $host;
+		proxy_set_header Host $host;
         proxy_set_header Cookie $http_cookie;
 
         error_page 500 502 503 504 /50x.html;
@@ -7149,11 +7132,11 @@ server {
             root html;
         }
 
-        #root /disk1/cdss/web/dist;
-        #index index.html;
+		#root /disk1/cdss/web/dist;
+		#index index.html;
 
         location /imts/ {
-            proxy_pass http://localhost:2233/;
+		    proxy_pass http://localhost:2233/;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -7162,13 +7145,13 @@ server {
         }
 
         location / {
-            add_header 'Access-Control-Allow-Origin' '*';
-            include  uwsgi_params;
-            proxy_pass http://172.31.200.110:8701/;
-            proxy_set_header Host $http_host;
-            proxy_set_header Cookie $http_cookie;
+			add_header 'Access-Control-Allow-Origin' '*';
+			include  uwsgi_params;
+			proxy_pass http://172.31.200.110:8701/;
+			proxy_set_header Host $http_host;
+			proxy_set_header Cookie $http_cookie;
 
-            client_max_body_size 10m;
+			client_max_body_size 10m;
         }
     }
 ```
@@ -7187,7 +7170,7 @@ import PaintedChart from "@/views/statistic/index.js";
 const components = [PaintedChart];
 
 const install = function (Vue) {
-  components.forEach((component) => {
+  components.forEach(component => {
     Vue.component(component.name, component);
   });
 };
@@ -7206,7 +7189,6 @@ export default {
 2. `package.json`打包 build 命令改为 ` "build": "vue-cli-service build --target lib --name cdssChart ./package/index.js"`
 
 - cdssChart 是 npm 包名
-
 - ./package/index.js 是打包入口
 
 3. 给 vue 页面添加一个 index.js 让页面暴露出去 在`src/views/statistic/`目录下
@@ -7231,6 +7213,7 @@ export default {
   install,
   PaintedChart
 };
+
 ```
 
 4. 然后运行 npm run build 发布到私有 npm 上就行了
@@ -7363,7 +7346,7 @@ module.exports = (env, argv) => {
 ```.conf
 server{
   # 一开始没加443 所以不行
-     listen       443 ssl;
+	 listen       443 ssl;
                 server_name ncp.iflyhealth.com;
                 ssl_ciphers  HIGH:!aNULL:!MD5;
         ssl_prefer_server_ciphers  on;
@@ -7379,15 +7362,15 @@ server{
         proxy_set_header Host $host;
         proxy_set_header Cookie $http_cookie;
 
-                location / {
-                    alias /home/avator-demo/;
-                    try_files $uri $uri/ @router;
-                    if ($request_filename ~* .*\.(?:htm|html)$)
-                    {
-                        add_header Cache-Control "no-cache, no-store";
-                    }
-                }
-    }
+				location / {
+					alias /home/avator-demo/;
+					try_files $uri $uri/ @router;
+					if ($request_filename ~* .*\.(?:htm|html)$)
+					{
+						add_header Cache-Control "no-cache, no-store";
+					}
+				}
+	}
 ```
 
 **408. node_modules/node-sass/vendor 报错**
@@ -7434,103 +7417,55 @@ export default {
 > 这是一些踩的坑和经验 UI 框架是 uview 还么开发完
 
 1. sass-loader 的版本 @10.1.1 sass-loader 请使用低于 @11.0.0 的版本
-
 2. 用 ref(null)的形式定义 ref 实例的时候会报错，虽然不影响使用。
-
 3. 自定义 tabbar 的方式是先从微信官网拉一个自定义 tabbar 的项目，然后从这个自定义项目中复制`custom-tab-bar`放到`src`目录下。注意 pages.json 中的 tabBar.custom 要设为 true，同时开启`usingComponents`，而且要使用原生小程序代码编写！
-
 4. 自定义 tabbar 切换的时候先不要设置图标，通过全局数据存储当前跳转的 index，在每个 tabbar 主页面的 onshow 再去切换
-
 5. 重置样式需要在页面级别去写 组件组别不行
-
 6. tabs 组件引入页面真机报错 不能用
-
 7. 由于没有当前组件的 this composition-api 在做 ui 的时候并不好用
-
 8. 使用 scroll-into-view 的时候需要给子设置:id="item.id"
-
 9. 底部横条的兼容方案 https://ask.dcloud.net.cn/article/35564
-
 10. 修改内容 热更新报错 必须重启 恶心至极 重启电脑解决
-
 11. uniapp 中的:key 极其重要 直接影响值的获取
-
 12. u-button 自带节流 延迟 500ms 绝了！
-
 13. Array size is not a small enough positive integer 部分手机（包括部分安卓机）不支持 n in Number 的写法，只支持 n in Array，所以会报数组错误
-
 14. https://www.cnblogs.com/ljx20180807/p/9907922.html 地图定位
-
 15. setup 里的数据不需要响应式的时候，设置为引用类型就可以在 onload 等周期里更新数据了
-
 16. data(){这里的 this。xxx return {}} 会冲突
-
 17. 小程序 navigate 传参的时候 如果里面有链接 记得 encode 一下 不然传参会被截断
-
 18. https://www.jianshu.com/p/0853e36925e3 订阅消息的踩坑记录
-
 19. onshow 周期打包成网页的时候子组件并没有渲染，而在小程序时候子组件是渲染过得
-
 20. form 校验规则 rules 无法通过 props 传递， [参见](https://www.uviewui.com/components/form.html#form%E7%BB%84%E4%BB%B6%E7%BB%91%E5%AE%9Amodel%E5%8F%82%E6%95%B0)
-
 21. onLoad 和 uni.getLaunchOptionsSync 两个方法拿到的参数，不是一致的： 当从其他页面（小程序）跳转过来的时候，两次(本小程序在后台没有结束的话)传参不一致，则 onload 会被触发两次，且两次的参数正确，而 uni.getLaunchOptionsSync 方法拿到的是第一次的参数。
-
 22. sass-loader 的版本 @10.1.1 sass-loader 请使用低于 @11.0.0 的版本
-
 23. 用 ref(null)的形式定义 ref 实例的时候会报错，虽然不影响使用。
-
 24. 自定义 tabbar 的方式是先从微信官网拉一个自定义 tabbar 的项目，然后从这个自定义项目中复制`custom-tab-bar`放到`src`目录下。注意 pages.json 中的 tabBar.custom 要设为 true，同时开启`usingComponents`，而且要使用原生小程序代码编写！
-
 25. 自定义 tabbar 切换的时候先不要设置图标，通过全局数据存储当前跳转的 index，在每个 tabbar 主页面的 onshow 再去切换
-
 26. 重置样式需要在页面级别去写 组件组别不行
-
 27. tabs 组件引入页面真机报错 不能用
-
 28. 由于没有当前组件的 this composition-api 在做 ui 的时候并不好用
-
 29. 使用 scroll-into-view 的时候需要给子设置:id="item.id"
-
 30. 底部横条的兼容方案 https://ask.dcloud.net.cn/article/35564
-
 31. 修改内容 热更新报错 必须重启 恶心至极 重启电脑解决
-
 32. uniapp 中的:key 极其重要 直接影响值的获取
-
 33. u-button 自带节流 延迟 500ms 绝了！
-
 34. Array size is not a small enough positive integer 部分手机（包括部分安卓机）不支持 n in Number 的写法，只支持 n in Array，所以会报数组错误
-
 35. https://www.cnblogs.com/ljx20180807/p/9907922.html 地图定位
-
 36. setup 里的数据不需要响应式的时候，设置为引用类型就可以在 onload 等周期里更新数据了
-
 37. data(){这里的 this。xxx return {}} 会冲突
-
 38. 小程序 navigate 传参的时候 如果里面有链接 记得 encode 一下 不然传参会被截断
-
 39. https://www.jianshu.com/p/0853e36925e3 订阅消息的踩坑记录
-
 40. onshow 周期打包成网页的时候子组件并没有渲染，而在小程序时候子组件是渲染过得
-
 41. form 校验规则 rules 无法通过 props 传递， [参见](https://www.uviewui.com/components/form.html#form%E7%BB%84%E4%BB%B6%E7%BB%91%E5%AE%9Amodel%E5%8F%82%E6%95%B0)
-
 42. onLoad 和 uni.getLaunchOptionsSync 两个方法拿到的参数，不是一致的： 当从其他页面（小程序）跳转过来的时候，两次(本小程序在后台没有结束的话)传参不一致，则 onload 会被触发两次，且两次的参数正确，而 uni.getLaunchOptionsSync 方法拿到的是第一次的参数。
-
 43. upload， 正式版调用需要单独设置域名，微信后台-》开发-》开发管理-》开发设置-》服务器域名下的 uploadFile 合法域名， 需要配置，否则体验版没问题，正式版上传会失败
-
 44. 如果是多环境的 某个代码只能某个环境使用 一定要考虑加上条件编译控制
-
 45. u-avatar 里面传 url 的时候，打包 h5，相对路径（整个项目的 public 是相对的）会出错， 得到的路径会有页面的路径，不能正常使用
-
 46. modal 框在 ios 下会有个白边 是 u-mode-center-box 这个样式影响的
-
 47. h5 中 先 crate 再 load 再 show 视频全屏会频繁触发 show 周期 注意了
 
 48. 因为 npm 上面的 postcss-px-to-viewport 包并不支持 include 的用法，需要使用 github 上面的包
-
 49. https://blog.csdn.net/qq_35430000/article/details/116117367
-
 50. ```js
     {
       'postcss-px-to-viewport': {
@@ -7552,9 +7487,7 @@ export default {
           }
     }
     ```
-
 51. uniapp 的选择器如果要跨组件的话 要 `.class（选择器） >>> xxx` .class 要为当前组件能选到的选择器
-
 52. 如果组件循环引用了 h5 端 可能无法渲染 使用懒加载可以 但是懒加载在小程序端不能很好的渲染
 
 **412. postcss-px-to-viewport npm 下载不支持 include exclude**
@@ -7595,6 +7528,7 @@ export default {
     </script>
   </body>
 </html>
+
 ```
 
 **414. JS 高程第四版比第三版多了很多内容 要好好看看消化消化**
@@ -7630,25 +7564,25 @@ export default {
 
 **418. 选择 Object 还是 Map**
 
-1. 内存占用
-   Object 和 Map 的工程级实现在不同浏览器间存在明显差异，但存储单个键/值对所占用的内存数量
-   都会随键的数量线性增加。批量添加或删除键/值对则取决于各浏览器对该类型内存分配的工程实现。
-   `不同浏览器的情况不同，但给定固定大小的内存，Map 大约可以比 Object 多存储 50%的键/值对。`
-2. 插入性能
-   向 Object 和 Map 中插入新键/值对的消耗大致相当，不过插入 Map 在所有浏览器中一般会稍微快
-   一点儿。对这两个类型来说，插入速度并不会随着键/值对数量而线性增加。`如果代码涉及大量插入操 作，那么显然 Map 的性能更佳。`
-3. 查找速度
-   与插入不同，从大型 Object 和 Map 中查找键/值对的性能差异极小，但如果只包含少量键/值对，
-   则 Object 有时候速度更快。在把 Object 当成数组使用的情况下（比如使用连续整数作为属性），浏
-   览器引擎可以进行优化，在内存中使用更高效的布局。这对 Map 来说是不可能的。对这两个类型而言，
-   查找速度不会随着键/值对数量增加而线性增加。`如果代码涉及大量查找操作，那么某些情况下可能选 择 Object 更好一些。`
-4. 删除性能
-   使用 delete 删除 Object 属性的性能一直以来饱受诟病，目前在很多浏览器中仍然如此。为此，
-   出现了一些伪删除对象属性的操作，包括把属性值设置为 undefined 或 null。但很多时候，这都是一
-   种讨厌的或不适宜的折中。而对大多数浏览器引擎来说，Map 的 delete()操作都比插入和查找更快。
-   `如果代码涉及大量删除操作，那么毫无疑问应该选择 Map。`
-5. 顺序
-   Map 会维护插入值的顺序 Object 会根据默认规则排序
+1.  内存占用
+    Object 和 Map 的工程级实现在不同浏览器间存在明显差异，但存储单个键/值对所占用的内存数量
+    都会随键的数量线性增加。批量添加或删除键/值对则取决于各浏览器对该类型内存分配的工程实现。
+    `不同浏览器的情况不同，但给定固定大小的内存，Map 大约可以比 Object 多存储 50%的键/值对。`
+2.  插入性能
+    向 Object 和 Map 中插入新键/值对的消耗大致相当，不过插入 Map 在所有浏览器中一般会稍微快
+    一点儿。对这两个类型来说，插入速度并不会随着键/值对数量而线性增加。`如果代码涉及大量插入操 作，那么显然 Map 的性能更佳。`
+3.  查找速度
+    与插入不同，从大型 Object 和 Map 中查找键/值对的性能差异极小，但如果只包含少量键/值对，
+    则 Object 有时候速度更快。在把 Object 当成数组使用的情况下（比如使用连续整数作为属性），浏
+    览器引擎可以进行优化，在内存中使用更高效的布局。这对 Map 来说是不可能的。对这两个类型而言，
+    查找速度不会随着键/值对数量增加而线性增加。`如果代码涉及大量查找操作，那么某些情况下可能选 择 Object 更好一些。`
+4.  删除性能
+    使用 delete 删除 Object 属性的性能一直以来饱受诟病，目前在很多浏览器中仍然如此。为此，
+    出现了一些伪删除对象属性的操作，包括把属性值设置为 undefined 或 null。但很多时候，这都是一
+    种讨厌的或不适宜的折中。而对大多数浏览器引擎来说，Map 的 delete()操作都比插入和查找更快。
+    `如果代码涉及大量删除操作，那么毫无疑问应该选择 Map。`
+5.  顺序
+    Map 会维护插入值的顺序 Object 会根据默认规则排序
 
 **419. Set 和 Map**
 
@@ -7786,7 +7720,7 @@ if (process.env.NODE_ENV === "production") {
 ```js
 const text = new Array(10000)
   .fill(1)
-  .map((v) => {
+  .map(v => {
     return "哈哈哈哈哈哈哈哈哈哈或;";
   })
   .join("");
@@ -8079,7 +8013,7 @@ function scrollToLastItem(selector = "", getDomQuery) {
   const query = getDomQuery();
   query.selectViewport().scrollOffset();
   query.select(selector).boundingClientRect();
-  query.exec((res) => {
+  query.exec(res => {
     const lastIndex = res.length - 1;
     const scrollData = res[lastIndex - 1];
     const domData = res[lastIndex];
@@ -8106,51 +8040,67 @@ function scrollToLastItem(selector = "", getDomQuery) {
    被禁用的 input 元素既不可用，也不可点击。可以设置 disabled 属性，直到满足某些其他的条件为止（比如选择了一个复选框等等）。然后，就需要通过 JavaScript 来删除 disabled 值，将 input 元素的值切换为可用。
    注释：disabled 属性无法与 <input type="hidden"> 一起使用。
 
-**439. canvas 指定区域指定颜色更换**
+**439. react 中 wheel 如果要阻止滚动,需要监听原生滚动**
+**440. react 中如果想获取 useState 值改变 准确的方法 最好使用 useEffect**
+**441. ract 的 memo useMemo useCallback 不是用的越多越好的**
+**442. canvas 指定区域指定颜色更换**
 
 ```js
- /**
-   * 替换某个canvas的某个区域中的颜色a为颜色b
-   * @param ctx canvas的context对象
-   * @param left 起始x坐标
-   * @param top 起始y坐标
-   * @param width 从起始x坐标开始 多宽
-   * @param height 从起始坐标y开始 多高
-   * @param colorArr 颜色a 为像素点数组 如 [r,g,b,a] 注意a是255
-   * @param replaceColorArr 颜色b 如 [r,g,b,a] 注意a是255
-   */
-  replaceCanvasAreaColor(
-    ctx: CanvasRenderingContext2D,
-    left: number,
-    top: number,
-    width: number,
-    height: number,
-    colorArr: number[],
-    replaceColorArr: number[]
-  ) {
-    const imgData = ctx.getImageData(left, top, width, height);
-    const buff = imgData.data;
-    for (let i = 0, l = imgData.width * imgData.height * 4; i < l; i += 4) {
-      const item = [buff[i], buff[i + 1], buff[i + 2], buff[i + 3]];
-      if (item[0] === colorArr[0] && item[1] === colorArr[1] && item[2] === colorArr[2] && item[3] === colorArr[3]) {
-        buff[i] = replaceColorArr[0];
-        buff[i + 1] = replaceColorArr[1];
-        buff[i + 2] = replaceColorArr[2];
-        buff[i + 3] = replaceColorArr[3];
-      }
-    }
-    ctx.putImageData(imgData, left, top);
-  }
+ /**
+   * 替换某个canvas的某个区域中的颜色a为颜色b
+   * @param ctx canvas的context对象
+   * @param left 起始x坐标
+   * @param top 起始y坐标
+   * @param width 从起始x坐标开始 多宽
+   * @param height 从起始坐标y开始 多高
+   * @param colorArr 颜色a 为像素点数组 如 [r,g,b,a] 注意a是255
+   * @param replaceColorArr 颜色b 如 [r,g,b,a] 注意a是255
+   */
+  replaceCanvasAreaColor(
+    ctx: CanvasRenderingContext2D,
+    left: number,
+    top: number,
+    width: number,
+    height: number,
+    colorArr: number[],
+    replaceColorArr: number[]
+  ) {
+    const imgData = ctx.getImageData(left, top, width, height);
+    const buff = imgData.data;
+    for (let i = 0, l = imgData.width * imgData.height * 4; i < l; i += 4) {
+      const item = [buff[i], buff[i + 1], buff[i + 2], buff[i + 3]];
+      if (item[0] === colorArr[0] && item[1] === colorArr[1] && item[2] === colorArr[2] && item[3] === colorArr[3]) {
+        buff[i] = replaceColorArr[0];
+        buff[i + 1] = replaceColorArr[1];
+        buff[i + 2] = replaceColorArr[2];
+        buff[i + 3] = replaceColorArr[3];
+      }
+    }
+    ctx.putImageData(imgData, left, top);
+  }
 ```
 
-**446. ts 索引签名 可以用于 obj 的 key 定义类型**
+**443. 一些不在意的 meta 标签**
 
-```js
-type MenuData = { [path: string]: { id: string, name: string }[] };
+1.  <meta http-equiv="refresh" content="10"> 网站自动刷新
+2.  <input type="text" spellcheck="true" lang="en">
+3.  <p translate="no">Brand name</p> meta中也有
+
+**444. blocklyJS 可以拖拽生成代码**
+
+1. 可以查阅他的 google 论坛获取帮助
+
+**445. unplugin-vue-components 可以自动引入 很方便**
+
+**446. ts 索引签名**
+可以用于 obj 的 key 定义类型
+
+```ts
+type MenuData = { [path: string]: { id: string; name: string }[] };
 
 function deepGetMenuData(menuList: NavItem[], menuData: MenuData) {
   if (Array.isArray(menuList)) {
-    menuList.forEach((item) => {
+    menuList.forEach(item => {
       const { path, name, children } = item;
       menuData[path] = [
         {
@@ -8166,8 +8116,10 @@ function deepGetMenuData(menuList: NavItem[], menuData: MenuData) {
 
 **447. ts 中循环 enum**
 
-```js
-// 不能用 for in ，里面的变量会识别成 i
+1. 不能用 for in ，里面的变量会识别成 i
+2. 要使用
+
+```ts
 /**
  * 配合饿了么的颜色类型和自己扩展的
  */
@@ -8195,13 +8147,11 @@ export { COLOR_TYPE, tagColorList };
 
 **448. element-plus 按需引入自定义主题遇到的问题**
 
-- @import 被废弃了
+1. `@import` 被废弃了
+2. ElementPlusResolver 要使用 importStyle: "sass", 如果自动引入里面也用了 要两个都用
+3. 有个坏处就是你全局加的如果有别的 scss 改动别的 scss element 的也会编译一次。
 
-- ElementPlusResolver 要使用 importStyle: "sass", 如果自动引入里面也用了 要两个都用
-
-- 有个坏处就是你全局加的如果有别的 scss 改动别的 scss element 的也会编译一次。
-
-```js
+```ts
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { join } from "path";
@@ -8247,9 +8197,11 @@ export default defineConfig({
 
 **449. vite import.met.env undefined**
 
-http://events.jianshu.io/p/4973bd983e96
+> http://events.jianshu.io/p/4973bd983e96
 
-> There's a chicken-egg problem here: Vite expects to resolve .env files from project root, but project root can be made different by the config file. So if we resolve .env before resolving the config file, we can only resolve it from CWD, which would then break the case where the user puts .env files in a nested root specified via config. 摘自 Evan You 的回复
+There's a chicken-egg problem here: Vite expects to resolve .env files from project root, but project root can be made different by the config file.
+So if we resolve .env before resolving the config file, we can only resolve it from CWD, which would then break the case where the user puts .env files in a nested root specified via config.
+摘自 Evan You 的回复
 
 必须以 VITE 开头
 
@@ -8274,11 +8226,15 @@ export default ({ mode }) => {
 }
 ```
 
+**450. auto-import 插件**
+
+1. 这个插件还会引入你自己编写的插件作为类型 有时间查查如何配置的
+
 **451. ts 当返回两种类型时，如何使用不报错？**
 
 > 就是用户自定义的类型保护拉！
 
-```js
+```ts
 function isTableItemType(data: TreeItemType | TableItem): data is TableItem {
   return typeof (data as TableItem).scriptName === "string";
 }
@@ -8294,15 +8250,14 @@ function getTreeItemName(isLeaf: boolean, data: TreeItemType | TableItem) {
 }
 ```
 
-- 如 type Content = 类型 1|类型 2，类型 1 类型 2 返回的类型不同 代码里使用 Content 就会导致两种返回值没法确定。。
+1. 如 `type Content = 类型1|类型2`，类型 1 类型 2 返回的类型不同 代码里使用 Content 就会导致两种返回值没法确定。。
 
 **452. v-for 使用 v-model 要使用 index 的方式取值**
 
 **453. axios 与 application/x-www-form-urlencoded**
 
-使用 application/x-www-form-urlencoded 类型时 要使用 URLSearchParams()传参
-
-因为 axios 会默认序列化 JavaScript 对象为 JSON
+1. 使用 application/x-www-form-urlencoded 类型时 要使用 URLSearchParams()传参
+2. 因为 axios 会默认序列化 JavaScript 对象为 JSON
 
 **454. element-plus 按需引入 Message 相关没样式**
 
@@ -8319,7 +8274,9 @@ import "element-plus/theme-chalk/el-message-box.css";
 
 **456. 当数据为固定数组时，利用 ts 生成枚举类型**
 
-```js
+1.
+
+```ts
 /**
  * 分页的带大小设置
  */
@@ -8330,8 +8287,13 @@ export const pageSizes = [10, 20, 30, 40] as const;
  */
 export interface PaginationSearchParams {
   // 10 | 20 | 30 | 40
-  pageSize: typeof pageSizes[number];
+  pageSize: (typeof pageSizes)[number];
 }
+```
+
+2.
+
+```ts
 type ValueOf<T> = T[keyof T];
 
 const obj = {
@@ -8346,7 +8308,7 @@ type ValueList = keyof typeof obj; // 1 | 2
 
 **457. vite 使用 monaco-editor 如何汉化**
 
-[How to localize in esm? #1514]: https://github.com/microsoft/monaco-editor/issues/1514
+> [How to localize in esm? #1514](https://github.com/microsoft/monaco-editor/issues/1514)
 
 ```vue
 <template>
@@ -8368,7 +8330,7 @@ loader.config({
   },
 });
 
-loader.init().then((monacoInstance) => {
+loader.init().then(monacoInstance => {
   // 初始化编辑器
   monacoInstance.editor.create(divRef.value, {
     value: "321313123",
@@ -8381,12 +8343,12 @@ loader.init().then((monacoInstance) => {
 
 **458. flex 布局最后一个靠右或者靠左的时候可以用 margin-left:auto 来解决**
 
-> flex 布局中经常有其他元素靠左排列，最后一个元素靠右排列的设计。简单的在最后一个元素中添加 margin-left:auto 的样式，就可以实现
-> MDN 中给出了说明 flex、inline-flex 中，在水平方向上有空余空间的情况下，空余的空间会被平均分配给水平方向上写有 margin-left:auto 属性的元素的外边距
+1. flex 布局中经常有其他元素靠左排列，最后一个元素靠右排列的设计。简单的在最后一个元素中添加 margin-left:auto 的样式，就可以实现
+2. MDN 中给出了说明 flex、inline-flex 中，在水平方向上有空余空间的情况下，空余的空间会被平均分配给水平方向上写有 margin-left:auto 属性的元素的外边距
 
 **459. vue compute 定义类型**
 
-```js
+```ts
 const tag2Component: ComputedRef<{ [x: number]: typeof ComponentColumn }> =
   computed(() => {
     return {
@@ -8399,43 +8361,43 @@ const tag2Component: ComputedRef<{ [x: number]: typeof ComponentColumn }> =
 
 **460. flex 布局为什么 flex:1 宽度不一致**
 
-> 【转载】flex:1 不等分的问题
+> [【转载】flex:1 不等分的问题](https://www.jianshu.com/p/291b63908bdc)
 
-因为 依照 flex 的自动调整计算规范是不包含 padding 的。w3 规范这里的部分提到 flexItem 的可用空间要减去 margin、border、padding。所以想要均分的话，需要套个 margin、border、padding 一样的 div。
+1. 因为 依照 flex 的自动调整计算规范是不包含 padding 的。w3 规范这里的部分提到 flexItem 的可用空间要减去 margin、border、padding。所以想要均分的话，需要套个 margin、border、padding 一样的 div。
 
 **461. flex 布局当宽度不固定时，文字如何溢出隐藏？**
 
-[flex文字溢出]: https://blog.csdn.net/qq_31150171/article/details/122461592
+> https://blog.csdn.net/qq_31150171/article/details/122461592
 
-父元素 width:0 即可,要设置溢出...的元素不能再是 flex 布局了
+1. 父元素 width:0 即可,要设置溢出...的元素不能再是 flex 布局了
 
-**462. ts 将对象里的类型变为|null**
+**452. ts 将对象里的类型变为|null**
 
-```js
+```ts
 type WithNull<T extends object> = {
   [P in keyof T]: T[P] | null;
 };
 ```
 
-**463. vue 的动画 xx-leave-active**
+**453. vue 的动画 xx-leave-active**
 
-> 在这个 class 中添加 position:absolute 和具体的位置样式可以避免抖动
+1. 在这个 class 中添加 position:absolute 和具体的位置样式可以避免抖动
 
-**464. backdrop-filter**
+**454. backdrop-filter**
 
-属性可以让你为一个元素后面区域添加图形效果（如模糊或颜色偏移）。因为它适用于元素背后的所有元素，为了看到效果，必须使元素或其背景至少部分透明。
+1. 属性可以让你为一个元素后面区域添加图形效果（如模糊或颜色偏移）。因为它适用于元素背后的所有元素，为了看到效果，必须使元素或其背景至少部分透明。
 
-```js
+```css
 background-image: radial-gradient(transparent 1px, var(--bg-color) 1px);
 background-size: 4px 4px;
 backdrop-filter: saturate(50%) blur(4px);
 ```
 
-**465. vue3 createApp 创建动态组件**
+**455. vue3 createApp 创建动态组件**
 
 > 如果你的 createapp 用 template 方式渲染 打包后就不渲染了 要么 render 要么这种引入组件进来
 
-```js
+```ts
 import { App, createApp } from "vue";
 import { Dialog, Button } from "@components/index";
 import { MODAL_WIDTH } from "@/assets/ts/modal";
@@ -8526,16 +8488,16 @@ export default function useCancelYesNoMsgBox() {
 }
 ```
 
-**466. 再踩正则 g 的坑**
+**456. 再踩正则 g 的坑**
 
-> 如果你是 export 一个正则表达式，是全局匹配的，而不是每次初始化一个正则表达式，会有匹配出现反结果的可能
-> 因为 export 之后 import 相当于一直引用这个正则对象而一直引用同一个正则对象 然后 g 会有个 lastindex 内置属性
-> 初始为 0 匹配后 lastindex 设置为匹配内容在字符串中的索引 如果找不到就会设置为 0
-> 如果这时候别的字符串开始匹配 索引在字符串中找不到 那么用 g 就会有问题了 可能会返回 false
+1. 如果你是`export`一个正则表达式，是全局匹配的，而不是每次初始化一个正则表达式，会有匹配出现反结果的可能
+2. 因为 export 之后 import 相当于一直引用这个正则对象而一直引用同一个正则对象 然后 g 会有个 lastindex 内置属性
+3. 初始为 0 匹配后 lastindex 设置为匹配内容在字符串中的索引 如果找不到就会设置为 0
+4. 如果这时候别的字符串开始匹配 索引在字符串中找不到 那么用 g 就会有问题了 可能会返回 false
 
-**467. vite 拆包，分配 hash**
+**457. vite 拆包，分配 hash**
 
-```js
+```ts
 import fs from "fs";
 import { BuildOptions } from "vite";
 
@@ -8580,13 +8542,13 @@ const svgVueFilePaths: string[] = [
   /**
    * 公共svg
    */
-  ...fs.readdirSync("src/assets/svg").map((filename) => {
+  ...fs.readdirSync("src/assets/svg").map(filename => {
     return `src/assets/svg/${filename}`;
   }),
   /**
    * editor中的svg
    */
-  ...fs.readdirSync("src/views/editor/assets/svg").map((filename) => {
+  ...fs.readdirSync("src/views/editor/assets/svg").map(filename => {
     return `src/views/editor/assets/svg/${filename}`;
   }),
 ];
@@ -8639,9 +8601,9 @@ const build: BuildOptions = {
 export default build;
 ```
 
-**468. vite 因为 AutoImport 点击页面重新渲染问题解决**
+**458. vite 因为 AutoImport 点击页面重新渲染问题解决**
 
-```js
+```ts
 import fs from "fs";
 import { DepOptimizationOptions } from "vite";
 
@@ -8656,10 +8618,10 @@ const optimizeDepKeys: string[] = ["keyboardjs", "vue-json-viewer"];
  * 强制与构建element的组件
  * 因为饿了么的组件按需加载 会导致进入某个路由页面重新加载
  */
-fs.readdirSync("node_modules/element-plus/es/components").forEach((dirname) => {
+fs.readdirSync("node_modules/element-plus/es/components").forEach(dirname => {
   fs.access(
     `node_modules/element-plus/es/components/${dirname}/style/css.mjs`,
-    (err) => {
+    err => {
       if (!err) {
         optimizeDepKeys.push(
           `element-plus/es/components/${dirname}/style/index`
@@ -8676,9 +8638,9 @@ const optimizeDeps: DepOptimizationOptions = {
 export default optimizeDeps;
 ```
 
-**469. ts 泛型报不存在 xxx 属性时**
+**459. ts 泛型报不存在 xxx 属性时**
 
-```js
+```ts
 type TData = {
   sysLevel: SYS_LEVEL;
   appId?: number | string;
@@ -8689,30 +8651,32 @@ type TData = {
 export default function useTypeTreeSearchAll<T extends TData, K>({});
 ```
 
-**470. monacoEditor 打包后没有右键粘贴**
+**460. monacoEditor 打包后没有右键粘贴**
 
-[node-red/node-red-nodes#946]: https://github.com/node-red/node-red-nodes/issues/946
+> https://github.com/node-red/node-red-nodes/issues/946
 
-- 由于浏览器安全限制，粘贴仅在使用 localhost 或 https URL 时可用。
+1. 由于浏览器安全限制，粘贴仅在使用 localhost 或 https URL 时可用。
 
-**471. vue 多根节点如果频繁 v-if 切换 在生产会报 insertbefore null 的错误**
+**461. vue 多根节点如果频繁 v-if 切换 在生产会报 insertbefore null 的错误**
 
-> 可以改成 v-show
+1. 可以改成 v-show
 
-**472. macos pyenv 设置无效**
+**460. macos pyenv 设置无效**
 
-```js
-// 安装后进入~ ./zshrc设置环境变量即可
+1. 安装后进入`~ ./zshrc`设置环境变量即可
+
+```vim
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 ```
 
-**473. unplugin-auto-import 引入后 eslint 不识别问题解决**
+**461. unplugin-auto-import 引入后 eslint 不识别问题解决**
+
+1. vue.config.js
 
 ```js
-// vue.config.js
 const AutoImport = require("unplugin-auto-import/webpack");
 module.exports = {
   configureWebpack: {
@@ -8747,8 +8711,11 @@ module.exports = {
     ],
   },
 };
+```
 
-// .eslintrc.js
+2. .eslintrc.js
+
+```js
 module.exports = {
   // ...
   extends: [
@@ -8759,28 +8726,30 @@ module.exports = {
 };
 ```
 
-**474. REMOTE HOST IDENTIFICATION HAS CHANGED!**
+**462. REMOTE HOST IDENTIFICATION HAS CHANGED!**
 
-- 命令行 ssh-keygen -R github.com 之后就行了
+1. 命令行`ssh-keygen -R github.com` 之后就行了
+2. 意思大概是.ssh/known_hosts 下的 Host key 不匹配造成的，事实上很多时候会出现这个问题，先来了解一下 known_hosts 记录的是什么？
+   每次使用 SSH 连接远端服务器，SSH 会把你每个你访问过计算机的公钥 public key 都记录在~/.ssh/known_hosts。当下次访问相同计算机时，OpenSSH 会核对公钥。如果公钥不同，OpenSSH 会发出警告， 避免你受到 DNS Hijack，man-in-the-middle attack 之类的攻击。
 
-- 意思大概是.ssh/known_hosts 下的 Host key 不匹配造成的，事实上很多时候会出现这个问题，先来了解一下 known_hosts 记录的是什么？ 每次使用 SSH 连接远端服务器，SSH 会把你每个你访问过计算机的公钥 public key 都记录在~/.ssh/known_hosts。当下次访问相同计算机时，OpenSSH 会核对公钥。如果公钥不同，OpenSSH 会发出警告， 避免你受到 DNS Hijack，man-in-the-middle attack 之类的攻击。
+**463. 从 excel 提取 json 数据的思路**
 
-**475. 从 excel 提取 json 数据的思路**
+1. excel 另存为 csv
+2. csv2json 转成 json
+3. 拿到 json 自己处理数据格式
 
-- excel 另存为 csv
-- csv2json 转成 json
-- 拿到 json 自己处理数据格式
+**464. 知道图片比例，图片宽度和高不固定图片加载后如何避免抖动**
 
-**476. 知道图片比例，图片宽度和高不固定图片加载后如何避免抖动**
+1. 父级盒子设置高度 0，然后设置 padding-bottom 达到图片宽高比即可
 
-```js
-// 父级盒子设置高度 0，然后设置 padding-bottom 达到图片宽高比即可
-
+```html
 <header class="page-header">
   <h1 class="hidden">{{ PROGRAM_NAME }}</h1>
   <img :src="require('@images/banner.png')" :title="PROGRAM_NAME" />
 </header>
+```
 
+```scss
 .page {
   &-header {
     height: 0;
@@ -8794,1034 +8763,78 @@ module.exports = {
 }
 ```
 
-**477. 不同环境名称**
+**465. 不同环境名称**
 
-- dev（Development environment）：开发环境。用于开发者调试使用。
-- test：测试环境。
-- sit（System Integration Test）：系统集成测试。
-- uat（User Acceptance environment）：用户验收测试环境。生产环境下的软件测试者测试使用。预发布环境。
-- pre：灰度环境。灰度测试环境就是生产环境，生产数据，所影响的也是生产环境，只是范围比测试环境更广，更真实。其实就是小范围的生产环境。类似于游戏内测。
-- fat（Feature Acceptance Test environment）：功能验收测试环境。软件测试者测试使用。
-- prod（Production environment）：生产环境。正式线上环境。
+1. dev（Development environment）：开发环境。用于开发者调试使用。
+2. test：测试环境。
+3. sit（System Integration Test）：系统集成测试。
+4. uat（User Acceptance environment）：用户验收测试环境。生产环境下的软件测试者测试使用。预发布环境。
+5. pre：灰度环境。灰度测试环境就是生产环境，生产数据，所影响的也是生产环境，只是范围比测试环境更广，更真实。其实就是小范围的生产环境。类似于游戏内测。
+6. fat（Feature Acceptance Test environment）：功能验收测试环境。软件测试者测试使用。
+7. prod（Production environment）：生产环境。正式线上环境。
 
-**478. 企业微信小程序扫码授权无限提示授权**
+**466. 企业微信小程序扫码授权无限提示授权**
 
-- 在当前设备登录自己的微信 然后授权跳到自己的微信上就行了
+1. 在当前设备登录自己的微信 然后授权跳到自己的微信上就行了
+2. 不要使用扫码的方式
 
-- 不要使用扫码的方式
+**467. 利用 sourcetree 修改 commit 信息**
 
-**479. TS 重写 Window**
+1. 最好修改的 commit 没有推送到远程
+2. 修改 a 的 commit 需要右键 a 的上一次提交 交互式变基 编辑
 
-```js
-interface MyWindow extends Window {
-  _webAnalyst: {
-    queueName: string,
-    l?: number,
-  };
-  _wa: WaFuc;
-}
-```
+**468. 小程序点击关闭按钮只是隐藏**
 
-**480. 扁平数组转 tree 结构**
+1. 是不会重置变量之类的的 如果你每次进入页面重置某个变量 全局属性 就要当心了
 
-> 要求：输入 list，输出对应的 result
+**469. canvas clip 为什么要 store restore**
 
-```js
-interface ArrayItem {
-  id: number;
-  name: string;
-  parentId: number;
-}
+1.  原始画布中剪切任意形状和尺寸。一旦剪切了某个区域，则所有之后的绘图都会被限制在被剪切的区域内 这也是我们要 save 上下文的原因
 
-interface TreeItem extends ArrayItem {
-  children?: TreeItem[];
-}
+**470. 小程序 canvasToTempFilePath 部分 iphone 没生成图**
 
-// 输入
-const list: ArrayItem[] = [
-  { id: 1, name: '部门1', parentId: 0 },
-  { id: 2, name: '部门2', parentId: 1 },
-  { id: 3, name: '部门3', parentId: 1 },
-  { id: 4, name: '部门4', parentId: 3 },
-  { id: 5, name: '部门5', parentId: 4 },
-];
+1. 需要加加延迟
+2. 画布过大在 ios 上会显示空白
+3. 初始化画布大小必须同步，异步也会导致 ios 空白
 
-// 输出
-const result: TreeItem[] = [
-  {
-    id: 1,
-    name: '部门1',
-    parentId: 0,
-    children: [
-      {
-        id: 2,
-        name: '部门2',
-        parentId: 1,
-      },
-      {
-        id: 3,
-        name: '部门3',
-        parentId: 1,
-        children: [
-          {
-            id: 4,
-            name: '部门4',
-            parentId: 3,
-            children: [
-              {
-                id: 5,
-                name: '部门5',
-                parentId: 4,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-];
+**471. src 图片链接 403**
 
-// 实现：
-const convert = (arr: ArrayItem[]): TreeItem[] => {
-  const result: TreeItem[] = [];
-  const map = new Map<number, TreeItem>();
-  arr.forEach(item => {
-    map.set(item.id, item);
-  });
-  arr.forEach(item => {
-    const parent = map.get(item.parentId);
-    if (parent) {
-      if (parent.children) {
-        parent.children.push(item);
-      } else {
-        parent.children = [item];
-      }
-    } else {
-      result.push(item);
-    }
-  });
-  return result;
-};
+> [如何解决访问外部图片返回 403 Forbidden 错误](https://zhuanlan.zhihu.com/p/113500478)
 
-// 测试结果：
-const ans = convert(list);
+1. 一般是防盗链设置，对应破解法
+2. 一是让后端或 oss 的跨域白名单里配上当前域名
+3. 二是使用图片中转缓存网站
+4. 三是加 `<meta name="referrer" content="no-referrer" />`
 
-console.log(JSON.stringify(ans) === JSON.stringify(result)); // true
-```
+**472. 后端返回 id 很长，精度会缺失，需要让后端改为字符串**
+-> 1645485922393248031
+-< 1645485922393248000
 
-**481. 高性能向下取整**
+**473. :adjust-position="false"可以防止小程序键盘弹起带着页面顶上去**
 
-> 核心是利用了位运算：
+**474. 小程序订阅消息授权如何清除？**
 
-```js
-// 不推荐
-const num = parseFloat(1.2);
-const num = parseFloat("1.2");
+1. 通过微信开发者工具清除授权缓存就行了 前提是你能开发这个小程序
 
-// 推荐
-const num = 1.2 >>> 0;
-const num = "1.2" >>> 0;
-```
+**475. 小程序动态设置 page 元素的样式**
 
-**482. SEO 优化**
+```vue
+<template>
+  <page-meta :page-style="pageStyle"></page-meta>
+</template>
 
-- 最好用 ssr 框架，比如 react 的 next，或者 vue 的 nuxt（废话）
+<script setup>
+const pageStyle = ref("background: #00000; transition: all .3s");
 
-- HTML 标签语义化，在适当的位置使用适当的标签
-
-- a 标签都记得设置链接，并且要加上 title 属性加以说明
-
-- img 标签都记得加 alt 属性
-
-- 谨慎使用 display: none，因为搜索引擎会过滤掉 display: none 中的内容
-
-- meta 信息包含 title、keywords、description，有的页面需要单独定制，有的需要通用
-
-- 页面在 html 标签上加 lang="zh-CN"属性，表明文档的语言
-
-- 每个页面最好都要有且仅有一个 h1 标题，尤其是不需要登录的页面（若不喜欢 h1 的默认样式可通过 CSS 设置
-
-**483. 判断一个对象是普通对象还是通过类创建的**
-
-```js
-const isPlainObject = (obj: any): boolean => {
-  if (typeof obj !== "object" || obj === null) {
-    return false;
-  }
-
-  let proto = Object.getPrototypeOf(obj);
-  if (proto === null) {
-    return true;
-  }
-
-  let baseProto = proto;
-  while (Object.getPrototypeOf(baseProto) !== null) {
-    baseProto = Object.getPrototypeOf(baseProto);
-  }
-
-  return proto === baseProto;
-};
-```
-
-**484. 判断是否在浏览器环境**
-
-```js
-const isBrowser = () => {
-  return (
-    typeof window !== "undefined" &&
-    typeof window.document !== "undefined" &&
-    typeof window.document.createElement !== "undefined"
-  );
-};
-```
-
-**485. 判断是否为移动端**
-
-```js
-const userAgent = () => {
-  const u = navigator.userAgent;
-  return {
-    trident: u.includes("Trident"),
-    presto: u.includes("Presto"),
-    webKit: u.includes("AppleWebKit"),
-    gecko: u.includes("Gecko") && !u.includes("KHTML"),
-    mobile: !!u.match(/AppleWebKit.*Mobile.*/),
-    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
-    android: u.includes("Android") || u.includes("Adr"),
-    iPhone: u.includes("iPhone"),
-    iPad: u.includes("iPad"),
-    webApp: !u.includes("Safari"),
-    weixin: u.includes("MicroMessenger"),
-    qq: !!u.match(/\sQQ/i),
-  };
-};
-
-const isMobile = () => {
-  if (!isBrowser()) {
-    return false;
-  }
-  const { mobile, android, ios } = userAgent();
-  return mobile || android || ios || document.body.clientWidth < 750;
-};
-```
-
-**486. 判断页面是否在 iframe 框架里**
-
-> 目前有很多第三方库可以解决这些问题，还支持了大数运算，并且修复了原生 toFixed 结果不准确的问题，比如 bignumber.js、decimal.js、以及 big.js 等。代码仅供参考，不能用于生产环境！
-
-```js
-const isInIframe = (): boolean => {
-  try {
-    return (
-      self !== top ||
-      self.frameElement?.tagName === "IFRAME" ||
-      window.frames.length !== parent.frames.length
-    );
-  } catch {
-    return true;
-  }
-};
-```
-
-**487. 实现一个 compose 函数**
-
-```js
-const compose = (...funcs) => {
-  if (funcs.length === 0) {
-    return (arg) => arg;
-  }
-  if (funcs.length === 1) {
-    return funcs[0];
-  }
-  return funcs.reduce((a, b) => {
-    return (...args) => a(b(...args));
-  });
-};
-```
-
-**488. 数字精度问题**
-
-```js
-// 加
-function add(arg1, arg2) {
-  let digits1, digits2, maxDigits;
-  try {
-    digits1 = arg1.toString().split(".")[1].length || 0;
-  } catch {
-    digits1 = 0;
-  }
-  try {
-    digits2 = arg2.toString().split(".")[1].length || 0;
-  } catch {
-    digits2 = 0;
-  }
-  maxDigits = 10 ** Math.max(digits1, digits2);
-  return (mul(arg1, maxDigits) + mul(arg2, maxDigits)) / maxDigits;
-}
-
-// 减
-function sub(arg1, arg2) {
-  let digits1, digits2, maxDigits;
-  try {
-    digits1 = arg1.toString().split(".")[1].length || 0;
-  } catch {
-    digits1 = 0;
-  }
-  try {
-    digits2 = arg2.toString().split(".")[1].length || 0;
-  } catch {
-    digits2 = 0;
-  }
-  maxDigits = 10 ** Math.max(digits1, digits2);
-  return (mul(arg1, maxDigits) - mul(arg2, maxDigits)) / maxDigits;
-}
-
-// 乘
-function mul(arg1, arg2) {
-  let digits = 0;
-  const s1 = arg1.toString();
-  const s2 = arg2.toString();
-  try {
-    digits += s1.split(".")[1].length;
-  } catch {}
-  try {
-    digits += s2.split(".")[1].length;
-  } catch {}
-  return (
-    (Number(s1.replace(/\./, "")) * Number(s2.replace(/\./, ""))) / 10 ** digits
-  );
-}
-
-function div(arg1, arg2) {
-  let int1 = 0;
-  let int2 = 0;
-  let digits1;
-  let digits2;
-  try {
-    digits1 = arg1.toString().split(".")[1].length || 0;
-  } catch (e) {
-    digits1 = 0;
-  }
-  try {
-    digits2 = arg2.toString().split(".")[1].length || 0;
-  } catch (e) {
-    digits2 = 0;
-  }
-  int1 = Number(arg1.toString().replace(/\./, ""));
-  int2 = Number(arg2.toString().replace(/\./, ""));
-  return ((int1 / int2) * 10) ** (digits2 - digits1 || 1);
-}
-```
-
-**489. 垂直居中 textarea**
-
-> 不能通过 css 来实现输入的垂直居中，通过动态调整 paddingTop 来偏移文本内容。需要注意的是，多行的时候，需要计算行数，可以通过 set Height 0，然后滚动高度就是输入文字的总高度，算完之后把高度复原，行数 = 文字总高度 / 行高。所以，设置行高很重要，默认是 normal，normal 是字符串，没办法计算的，所以自己手动设一个 lineheight 吧
-
-```js
-<textarea id="text"></textarea>
-textarea {
-  width: 200px;
-  height: 200px;
-  padding: 0;
-  margin: 0;
-  line-height: 1.2;
-  text-align: center;
-  border: 1px solid black;
-  box-sizing: border-box;
-  word-break: break-all;
-  resize: none;
-}
-// 获取行数，注意需要先把paddingtop置0，不然scrollHeight会把padding算进去
-function getLinesCount(textEle, lineHeight) {
-  textEle.style.paddingTop = 0;
-  const h0 = textEle.style.height;
-  textEle.style.height = 0;
-  const h1 = textEle.scrollHeight;
-  textEle.style.height = h0;
-  return Math.floor(h1 / lineHeight);
-}
-
-function update() {
-  const textArea = document.querySelector('#text');
-  const lineHeight = Number(window.getComputedStyle(textArea).lineHeight.slice(0, -2));
-  const h = textArea.getBoundingClientRect().height;
-  const lines = getLinesCount(textArea, lineHeight);
-  const top = h / 2 - (lineHeight * lines) / 2;
-  textArea.style.paddingTop = `${top}px`;
-}
-
-window.onload = update;
-```
-
-**490. interface 和 type 的区别**
-
-相同点：
-
-- 都可以描述对象
-
-- 都允许扩展（extends）
-
-不同点：
-
-- type 可以为任何类型引入名称，interface 只能描述对象
-
-- type 不支持继承，只能通过交叉类型合并，interface 可以通过继承扩展，也可以通过重载扩展
-
-- type 无法被实现 implements，而接口可以被派生类实现
-
-- type 重名会抛出错误，interface 重名会产生合并
-
-**491. 手写 getQueryString**
-
-```js
-const src = "https://www.baidu.com/?id=123&name=aaa&phone=12345";
-
-const getQueryString = (url) => {
-  if (!url.includes("?")) {
-    return null;
-  }
-  const [, search] = url.split("?");
-  const obj = {};
-  search.split("&").forEach((item) => {
-    if (item.includes("=")) {
-      const [key, val] = item.split("=");
-      Reflect.set(obj, key, val);
-    }
-  });
-  return obj;
-};
-
-const getQueryString2 = (url: string) => {
-  if (!url.includes("?")) {
-    return null;
-  }
-  const ans = {};
-  url.replace(/([^?&=]+)=([^&]+)/g, (_, k, v) => (ans[k] = v));
-  return ans;
-};
-
-getQueryString(src);
-// { id: "123", name: "aaa", phone: "12345" }
-```
-
-**493. 手写 Array.flat(Infinity)**
-
-```js
-const isArray = Array.isArray;
-
-const flatDeep = (arr) => {
-  return arr.reduce(
-    (acc, val) => acc.concat(isArray(val) ? flatDeep(val) : val),
-    []
-  );
-};
-
-flatDeep([1, 2, [3, [4, [5, 6]]]]);
-// [1, 2, 3, 4, 5, 6]
-```
-
-**494. 算法 — 有效的括号**
-
-```js
-// map解法
-const isValid = (s: string): boolean => {
-  if (s.length & 1) {
-    return false;
-  }
-  const stack: string[] = [];
-  const map = new Map<string, string>();
-  map.set('(', ')');
-  map.set('{', '}');
-  map.set('[', ']');
-  for (let i = 0; i < s.length; i++) {
-    const c = s[i];
-    if (map.has(c)) {
-      stack.push(c);
-    } else {
-      const t = stack.at(-1);
-      if (map.get(t) === c) {
-        stack.pop();
-      } else {
-        return false;
-      }
-    }
-  }
-  return stack.length === 0;
-};
-
-// 栈解法
-const isValid2 = (s: string): boolean => {
-  if (s.length & 1) {
-    return false;
-  }
-  const stack: string[] = [];
-  for (let i = 0; i < s.length; i++) {
-    const c = s[i];
-    if (['(', '[', '{'].includes(c)) {
-      stack.push(c);
-    } else {
-      const t = stack.at(-1);
-      if ((t === '(' && c === ')') || (t === '[' && c === ']') || (t === '{' && c === '}')) {
-        stack.pop();
-      } else {
-        return false;
-      }
-    }
-  }
-  return stack.length === 0;
-};
-```
-
-**495. 图片加载失败处理方式**
-
-> 图片为空很容易判断：
-
-```js
-<img src={imgSrc || defaultSrc} />
-```
-
-> 图片加载失败，使用图片自带的 error 事件处理即可：
-
-```js
-<img
-  src={imgSrc}
-  onError={(event) => {
-    event.currentTarget.src = defaultSrc;
-  }}
-/>
-```
-
-> 注意有些加载 404 的图片不会走 error 事件，而是走了 load 事件，那么我们可以通过直接添加一个占位底图来实现，这样如果能加载就会覆盖占位图，如果不能加载那就会显示底下的底图
-
-```js
-<div>
-  <img src={imgSrc} />
-  <img src={defaultSrc} />
-</div>
-```
-
-**494. 判断对象中是否存在某个属性的三种方法**
-
-```js
-1. hasOwnProperty()
-
-// hasOwnProperty方法会返回一个布尔值，指示对象自身属性中是否具有指定的属性（不包含原型上的属性）：
-
-({ a: 1 }).hasOwnProperty('a'); // true
-
-({ a: 1 }).hasOwnProperty('toString'); // false
-
-2. in 操作符
-
-// in 操作符会返回一个布尔值，指示对象自身属性中是否具有指定的属性（包含原型上的属性）：
-
-'a' in { a: 1 }; // true
-
-'toString' in { a: 1 }; // true
-
-3. Reflect.has()
-
-// Reflect.has作用与in 操作符相同：
-
-Reflect.has({ a: 1 }, 'a'); // true
-
-Reflect.has({ a: 1 }, 'toString'); // true
-```
-
-**495. 实现深拷贝**
-
-1. 简易版
-
-这个方法有些缺点，懂的都懂，不再废话了
-
-```js
-const newData = JSON.parse(JSON.stringify(data));
-```
-
-2. 加强版
-
-```js
-const deepClone = (obj) => {
-  const ans = Array.isArray(obj) ? [] : {};
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      ans[key] =
-        obj[key] && typeof obj[key] === "object"
-          ? deepClone(obj[key])
-          : obj[key];
-    }
-  }
-  return ans;
-};
-
-const newData = deepClone(data);
-```
-
-3. 非主流版
-
-structuredClone：原生 js 的深拷贝，因为是新出的，所以兼容差的要死，不建议使用
-
-```js
-const newData = structuredClone(data);
-```
-
-目前只有浏览器可以用，node 环境还不支持，并且只有最新几个版本的浏览器才能用
-
-对了，而且这个方法不能拷贝函数，遇到函数会直接报错
-
-4. 终极版
-
-```js
-import { cloneDeep } from "lodash";
-
-const newData = cloneDeep(data);
-```
-
-**496. 让指定方法最多只能被调用 1 次**
-
-```js
-/**
- * @param n 最多调用次数
- * @param func 回调函数
- */
-function before(n, func) {
-  if (typeof n !== "number") {
-    throw new TypeError("Expected a number");
-  }
-  if (typeof func !== "function") {
-    throw new TypeError("Expected a function");
-  }
-  let result;
-  return function (...args) {
-    if (--n >= 0) {
-      result = func.apply(this, args);
-    }
-    if (n < 0) {
-      func = null;
-    }
-    return result;
-  };
-}
-
-function once(func) {
-  return before(1, func);
-}
-
-// 使用：
-
-const initialize = once(doSomething);
-
-initialize(); // 只有第一次有效
-initialize(); // 无效
-initialize(); // 无效
-```
-
-**497. 判断是否为原生函数**
-
-> lodash 源码中是这样实现的：
-
-```js
-const reIsNative = RegExp(
-  `^${Function.prototype.toString
-    .call(Object.prototype.hasOwnProperty)
-    .replace(/[\\^$.*+?()[\]{}|]/g, "\\$&")
-    .replace(
-      /hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,
-      "$1.*?"
-    )}$`
-);
-
-const isObject = (value) => {
-  return value && ["object", "function"].includes(typeof value);
-};
-
-const isNative = (value) => {
-  return isObject(value) && reIsNative.test(value);
-};
-
-// 使用：
-isNative([].push); // true
-isNative(myFunction); // false
-```
-
-> vue 源码中是这样实现的：
-
-```js
-const reIsNative = /native code/;
-
-const isObject = (value) => {
-  return value && ["object", "function"].includes(typeof value);
-};
-
-const isNative = (value) => {
-  return isObject(value) && reIsNative.test(value.toString());
-};
-
-// 使用：
-isNative([].push); // true
-isNative(myFunction); // false
-```
-
-不知道 lodash 为啥实现的如此复杂，可能是因为 lodash 太老了吧，都多少年了
-
-**498. 不创建新变量的前提下，交换两个变量**
-
-> 方法一：四则运算
-
-注意：由于 IEEE 754 标准的存在，第一种方法并不是一定安全的，可能会出现精度问题。
-
-```js
-let [a, b] = [1, 2];
-
-a = a + b;
-b = a - b;
-a = a - b;
-
-console.log(a, b); // 2 1
-```
-
-> 方法二：位运算
-
-```js
-let [a, b] = [1, 2];
-
-a = a ^ b;
-b = a ^ b;
-a = a ^ b;
-
-console.log(a, b); // 2 1
-```
-
-> 方法三：解构
-
-```js
-let [a, b] = [1, 2];
-
-[a, b] = [b, a];
-
-console.log(a, b); // 2 1
-```
-
-**499. 打印顺序**
-
-> 下面代码的打印顺序：
-
-```js
-const object = { a2: "", 2: "", 1: "", a1: "" };
-
-for (const key in object) {
-  console.log(key);
-}
-```
-
-先说答案：顺序是 1、2、a2、a1
-
-解释：js 在对对象的 key 进行遍历的时候，会先判断 key 的类型，如果是 number 类型，则会放在前面，并且进行排序，如果是 string 类型，则放在后面，不进行排序（对 number 排序是为了方便内存寻址，string 不能进行四则运算，所以排序没有意义）。
-
-**500. 猜打印结果**
-
-```js
-console.log(11);
-// 结果：11
-// 解释：普通的十进制数字，没啥好解释的
-
-console.log(0.11);
-// 结果：0.11
-// 解释：如果数值前面的整数部分为 0，那么 js 允许我们省略
-
-console.log(11.);
-// 结果：11
-// 解释：如果小数点后面的小数部分为 0，那么 js 允许省略
-
-console.log(011);
-// 结果：9
-// 解释：如果数值前面以 0 开头，那么 js 会把它当成八进制，逢八进一
-
-console.log(080);
-// 结果：80
-// 解释：因为八进制的数值里面不可能出现数字 8，所以这种情况下是无效的八进制，js 会当成十进制进行处理
-
-console.log(0o11);
-// 结果：9
-// 解释：0o 开头的数值也会被当成八进制处理
-
-console.log(0o80);
-// 结果：报错
-// 解释：0o 开头的数值会被当成八进制处理，但是八进制的数值里面不可能出现数字 8，所以直接报错了
-
-console.log(0b11);
-// 结果：3
-// 解释：0b 开头的数值会被当成二进制处理
-
-console.log(0x11);
-// 结果：17
-// 解释：0x 开头的数值会被当成十六进制处理
-
-console.log(11e2);
-// 结果：1100
-// 解释：科学计数法，表示 11 * (10 ** 2)
-
-console.log(11.toString());
-// 结果：报错
-// 解释：在数字转字符串的过程中，toString 方法被当成小数点后面的小数部分了，所以报错了，正确写法如下：
-
-// 方法一，小数点后面加空格
-11. toString();
-
-// 方法二，小数点后面再次调用toString
-11..toString();
-
-// 方法三，使用括号运算符提升优先级
-(11).toString();
-
-// 方法四，提前申明变量
-const num = 11;
-const string = num.toString();
-```
-
-**501.扁平数组转 tree 结构**
-
-> 要求：输入 list，输出对应的 result
-
-```js
-interface ArrayItem {
-  id: number;
-  name: string;
-  parentId: number;
-}
-
-interface TreeItem extends ArrayItem {
-  children?: TreeItem[];
-}
-
-// 输入
-const list: ArrayItem[] = [
-  { id: 1, name: "部门1", parentId: 0 },
-  { id: 2, name: "部门2", parentId: 1 },
-  { id: 3, name: "部门3", parentId: 1 },
-  { id: 4, name: "部门4", parentId: 3 },
-  { id: 5, name: "部门5", parentId: 4 },
-];
-
-// 输出
-const result: TreeItem[] = [
-  {
-    id: 1,
-    name: "部门1",
-    parentId: 0,
-    children: [
-      {
-        id: 2,
-        name: "部门2",
-        parentId: 1,
-      },
-      {
-        id: 3,
-        name: "部门3",
-        parentId: 1,
-        children: [
-          {
-            id: 4,
-            name: "部门4",
-            parentId: 3,
-            children: [
-              {
-                id: 5,
-                name: "部门5",
-                parentId: 4,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-];
-```
-
-> 实现：
-
-```js
-const convert = (arr: ArrayItem[]): TreeItem[] => {
-  const result: TreeItem[] = [];
-  const map = new Map<number, TreeItem>();
-  arr.forEach(item => {
-    map.set(item.id, item);
-  });
-  arr.forEach(item => {
-    const parent = map.get(item.parentId);
-    if (parent) {
-      if (parent.children) {
-        parent.children.push(item);
-      } else {
-        parent.children = [item];
-      }
-    } else {
-      result.push(item);
-    }
-  });
-  return result;
-};
-```
-
-> 测试结果：
-
-```js
-const ans = convert(list);
-
-console.log(JSON.stringify(ans) === JSON.stringify(result)); // true
-```
-
-**502. 如何监听一个对象是否被 GC**
-
-> FinalizationRegistry 类:
-
-当一个在注册表中注册的对象被回收时，请求在某个时间点上调用一个清理回调。（清理回调有时被称为 finalizer）
-
-你可以通过调用 register 方法，注册任何你想要清理回调的对象，传入该对象和所含的值;
-
-```js
-let value1 = "a";
-let value2 = "b";
-
-//创建一个FinalizationRegistry 对象
-const registry = new FinalizationRegistry((val) => {
-  //val为使用FinalizationRegistry 对象的register方法注册对象时，传入的第二个参数的值
-  if (val === "value1") {
-    console.log("value1 被销毁");
-  }
-  if (val === "value2") {
-    console.log("value2 对象被销毁");
-  }
+const { setup, handleChangeSetup } = useSetup(setupNum => {
+  pageStyle.value = `background:${
+    setupNum === 1 ? "#e22b27" : "#000"
+  };  transition: all .3s`;
 });
-
-//注册对象
-registry.register(value1, "value1");
-registry.register(value2, "value2");
-value1 = null;
-value2 = null;
+</script>
 ```
 
-> WeakRef 类
-
-如果我们默认将一个对象赋值给另外一个引用，那么这个引用是一个强引用：
-
-如果我们希望是一个弱引用的话，可以使用 WeakRef；
-
-```js
-let obj = {
-  name: "aaa",
-};
-
-const foo = new WeakRef(obj);
-
-console.log(foo.deref());
-
-setTimeout(() => {
-  console.log(foo.deref());
-}, 1000);
-
-obj = null;
-```
-
-**503. 关于 cookie**
-
-**几个拿 cookie 也不能登陆的情况：**
-
-- 内网系统
-- 白名单系统
-
-- 没使用 cookie 验证的系统，或者非只靠 cookie 验证的系统
-
-- 启用 hsts 会让 http 上的 cookie 无效
-
-- cookie 带动态验证的，比如检验 cookie 内的某些加密数值是否与请求一致
-
-- cookie 已失效
-
-**“拿到我的 cookie” 确实非常危险，但这并不意味着可以登录进我的系统或者发生危险。原因如下：**
-
-- 我们的 cookie 会与 ip 地址与 user-agent 联动检查。遇到可疑的异地冒用情况会踢出登陆。
-
-- 我们的管理员后台是只能 office 访问（slb 做了 ip 白名单），无法外部访问。
-
-- 我们系统的管理页面 cookie 是 1 小时过期，你虽然拿到了我的 cookie，但是我在一小时之内都没登陆过，你拿到的是过期 cookie，进不去我们系统的后台。
-
-- 我们的 api 用了带 body 签名验证的协议，规则复杂，你有了 cookie 也无法用 python 等爬虫类程序冒用他人身份请求我们的接口。
-  事实上，我们的系统，不会让你用技术手段偷窃 cookie，因为我们的 cookie 启用了严格的 same-site，并且是 httpOnly 的，这意味着你无法通过 js 代码，或者其他钓鱼获取到用户 cookie。
-
-**504. TS key**
-
-在渲染列表的时候，很多场景中都需要 key 这个属性，这个属性一般是后端给的，但是上次我发现后端给的数据出现了问题，于是就打算自己加一个 key：
-
-```js
-// 在js中是这么写的：
-export const addKey = (list) => {
-  return list.map((item) => ({ ...item, key: Symbol() }));
-};
-
-// 在ts中是这么写的：
-export const addKey = <T>(list: T[]): T[] => {
-  return list.map((item: T) => ({ ...item, key: Symbol() }));
-};
-
-export const addKey = <T>(list: T[]): T[] => {
-  return list.map((item: T) => ({ ...item, key: Symbol() }));
-};
-```
-
-报错原因：
-
-这里的原因是，在 tsx 文件中，编辑器把尖括号当成 html 标签处理了，所以，为了告诉编辑器这不是一个 html 标签，我们需要对代码稍微做出一些调整：
-
-```js
-// 方法一：在泛型后面加上一个逗号，即可解决报错
-export const addKey = <T,>(list: T[]): T[] => {
-    return list.map((item: T) => ({ ...item, key: Symbol() }));
-};
-// 上面的方法虽然简单有效，也解决了报错，但是不够优雅
-
-// 方法二：用 extends + 空对象 解决报错
-export const addKey = <T extends {}>(list: T[]): T[] => {
-    return list.map((item: T) => ({ ...item, key: Symbol() }));
-};
-// 上面的方法虽然优雅的解决了报错，但是不够专业
-
-// 方法三：用 extends + Record 解决报错
-export const addKey = <T extends Record<string, any>>(list: T[]): T[] => {
-    return list.map((item: T) => ({ ...item, key: Symbol() }));
-};
-```
-
-上面三种方法都是简单有效的解决方案，看你喜欢，任选其一即可。
-
-**505. safrai 浏览器 z-index 无效**
-
-ios `-webkit-overflow-scrolling:touch` 是导致失效原因之一 ios 端 z-index 失效，无效问题解决办法 `transform: translateZ(1000px);`
-
-**506. 实现[ba, bb]之间的随机数**
-
-```js
-function random(ba, bb) {
-  const NUMBER_TYPE = "[object Number]";
-  if (
-    !ba ||
-    !bb ||
-    Object.prototype.toString.call(ba) !== NUMBER_TYPE ||
-    Object.prototype.toString.call(bb) !== NUMBER_TYPE
-  )
-    return;
-  ba = Number(ba);
-  bb = Number(bb);
-  // 如果两者相等，那么每次随机都是这个数
-  if (ba === bb) return ba;
-  // 交换位置
-  if (ba > bb) [ba, bb] = [bb, ba];
-  return Math.floor(Math.random() * (bb - ba + 1) + ba);
-}
-```
-
-**507. 绘制圆形头像**
+**476. 绘制圆形头像**
 
 ```js
 /**
@@ -9868,13 +8881,41 @@ function drawUserInfo() {
 }
 ```
 
-**508. 记一次 vite 项目改造成 qiankun 架构项目**
+**477. safrai 浏览器 z-index 无效，失效**
+ios -webkit-overflow-scrolling:touch 是导致失效原因之一
+ios 端 z-index 失效，无效问题解决办法 transform: translateZ(1000px); /_这里是给 safari 用的_/
 
-> 双方都是 hash 模式路由
+**478. jsDoc 引入**
 
-```js
-// 使用registerMicroApps注册子应用一直报错，后改为loadMicroApp手动加载解决报错以及路由各种问题
-// 子应用是 vite 的使用vite-plugin-qiankun插件配置环境
+- import('./use-scene').SceneItem.type
+
+**479. 后端一次性返回大量数据需要渲染的一个处理方案**
+
+1. 生成一个灰度图，前端利用`getImageData`读图上的点 然后渲染
+2. 栅格数据灰度化并前端转换展示 https://blog.csdn.net/gisshixisheng/article/details/121688008
+
+**480. APNG（Animated Portable Network Graphics）**
+APNG（Animated Portable Network Graphics）是一种支持动画的图像格式，它是 PNG（Portable Network Graphics）的扩展。与 GIF 动画相比，APNG 具有更好的图像质量和更高的色彩深度。
+APNG 使用 PNG 文件格式，并通过在文件中存储多个帧来创建动画。每个帧都是完整的 PNG 图像，可以包含透明度信息和其他 PNG 所支持的特性。
+在现代的 Web 开发中，APNG 通常用于在网页上显示动画效果。然而，需要注意的是，并非所有的浏览器都原生支持 APNG 格式。某些浏览器可能无法正确显示或播放 APNG 图像。为了兼容性，可以使用其他技术，如 CSS 动画或 JavaScript 库（如 APNG.js）来实现动画效果。
+总结起来，APNG 是一种用于创建动画的图像格式，它使用 PNG 文件格式并存储多个帧来创建动画效果。它在 Web 开发中被广泛使用，但需注意浏览器对其支持的情况。
+如有任何进一步的问题，请随时提问。
+
+**481. 小程序 vconsole 复制也需要申明隐私政策**
+
+**482. 小程序分包使用了后行断言的坑**
+
+1. 由于后行断言部分解析器不支持，所以会导致分包在部分机型上崩溃，无法引入 慎用！
+
+**483. 小程序 async onShow 会阻塞页面渲染进程 慎用 async！**
+
+**484. 记一次 vite 项目改造成 qiankun 架构项目**
+
+1. 双方都是 hash 模式路由
+2. 使用`registerMicroApps`注册子应用一直报错，后改为`loadMicroApp`手动加载解决报错以及路由各种问题
+3. 子应用是 vite 的使用`vite-plugin-qiankun`插件配置环境
+
+```ts
 {
   plugins: [
 		// ……
@@ -9886,7 +8927,7 @@ function drawUserInfo() {
 }
 ```
 
-> 主应用内容区域嵌套子应用
+4. 主应用内容区域嵌套子应用
 
 ```vue
 <template>
@@ -9925,7 +8966,7 @@ onUnmounted(() => {
 <style lang="scss"></style>
 ```
 
-509. uniapp 的安卓录音转 pcm 调用讯飞语音转写
+**485. uniapp 的安卓录音转 pcm 调用讯飞语音转写**
 
 ```js
 import CryptoJS from "crypto-es";
@@ -9979,10 +9020,10 @@ export default function useIflytekSpeech() {
         filePath,
         name: "mp3",
         header: { "Content-Type": "multipart/form-data" }, // 设置请求头
-        success: (res) => {
+        success: res => {
           resolve(res);
         },
-        fail: (err) => {
+        fail: err => {
           console.log(err);
           reject(err);
         },
@@ -9994,10 +9035,10 @@ export default function useIflytekSpeech() {
     return new Promise((resolve, reject) => {
       uni.downloadFile({
         url: pcmPath,
-        success: (res) => {
+        success: res => {
           resolve(res);
         },
-        fail: (err) => {
+        fail: err => {
           console.log(err);
           reject(err);
         },
@@ -10103,7 +9144,6 @@ export default function useIflytekSpeech() {
     var date = new Date().toGMTString();
     var algorithm = "hmac-sha256";
     var headers = "host date request-line";
-    var headers = ''
     var signatureOrigin = `host: ${host}\ndate: ${date}\nGET /v2/iat HTTP/1.1`;
     var signatureSha = CryptoJS.HmacSHA256(signatureOrigin, apiSecret);
     var signature = CryptoJS.enc.Base64.stringify(signatureSha);
@@ -10192,9 +9232,9 @@ export default function useIflytekSpeech() {
 }
 ```
 
-**510. js 判定 markdown 标签是否闭合了**
+**486. js 判定 markdown 标签是否闭合了**
 
-````js
+````ts
 const States = {
   text: 0, // 文本状态
   codeStartSm: 1, // 小代码块状态 `xx`
@@ -10264,7 +9304,7 @@ export function isInCode(text) {
 }
 ````
 
-**511. 对象解构赋值 null 会替代默认值**
+**487. 对象解构赋值 null 会替代默认值**
 
 ```js
 let obj = { data: null };
@@ -10281,17 +9321,15 @@ data1;
 // []
 ```
 
-**512. unocss tailwindcss 的一些写法**
+**488. unocss tailwindcss 的一些写法**
 
-- !important 在你的 class 前面加个！ 如 !text-16
+1. `!important` 在你的 class 前面加个`！` 如 `!text-16`
+2. 媒体查询 `sm-max-lg:w-60` `lg:w-60`
+3. 背景渐变`bg-gradient-to-r from-[#c973ff] via-purple-500 to-[#f62ea4]`
 
-- 媒体查询 sm-max-lg:w-60 lg:w-60
+**489. ts 将数组的值作为类型**
 
-- 背景渐变bg-gradient-to-r from-[#c973ff] via-purple-500 to-[#f62ea4]
-
-**513. ts 将数组的值作为类型**
-
-```js
+```ts
 export const promptTypeList = [
   "写作",
   "音乐",
@@ -10316,13 +9354,14 @@ export interface CollectItem {
 }
 ```
 
-**514. @apply vscode 不识别**
+** 490. @apply vscode 不识别 **
 
-[unocss/unocss#2401](https://github.com/unocss/unocss/issues/2401)
+> https://github.com/unocss/unocss/issues/2401
 
-Guys, the solution: .vscode/settings.json
+Guys, the solution:
+.vscode/settings.json
 
-```js
+```json
 {
   "css.customData": [".vscode/unocss.json"]
 }
@@ -10330,7 +9369,7 @@ Guys, the solution: .vscode/settings.json
 
 .vscode/unocss.json
 
-```js
+```json
 {
   "version": 1.1,
   "atDirectives": [
@@ -10346,16 +9385,16 @@ Guys, the solution: .vscode/settings.json
 
 gitignore
 
-```js
+```text
 !.vscode/unocss.json
 !.vscode/settings.json
 ```
 
-**515. 枚举类型用字符串变量包着就变成值的类型了**
+**491. 枚举类型用字符串变量包着就变成值的类型了**
 
 > 触发了分布式条件分发
 
-```js
+```ts
 /**
  * 颜色的类型
  */
