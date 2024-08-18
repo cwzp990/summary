@@ -9401,3 +9401,32 @@ gitignore
 export type ColorType = `${COLOR_TYPE}`;
 // type ColorType = "primary" | "success" | "danger" | "warning" | "default"
 ```
+
+**492. uniapp 微信小程序对接讯飞语音转写**
+
+> https://blog.csdn.net/qq_33525941/article/details/106257929?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-6.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-6.control&login=from_csdn
+
+1. 核心 pcm 转写
+
+```js
+const searchoptions = {
+  duration: 60000, //指定录音的时长，单位 ms
+  sampleRate: 8000, //采样率
+  numberOfChannels: 1, //录音通道数
+  encodeBitRate: 48000, //编码码率
+  format: "PCM", //音频格式
+  frameSize: 1, //指定帧大小，单位 KB
+};
+recorderManager.onFrameRecorded(res => {
+  //每帧触发
+  const { frameBuffer } = res;
+  const int16Arr = new Int8Array(res.frameBuffer);
+  const base64 = wx.arrayBufferToBase64(int16Arr);
+  const sendsty =
+    '{"data":{"status":1,"format":"audio/L16;rate=8000","encoding":"raw","audio":"' +
+    base64 +
+    '"}}';
+});
+```
+
+2. 坑点 电脑编辑器录制 pcm 无法转写 要用真机
