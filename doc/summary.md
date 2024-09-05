@@ -9522,3 +9522,80 @@ let url = "/static/name_gu5yee5o.bpmn20.xml";
 let xmlDoc = this.checkXMLDocObj(url);
 this.createNewDiagram(xmlDoc);
 ```
+
+**499. 百度平台**
+
+1. 统计分析 用来看访问量自定义埋点之类的
+2. [资源管理](https://ziyuan.baidu.com/) 用来提交网站抓取
+
+**500. 写拖拽生成代码的收获**
+
+1. 给当前组件命名即可循环引用当前组件
+2. 插槽动态设置可以用`#[slotName]`
+3. vue3 懒加载组件要用`defineAsyncComponent`包裹起来
+
+```vue
+<template>
+  <template v-if="element.componentType === COMPONENT_TYPE.TEXT">
+    {{ element.props.value }}
+  </template>
+  <component
+    v-else
+    :is="getComponent(element.componentType)"
+    v-bind="element.props || {}"
+    :class="element.className ?? ''"
+    :style="element.style || {}"
+  >
+    <!-- 动态设置插槽 -->
+    <template
+      #[slot.slotName]
+      v-for="slot in element.slots || []"
+      :key="slot.id"
+    >
+      <RenderNode
+        v-for="childComponent in slot.children || []"
+        :element="childComponent"
+        :key="childComponent.id"
+      />
+    </template>
+  </component>
+</template>
+
+<script lang="ts" setup>
+import { ComponetItem, COMPONENT_TYPE } from "/@/views/program/create/type.ts";
+import { componentType2Component } from "./data";
+
+defineOptions({
+  // 循环引用当前组件
+  name: "RenderNode",
+});
+
+defineProps({
+  element: {
+    type: Object as () => ComponetItem,
+    default() {
+      return null;
+    },
+  },
+});
+
+/**
+ * 懒加载组件
+ */
+const DraggableContain = defineAsyncComponent(
+  () => import("../draw-contain/draggable-contain.vue")
+);
+
+function getComponent(componentType: COMPONENT_TYPE) {
+  const currentComponent = componentType2Component[componentType] || null;
+  if (typeof currentComponent === "function") {
+    return currentComponent();
+  } else {
+    return currentComponent;
+  }
+}
+</script>
+
+<style lang="scss"></style>
+```
+
