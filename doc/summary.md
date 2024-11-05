@@ -9599,3 +9599,129 @@ function getComponent(componentType: COMPONENT_TYPE) {
 <style lang="scss"></style>
 ```
 
+**501. transform 在行内元素中不生效的哦**
+
+**502. clearTimeout/clearInterval 之后你的 timeId 仍是有值的**
+
+**503. 画一个长方体**
+
+```vue
+<template>
+  <div :class="['cube-wrapper', type]" :style="{ height }">
+    <div class="cube-box">
+      <!-- <div class="cube1 cube"></div> -->
+      <div class="cube2 cube"></div>
+      <!-- <div class="cube3 cube"></div> -->
+      <div class="cube4 cube"></div>
+      <div class="cube5 cube"></div>
+      <!-- <div class="cube6 cube"></div> -->
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    height: {
+      type: String,
+      default: "60px",
+    },
+    width: {
+      type: String,
+      default: "21px",
+    },
+    // 传空或者green
+    type: {
+      type: String,
+      default: "",
+    },
+  },
+};
+</script>
+
+<style lang="less" scoped>
+/* 外层容器 */
+.cube-wrapper {
+  position: relative;
+  width: 21px; /* 可以根据实际需求调整 */
+  height: 100px; /* 同上 */
+  perspective: 1000px; /* 透视距离，影响3D效果 */
+
+  &.green {
+    .cube2 {
+      background: linear-gradient(#99e2cb, #b2ecb2);
+    }
+    .cube4 {
+      background: linear-gradient(#42d1ca, #aeebb3);
+    }
+    .cube5 {
+      background: #d2fdc0;
+    }
+  }
+}
+
+/* 内层容器 */
+.cube-box {
+  position: absolute;
+  width: 21px;
+  height: 100%;
+  transform: rotateX(-30deg) rotateY(45deg);
+  transform-style: preserve-3d;
+}
+
+/* 基础样式 */
+.cube {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 第一个面 */
+// .cube1 {
+//   background: red;
+// }
+
+/* 第二个面 */
+.cube2 {
+  transform: rotateY(-90deg);
+  transform-origin: left top;
+  background: linear-gradient(#18b2ff, #38cdff);
+}
+
+/* 第三个面 */
+// .cube3 {
+//   transform: rotateY(90deg);
+//   transform-origin: right top;
+//   background: blue;
+// }
+
+/* 第四个面 */
+.cube4 {
+  transform: translateZ(21px); /* 假设宽度为100px，则一半为50px */
+  transform-origin: center;
+  background: linear-gradient(#3f6ef9, #4c9dff);
+}
+
+/* 第五个面 */
+.cube5 {
+  height: 21px;
+  padding-top: 100%;
+  transform: rotateX(90deg) translateZ(0);
+  transform-origin: left top;
+  background: #46cfff;
+}
+
+/* 第六个面 */
+// .cube6 {
+//   top: auto;
+//   bottom: 0;
+//   height: 21px;
+//   padding-top: 100%;
+//   transform: rotateX(-90deg) translateZ(0);
+//   transform-origin: left bottom;
+//   background: black;
+// }
+</style>
+```
