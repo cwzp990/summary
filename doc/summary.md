@@ -9725,3 +9725,73 @@ export default {
 // }
 </style>
 ```
+
+**504. 利用 svg 的 clip 做一个从四角逐渐向内显示图片的效果**
+
+1. svg-clip.vue
+
+```vue
+<template>
+  <svg>
+    <defs>
+      <clipPath :id="id">
+        <circle cx="0" cy="0" :r="radius" />
+        <circle cx="0" :cy="width" :r="radius" />
+        <circle cx="0" :cy="height" :r="radius" />
+        <circle :cx="width" :cy="height" :r="radius" />
+      </clipPath>
+    </defs>
+  </svg>
+</template>
+
+<script>
+export default {
+  props: {
+    width: {
+      type: Number,
+      default: 150,
+    },
+    height: {
+      type: Number,
+      default: 150,
+    },
+    radius: {
+      type: Number,
+      default: 0,
+    },
+    id: {
+      type: String,
+      default: "circle-clip-path",
+    },
+  },
+};
+</script>
+
+<style lang="less" scoped>
+svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+</style>
+```
+
+2. index.vue
+
+```vue
+<template>
+  <!-- 宽高保持跟区域的宽高一致 -->
+  <SvgClip
+    id="first-clip-path"
+    :width="213"
+    :height="163"
+    :radius="radius"
+  ></SvgClip>
+
+  <img
+    style="clip-path: url(#first-clip-path)"
+    src="../../../images/area1/red2.png"
+    alt=""
+  />
+</template>
+```
