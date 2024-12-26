@@ -9795,3 +9795,50 @@ svg {
   />
 </template>
 ```
+
+**505. 一个比较通用的 docker 部署文件**
+
+1. 如果爆内存不够 在 docker 桌面端中调内存 linux 系统不用调智能的
+
+```shell
+# node 构建阶段 as相当于命名
+FROM node:18.20.2 as build-stage
+# 署名
+MAINTAINER qkli4 'qkli4@iflytek.com'
+# 设置--max-old-space-size 避免打包时内存溢出
+ENV NODE_OPTIONS=--max-old-space-size=16384
+# 设置当前工作目录
+WORKDIR /app
+# COPY 复制文件
+COPY . ./
+# 设置 node 阿里镜像
+RUN npm config set registry https://registry.npmmirror.com
+# 删除旧的依赖关系
+RUN rm -rf /app/node_modules /root/.local/share/pnpm
+# pnpm、依赖、编译
+RUN npm install pnpm -g && \
+    pnpm install --no-frozen-lockfile && \
+    pnpm add @rollup/rollup-linux-x64-gnu && \
+    pnpm build
+# node部分结束
+RUN echo "🎉 编 🎉 译 🎉 成 🎉 功 "
+
+# 运行时
+FROM node:18.20.2
+# 署名
+MAINTAINER qkli4 'qkli4@iflytek.com'
+# 设置当前工作目录
+WORKDIR /app
+# 暴露端口
+EXPOSE 7010
+# 设置 node 阿里镜像
+RUN npm config set registry https://registry.npmmirror.com
+# pnpm、依赖、编译
+RUN npm install pm2 -g
+COPY --from=build-stage /app/.output /app/.output
+COPY --from=build-stage /app/ecosystem.config.js /app/ecosystem.config.js
+CMD ["pm2", "start", "ecosystem.config.js", "--no-daemon", "--log-date-format", "'YYYY-MM-DD HH:mm:ss'"]
+RUN echo "🎉 服务 🎉 编译 🎉 成 🎉 功 "
+
+
+```
