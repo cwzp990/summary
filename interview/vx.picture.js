@@ -1,10 +1,11 @@
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
 const { execSync } = require('child_process');
 const { randomUUID } = require('crypto');
-const fs = require('fs');
-const exec = require('child_process').exec;
-const os = require('os');
+const { exec } = require('child_process');
+
 const argv = process.argv.slice(2);
-const path = require('path');
 
 let userDir;
 
@@ -30,10 +31,10 @@ function copyFavArchive() {
     userDir = dirs[argv[0] - 1];
   }
   if (dirs.length === 1) {
-    userDir = dirs[0];
+    [userDir] = dirs;
   }
   const favArchivePath = `${weChatDataPath}/${userDir}/Stickers/fav.archive`;
-  const destPath = `${os.homedir}/Desktop/fav.archive.plist`
+  const destPath = `${os.homedir}/Desktop/fav.archive.plist`;
   fs.copyFileSync(favArchivePath, destPath);
   console.info(`已复制 fav.archive 文件到桌面`);
   console.info(`[*] UserDir: ${userDir}`);
@@ -61,28 +62,29 @@ const links = [];
 while ((match = linkRegex.exec(input)) !== null) {
   links.push(match[1]);
 }
-console.log('匹配到' + links.length + '个表情包');
+console.log(`匹配到${links.length}个表情包`);
 links.forEach((url, index) => {
   links[index] = url.replace(/&amp;/g, '&');
 });
 
 function download(url, filename) {
-  console.log('开始下载' + filename);
-  const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36';
+  console.log(`开始下载${filename}`);
+  const userAgent =
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36';
   const cmd = `curl -A "${userAgent}" -o 'download/${filename}' '${url}'`;
-  exec(cmd, (error, stdout, stderr) => {
+  exec(cmd, (error) => {
     if (error) {
       console.error(`执行出错: ${error}`);
       return;
     }
-    console.log('下载完成' + filename);
+    console.log(`下载完成${filename}`);
   });
 }
 
 async function main() {
   const downloadDir = `${userDir}_Stickers`;
   if (!fs.existsSync(downloadDir)) {
-    console.log('创建文件夹' + downloadDir);
+    console.log(`创建文件夹${downloadDir}`);
     fs.mkdirSync(downloadDir);
   }
   console.log('5秒后开始下载表情包...');
@@ -90,7 +92,7 @@ async function main() {
   links.forEach((url, index) => {
     const name = randomUUID();
     const filename = `${name}.gif`;
-    console.log('开始下载第' + (index + 1) + '个表情包');
+    console.log(`开始下载第${index + 1}个表情包`);
     download(url, filename);
   });
 }
