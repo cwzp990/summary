@@ -9935,3 +9935,183 @@ $(document).ready(function () {
 5. 开发中，如果更新的是 library 服务端相关的插件代码，要重启下 nodebb 查看效果，如果更新的是 client 客户端相关的代码，要重新构建下静态资源 `nodebb build`，,再启动 nodebb
 
 6. 我用的 nodebb 的镜像`ghcr.io/nodebb`， 通过 `docker exec -u 0 -it 容器名称或id /bin/bash` 进入镜像容器，这个镜像中没有 git，所以我将我开发的插件压缩成`.gz`的包，通过`docker cp nodebb-plugin.tar.gz 容器名称或id:/usr/src/app`拷贝到了容器中 在容器中进行解压，在通过`npm link` 集成到了 nodebb 服务中，集成后在 nodebb 后台管理的插件列表中能看到已安装该插件
+
+**508.讯飞语音合成实时推流**
+
+```js
+import CryptoJS from "crypto-es";
+import { Base64 } from "js-base64";
+
+export const getWebsocketInstance = (url: string) => {
+  if ("WebSocket" in window) {
+    return new WebSocket(url);
+  } else if ("MozWebSocket" in window) {
+    return new MozWebSocket(url);
+  } else {
+    return null;
+  }
+};
+
+// 系统配置
+const config = {
+  // 请求地址
+  hostUrl: "wss://tts-api.xfyun.cn/v2/tts",
+  host: "tts-api.xfyun.cn",
+  uri: "/v2/tts",
+  //TODO 在控制台-我的应用-在线语音合成（流式版）获取
+  appid: "",
+  apiSecret: "",
+  apiKey: "",
+};
+
+function encodeText(text: string, type: "UTF8" | "unicode" = "UTF8") {
+  if (type === "unicode") {
+    let buf = new ArrayBuffer(text.length * 4);
+    let bufView = new Uint16Array(buf);
+    for (let i = 0, strlen = text.length; i < strlen; i++) {
+      bufView[i] = text.charCodeAt(i);
+    }
+    let binary = "";
+    let bytes = new Uint8Array(buf);
+    let len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  } else {
+    return Base64.encode(text);
+  }
+}
+
+function getURL() {
+  let date = new Date().toUTCString();
+  return (
+    config.hostUrl +
+    "?authorization=" +
+    getAuthStr(date) +
+    "&date=" +
+    encodeURIComponent(date) +
+    "&host=" +
+    config.host
+  );
+}
+
+function getAuthStr(date) {
+  let signatureOrigin = `host: ${config.host}\ndate: ${date}\nGET ${config.uri} HTTP/1.1`;
+  let signatureSha = CryptoJS.HmacSHA256(signatureOrigin, config.apiSecret);
+  let signature = CryptoJS.enc.Base64.stringify(signatureSha);
+  let authorizationOrigin = `api_key="${config.apiKey}", algorithm="hmac-sha256", headers="host date request-line", signature="${signature}"`;
+  let authStr = CryptoJS.enc.Base64.stringify(
+    CryptoJS.enc.Utf8.parse(authorizationOrigin)
+  );
+  return authStr;
+}
+
+/**
+ *
+ * @param {string} text 文本
+ * @param {'xiaoyan' | 'x4_lingxiaolu_en'} vcn 发音人
+ * @param {number} speed 语速
+ * @returns
+ */
+export const textToSpeech = (
+  text,
+  onmessage: (e: ArrayBuffer) => void = () => {},
+  vcn: "xiaoyan" | "x4_lingxiaolu_en" = "xiaoyan",
+  speed = 50
+): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    // const audios: string[] = [];
+    let websocketInstance = getWebsocketInstance(getURL());
+    websocketInstance.onopen = e => {
+      console.log("链接成功，开始发送");
+      send();
+    };
+    websocketInstance.onmessage = res => {
+      let result = JSON.parse(res.data);
+      if (result.code == 0) {
+        let audio = result.data.audio;
+        // audios.push(audio);
+        onmessage(base64ToArrayBuffer(audio));
+        if (result.code == 0 && result.data?.status == 2) {
+          websocketInstance.close();
+          resolve("success");
+        }
+      }
+    };
+    websocketInstance.onerror = e => {
+      console.error("出错了", e);
+      reject(e);
+    };
+    websocketInstance.onclose = e => {
+      console.log("closele ", e);
+    };
+
+    function send() {
+      const params = {
+        // 填充common
+        common: {
+          app_id: config.appid,
+        },
+        // 填充business
+        business: {
+          aue: "lame",
+          sfl: 1,
+          auf: "audio/L16;rate=16000",
+          vcn: vcn,
+          speed: speed,
+          tte: "UTF8",
+        },
+        // 填充data
+        data: {
+          text: encodeText(text),
+          status: 2,
+        },
+      };
+      websocketInstance.send(JSON.stringify(params));
+    }
+  });
+};
+
+function concatenateBase64(base64Datas: string[]): string {
+  // 合并 ArrayBuffer
+  const combinedArrayBuffer = concatenateArrayBuffers(
+    ...base64Datas.map(item => base64ToArrayBuffer(item))
+  );
+
+  const blob = new Blob([combinedArrayBuffer], { type: "audio/mpeg" });
+  const url = URL.createObjectURL(blob);
+
+  return url;
+}
+
+// 将 Base64 字符串转换为 ArrayBuffer
+function base64ToArrayBuffer(base64: string): ArrayBuffer {
+  const binaryString = window.atob(base64);
+  const len = binaryString.length;
+  const bytes = new Uint8Array(len);
+
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+
+  return bytes.buffer;
+}
+
+// 合并多个 ArrayBuffer
+function concatenateArrayBuffers(...buffers: ArrayBuffer[]): ArrayBuffer {
+  const totalLength = buffers.reduce(
+    (acc, buffer) => acc + buffer.byteLength,
+    0
+  );
+  const result = new Uint8Array(totalLength);
+
+  let offset = 0;
+  for (const buffer of buffers) {
+    result.set(new Uint8Array(buffer), offset);
+    offset += buffer.byteLength;
+  }
+
+  return result.buffer;
+}
+```
