@@ -9939,6 +9939,7 @@ $(document).ready(function () {
 **508.讯飞语音合成实时推流**
 
 ```js
+
 import CryptoJS from "crypto-es";
 import { Base64 } from "js-base64";
 
@@ -10114,4 +10115,143 @@ function concatenateArrayBuffers(...buffers: ArrayBuffer[]): ArrayBuffer {
 
   return result.buffer;
 }
+
+<template>
+  <button
+    class="flex items-center justify-center border-none bg-transparent cursor-pointer transition-all color-[#50596e] hover:color-[#0050f0]"
+    @click="handlePlayVoice"
+  >
+    <LoadingOutlined title="加载中" v-if="loading" />
+    <template v-else>
+      <PauseCircleOutlined
+        class="color-[#0050f0]"
+        title="暂停"
+        v-if="playing"
+      />
+      <PlayCircleOutlined title="播放" v-else />
+    </template>
+  </button>
+</template>
+
+<script lang="ts" setup>
+import { onBeforeUnmount, ref } from "vue";
+import { textToSpeech } from "./speech_synthesis";
+import {
+  PlayCircleOutlined,
+  PauseCircleOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons-vue";
+
+let audio: HTMLAudioElement | null = null;
+let blobUrl: string = "";
+let mediaSource: MediaSource | null = null;
+let sourceBuffer: SourceBuffer | null = null;
+
+const loading = ref(false);
+const playing = ref(false);
+
+const props = defineProps({
+  content: {
+    type: String,
+    default: "",
+  },
+});
+
+const initMediaSource = () => {
+  if (!mediaSource) {
+    mediaSource = new MediaSource();
+    mediaSource.addEventListener("sourceopen", handleSourceOpen);
+    blobUrl = URL.createObjectURL(mediaSource);
+    audio = new Audio();
+    audio.src = blobUrl;
+    audio.onended = () => {
+      playing.value = false;
+    };
+  }
+};
+
+const handlePlayVoice = () => {
+  initMediaSource();
+  if (playing.value) {
+    audio?.pause();
+    playing.value = false;
+    return;
+  }
+  if (sourceBuffer && sourceBuffer.buffered.length > 0) {
+    audio.play();
+    playing.value = true;
+    return;
+  }
+  const { content } = props;
+  if (loading.value || !content) {
+    return;
+  }
+  loading.value = true;
+  textToSpeech(props.content, arrayBuffer => {
+    appendBuffer(arrayBuffer);
+    if (!playing.value) {
+      audio.play();
+      loading.value = false;
+      playing.value = true;
+    }
+  }).finally(() => {
+    loading.value = false;
+  });
+};
+
+const destroy = () => {
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0; // 重置音频时间
+    URL.revokeObjectURL(blobUrl);
+    audio = null;
+    blobUrl = "";
+  }
+  if (mediaSource?.readyState === "open") {
+    sourceBuffer?.abort();
+    mediaSource?.endOfStream();
+  }
+  sourceBuffer = null;
+  mediaSource = null;
+};
+
+function handleSourceOpen() {
+  if (sourceBuffer) {
+    return;
+  }
+  sourceBuffer = mediaSource!.addSourceBuffer("audio/mpeg");
+  sourceBuffer.addEventListener("updateend", () => {
+    if (!sourceBuffer!.updating && mediaSource!.readyState === "open") {
+      mediaSource!.endOfStream();
+    }
+  });
+}
+
+function appendBuffer(data: ArrayBuffer) {
+  if (!sourceBuffer) {
+    return;
+  }
+
+  // 检查 SourceBuffer 是否正在更新
+  if (sourceBuffer.updating) {
+    // 使用 requestAnimationFrame 延迟调用
+    requestAnimationFrame(() => appendBuffer(data));
+    return;
+  }
+
+  try {
+    sourceBuffer.appendBuffer(new Uint8Array(data));
+  } catch (error) {
+    console.error("Failed to append buffer:", error);
+  }
+}
+
+// 不能是onUmounted ，因为会销毁组件，导致无法停止播放
+onBeforeUnmount(() => {
+  destroy();
+});
+</script>
+
+<style lang="scss"></style>
+
 ```
