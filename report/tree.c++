@@ -1,6 +1,5 @@
 #include <iostream>
 
-// 定义二叉树节点结构
 struct TreeNode
 {
     int val;
@@ -9,7 +8,6 @@ struct TreeNode
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-// 自定义队列节点
 struct QueueNode
 {
     TreeNode *data;
@@ -17,7 +15,6 @@ struct QueueNode
     QueueNode(TreeNode *x) : data(x), next(NULL) {}
 };
 
-// 自定义队列类
 class Queue
 {
 private:
@@ -29,7 +26,6 @@ public:
         front = rear = NULL;
     }
 
-    // 入队
     void push(TreeNode *x)
     {
         QueueNode *temp = new QueueNode(x);
@@ -42,7 +38,6 @@ public:
         rear = temp;
     }
 
-    // 出队
     TreeNode *pop()
     {
         if (front == NULL)
@@ -59,13 +54,11 @@ public:
         return result;
     }
 
-    // 判断队列是否为空
     bool empty()
     {
         return front == NULL;
     }
 
-    // 析构函数
     ~Queue()
     {
         while (front != NULL)
@@ -77,7 +70,6 @@ public:
     }
 };
 
-// 插入节点到BST
 TreeNode *insert(TreeNode *root, int value)
 {
     if (root == NULL)
@@ -96,7 +88,6 @@ TreeNode *insert(TreeNode *root, int value)
     return root;
 }
 
-// 中序遍历
 void inOrder(TreeNode *root)
 {
     if (root == NULL)
@@ -107,7 +98,6 @@ void inOrder(TreeNode *root)
     inOrder(root->right);
 }
 
-// 层次遍历（使用自定义队列）
 void levelOrder(TreeNode *root)
 {
     if (root == NULL)
@@ -128,7 +118,6 @@ void levelOrder(TreeNode *root)
     }
 }
 
-// 清理树内存
 void deleteTree(TreeNode *root)
 {
     if (root == NULL)
@@ -145,10 +134,8 @@ int main()
 
     std::cout << "请输入10个1-100的整数：" << std::endl;
 
-    // 输入10个数并构建BST
     for (int i = 0; i < 10; i++)
     {
-        // 检查输入是否成功
         if (!(std::cin >> num))
         {
             std::cin.clear();             // 清除错误标志
@@ -158,7 +145,6 @@ int main()
             continue;
         }
 
-        // 检查数值范围
         if (num < 1 || num > 100)
         {
             std::cout << "输入无效，请输入1-100之间的整数！" << std::endl;
@@ -177,7 +163,6 @@ int main()
     levelOrder(root);
     std::cout << std::endl;
 
-    // 清理内存
     deleteTree(root);
 
     return 0;
