@@ -121,3 +121,61 @@ export default defineConfig({
   },
 });
 ```
+
+# 绘制圆角矩形
+
+## arcTo 方案
+
+```js
+// 绘制圆角矩形（使用 arcTo）
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+  // 重置当前路径
+  ctx.beginPath();
+
+  // 移动到左上角
+  ctx.moveTo(x + radius, y);
+  // 绘制右上角
+  ctx.arcTo(x + width, y, x + width, y + radius, radius);
+  // 绘制右下角
+  ctx.arcTo(x + width, y + height, x + width - radius, y + height, radius);
+  // 绘制左下角
+  ctx.arcTo(x, height, x, height - radius, radius);
+  // 绘制左上角
+  ctx.arcTo(x, y, x + radius, y, radius);
+
+  // 填充当前路径
+  ctx.fill();
+}
+```
+
+## quadraticCurveTo 二次贝塞尔曲线方案
+
+```js
+// 绘制圆角矩形（使用二次贝塞尔曲线 quadraticCurveTo）
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+  // 重置当前路径
+  ctx.beginPath();
+
+  // 移动到右上角
+  ctx.moveTo(x + width - radius, y);
+  // 绘制右上角曲线
+  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+  // 绘制右边线
+  ctx.lineTo(x + width, y + height - radius);
+  // 绘制右下角曲线
+  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  // 绘制下边线
+  ctx.lineTo(x + radius, y + height);
+  // 绘制左下角曲线
+  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+  // 绘制左边线
+  ctx.lineTo(x, y + radius);
+  // 绘制左上角曲线
+  ctx.quadraticCurveTo(x, y, x + radius, y);
+  // 绘制上边线（创建从当前点回到起始点的路径）
+  ctx.closePath();
+
+  // 填充当前路径
+  ctx.fill();
+}
+```
