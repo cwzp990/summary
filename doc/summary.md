@@ -746,7 +746,7 @@ for (let i = 0, l = arr[0].length; i < l; i++) {
 
 ```javascript
 // 固定参数实现
-const result = x => y => z => x * y * z;
+const result = (x) => (y) => (z) => x * y * z;
 result(3)(4)(4); // 48;
 // 柯里化实现
 function curry(fn) {
@@ -1158,7 +1158,7 @@ export default function fetch(options, type) {
           }
         }
       })
-      .catch(error => {
+      .catch((error) => {
         //请求失败时,根据业务判断状态
         if (error.response) {
           let resError = error.response;
@@ -1264,7 +1264,7 @@ export const triggerResize = () => {
 **76. 字节换算**
 
 ```javascript
-export const bytesToSize = bytes => {
+export const bytesToSize = (bytes) => {
   if (bytes === 0) return "0 B";
   var k = 1000, // or 1024
     sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
@@ -1710,16 +1710,16 @@ export const download_blob = (blob, file_name) => {
 };
 
 axios({})
-  .then(res => {
+  .then((res) => {
     download_blob(res, Date.parse(new Date()) + ".xls")
-      .then(data => {
+      .then((data) => {
         console.log(data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err);
   });
 ```
@@ -1957,7 +1957,7 @@ export const getScrollTop = function () {
 ```javascript
 function flattenArray(arr) {
   const flattened = [].concat(...arr);
-  return flattened.some(item => Array.isArray(item))
+  return flattened.some((item) => Array.isArray(item))
     ? flattenArray(flattened)
     : flattened;
 }
@@ -2357,7 +2357,7 @@ let elm = document.getElementById("wq");
 // 设置事件监听.
 elm.addEventListener(
   "click",
-  e => {
+  (e) => {
     console.log(e);
   },
   false
@@ -2718,7 +2718,7 @@ this.loadData();
 - 我的解决办法 -> 请求完毕后咋成功回调里直接覆盖数据
 
 ```javascript
-loadData().then(res => {
+loadData().then((res) => {
   Array.isArray(res.contentList) && (this.list = res.contentList);
 });
 ```
@@ -2778,7 +2778,7 @@ text-align: left;
 **156.vueli3 的配置文件另一种写法**
 
 ```javascript
-configureWebpack: confing => {
+configureWebpack: (confing) => {
   config.resolve = {
     extensions: [".js", ".vue", ".json", ".css"],
     alias: {
@@ -3016,7 +3016,7 @@ export default {
     $file_upLoad(file, type = "TRACE") {
       return new Promise((resolve, reject) => {
         this.$file_getUploadUrl({ type })
-          .then(res => {
+          .then((res) => {
             res = res.data;
             let data = new FormData();
             data.append("key", res.key);
@@ -3028,18 +3028,18 @@ export default {
 
             this.$http
               .post(`${res.url}/`, data)
-              .then(uploadRes => {
+              .then((uploadRes) => {
                 resolve({
                   data: uploadRes.data,
                   status: uploadRes.status,
                   fileId: res.key,
                 });
               })
-              .catch(err => {
+              .catch((err) => {
                 reject(err);
               });
           })
-          .catch(err => {
+          .catch((err) => {
             reject(err);
           });
       });
@@ -3146,7 +3146,7 @@ console.log(date);
 **172. 获取域名和端口**
 
 ```javascript
-export const getBaseUrl = url => {
+export const getBaseUrl = (url) => {
   var reg = /^((\w+):\/\/([^/:]*)(?::(\d+))?)(.*)/;
   reg.exec(url);
   return RegExp.$1;
@@ -3290,7 +3290,7 @@ lazyMove(targetScroll) {
 **136. vuecli3 引入第三方插件 如 JQ 百度地图**
 
 ```javascript
-chainWebpack: config => {
+chainWebpack: (config) => {
   config.externals({ BMap: "BMap" });
 };
 ```
@@ -3338,10 +3338,10 @@ chainWebpack: config => {
 
 ```javascript
 export default function ({ $axios, redirect }) {
-  $axios.onRequest(config => {
+  $axios.onRequest((config) => {
     // console.log('Making request to ' + config.url)
   });
-  $axios.onError(error => {
+  $axios.onError((error) => {
     console.log(error);
     const code = parseInt(error.response && error.response.status);
     if (code === 400) {
@@ -3349,7 +3349,7 @@ export default function ({ $axios, redirect }) {
     }
   });
 
-  $axios.onResponse(response => {
+  $axios.onResponse((response) => {
     // console.log(response)
   });
 }
@@ -4186,9 +4186,9 @@ box-shadow: 0 8px 20px #666; /* 第一个左右偏移 第二个上下偏移 第�
 
 ```javascript
 // 有效清空 不会导致数据遗留
-loadData().then(res => {
+loadData().then((res) => {
   this.dataList = [];
-  this.dataList = res.map(v => {
+  this.dataList = res.map((v) => {
     v.name = 1;
     return v;
   });
@@ -4196,8 +4196,8 @@ loadData().then(res => {
 
 // 有时候会无效清空 导致数据遗留
 this.dataList = [];
-loadData().then(res => {
-  this.dataList = res.map(v => {
+loadData().then((res) => {
+  this.dataList = res.map((v) => {
     v.name = 1;
     return v;
   });
@@ -4343,13 +4343,13 @@ export default {
       });
       this.client.on("connect", () => {
         // persence 和  /hello/word 相当于监听的路由 不在这里写 收不到信息
-        this.client.subscribe("presence", err => {
+        this.client.subscribe("presence", (err) => {
           if (!err) {
             this.client.publish("presence", "Hello mqtt");
           }
         });
 
-        this.client.subscribe("/hello/world", err => {
+        this.client.subscribe("/hello/world", (err) => {
           if (!err) {
             this.client.publish("/hello/world", "Hello word");
           }
@@ -4361,7 +4361,7 @@ export default {
         console.log(topic, message.toString(), "msg");
         // this.client.end();
       });
-      this.client.on("error", error => {
+      this.client.on("error", (error) => {
         // message is Buffer
         console.log(error);
         this.client.end();
@@ -4483,14 +4483,14 @@ export default {
     },
     // 这里有个注意点 我踩了个坑 自己不理解async   async返回的也是个promise对象  哈哈
     addMarkerToMap(arr) {
-      const newArr = arr.filter(v => {
+      const newArr = arr.filter((v) => {
         return v.longitude && v.latitude;
       });
       this.markerWindow = [];
       newArr.forEach((v, k) => {
         // 一开始直接添加到map中 都是空的 async返回的也是个promise 哦！
         this.createMarker(v)
-          .then(markder => {
+          .then((markder) => {
             this.map.addOverlay(markder);
           })
           .catch(() => {});
@@ -4541,7 +4541,7 @@ Vue.directive("allowed", {
     let roles = store.getters.roles;
     //判断权限
     if (Array.isArray(roles) && roles.length > 0) {
-      let allow = bingding.value.some(item => {
+      let allow = bingding.value.some((item) => {
         return roles.includes(item);
       });
       if (!allow) {
@@ -4590,7 +4590,7 @@ TS 有个好处就是你引入方法会告诉你参数是什么类型返回什�
 - 之后是写配置文件，比如我的 webpack 的 alias 配置如下, common 中是我的公共方法
 
 ```javascript
-chainWebpack: config => {
+chainWebpack: (config) => {
   config.resolve.alias.set("@common", resolve("src/common"));
 };
 ```
@@ -4618,7 +4618,7 @@ chainWebpack: config => {
  *
  * @param {String} msg 提示的消息
  */
-export const ht_notify_error = msg => {
+export const ht_notify_error = (msg) => {
   ht_notify({
     title: "非常抱歉...",
     message: msg,
@@ -5174,7 +5174,7 @@ if (
   value !== "" &&
   !el.__ieph
 ) {
-  const blocker = e => {
+  const blocker = (e) => {
     // 阻止事件冒泡并且阻止相同事件的其他侦听器被调用。
     e.stopImmediatePropagation();
     el.removeEventListener("input", blocker);
@@ -5356,7 +5356,7 @@ fileList(root);
 function fileList(folder) {
   fs.readdir(folder, (err, files) => {
     if (err) console.error(err);
-    files.forEach(file => {
+    files.forEach((file) => {
       fileFilter(folder + file);
     });
   });
@@ -6285,13 +6285,13 @@ form.append("file", vm.$refs.upload.files[0]);
 form.append("id", id);
 form.append("type", type);
 var config = {
-  onUploadProgress: progressEvent => {
+  onUploadProgress: (progressEvent) => {
     var complete =
       (((progressEvent.loaded / progressEvent.total) * 100) | 0) + "%";
     this.progress = complete;
   },
 };
-axios.post(`api/uploadFile`, form, config).then(res => {
+axios.post(`api/uploadFile`, form, config).then((res) => {
   if (res.data.status === "success") {
     console.log("上传成功");
   }
@@ -6416,16 +6416,16 @@ import axios from "@/libs/http";
 import { formatDataByType } from "@libs/assist";
 import * as types from "@/api/types";
 
-export const getDurgTypeList = params => {
+export const getDurgTypeList = (params) => {
   return axios
     .get(types.GETRootTypeList, params)
-    .then(res => formatDataByType(res.data));
+    .then((res) => formatDataByType(res.data));
 };
 
-export const getDrugTypeByIdAndKeyword = params => {
+export const getDrugTypeByIdAndKeyword = (params) => {
   return axios
     .get(types.GETDrugTypeByIdAndKeyword, params)
-    .then(res => formatDataByType(res.data));
+    .then((res) => formatDataByType(res.data));
 };
 ```
 
@@ -6540,7 +6540,7 @@ export class Subject {
    * @param {function} updateFn
    */
   addObserve(key, updateFn) {
-    const index = this.observes.findIndex(v => v.key === key);
+    const index = this.observes.findIndex((v) => v.key === key);
     const observe = { key, updateFn };
     index > -1
       ? this.observes.splice(index, 1, observe)
@@ -6552,7 +6552,7 @@ export class Subject {
   }
 
   notify() {
-    this.observes.forEach(v => v.updateFn());
+    this.observes.forEach((v) => v.updateFn());
   }
 }
 ```
@@ -6763,7 +6763,7 @@ function hanldeDiseaseChoicedChange() {
     }
     const tagList = Array.from($el.querySelectorAll(".el-tag"));
     let maxWidth = Math.max(
-      ...tagList.map(v => {
+      ...tagList.map((v) => {
         const text = v.textContent;
         const cacheWidth = cacheTagWidthObj[text];
         if (isId(cacheWidth)) {
@@ -6932,7 +6932,7 @@ graph.changeData();
 5. 设置 disabled 和 active 状态
 
 ```javascript
-graph.findAll("node", node => {
+graph.findAll("node", (node) => {
   const nodeId = node._cfg.id;
   graph.setItemState(nodeId, "disabled", true);
 });
@@ -7065,7 +7065,7 @@ graph = new G6.TreeGraph({
     type: "compactBox",
     direction: "LR",
     // 核心
-    getHeight: node => {
+    getHeight: (node) => {
       return Math.ceil(node.label.length / 7) * 26 || 26;
     },
     getWidth: () => {
@@ -7170,7 +7170,7 @@ import PaintedChart from "@/views/statistic/index.js";
 const components = [PaintedChart];
 
 const install = function (Vue) {
-  components.forEach(component => {
+  components.forEach((component) => {
     Vue.component(component.name, component);
   });
 };
@@ -7720,7 +7720,7 @@ if (process.env.NODE_ENV === "production") {
 ```js
 const text = new Array(10000)
   .fill(1)
-  .map(v => {
+  .map((v) => {
     return "哈哈哈哈哈哈哈哈哈哈或;";
   })
   .join("");
@@ -8013,7 +8013,7 @@ function scrollToLastItem(selector = "", getDomQuery) {
   const query = getDomQuery();
   query.selectViewport().scrollOffset();
   query.select(selector).boundingClientRect();
-  query.exec(res => {
+  query.exec((res) => {
     const lastIndex = res.length - 1;
     const scrollData = res[lastIndex - 1];
     const domData = res[lastIndex];
@@ -8100,7 +8100,7 @@ type MenuData = { [path: string]: { id: string; name: string }[] };
 
 function deepGetMenuData(menuList: NavItem[], menuData: MenuData) {
   if (Array.isArray(menuList)) {
-    menuList.forEach(item => {
+    menuList.forEach((item) => {
       const { path, name, children } = item;
       menuData[path] = [
         {
@@ -8330,7 +8330,7 @@ loader.config({
   },
 });
 
-loader.init().then(monacoInstance => {
+loader.init().then((monacoInstance) => {
   // 初始化编辑器
   monacoInstance.editor.create(divRef.value, {
     value: "321313123",
@@ -8542,13 +8542,13 @@ const svgVueFilePaths: string[] = [
   /**
    * 公共svg
    */
-  ...fs.readdirSync("src/assets/svg").map(filename => {
+  ...fs.readdirSync("src/assets/svg").map((filename) => {
     return `src/assets/svg/${filename}`;
   }),
   /**
    * editor中的svg
    */
-  ...fs.readdirSync("src/views/editor/assets/svg").map(filename => {
+  ...fs.readdirSync("src/views/editor/assets/svg").map((filename) => {
     return `src/views/editor/assets/svg/${filename}`;
   }),
 ];
@@ -8618,10 +8618,10 @@ const optimizeDepKeys: string[] = ["keyboardjs", "vue-json-viewer"];
  * 强制与构建element的组件
  * 因为饿了么的组件按需加载 会导致进入某个路由页面重新加载
  */
-fs.readdirSync("node_modules/element-plus/es/components").forEach(dirname => {
+fs.readdirSync("node_modules/element-plus/es/components").forEach((dirname) => {
   fs.access(
     `node_modules/element-plus/es/components/${dirname}/style/css.mjs`,
-    err => {
+    (err) => {
       if (!err) {
         optimizeDepKeys.push(
           `element-plus/es/components/${dirname}/style/index`
@@ -8826,7 +8826,7 @@ module.exports = {
 <script setup>
 const pageStyle = ref("background: #00000; transition: all .3s");
 
-const { setup, handleChangeSetup } = useSetup(setupNum => {
+const { setup, handleChangeSetup } = useSetup((setupNum) => {
   pageStyle.value = `background:${
     setupNum === 1 ? "#e22b27" : "#000"
   };  transition: all .3s`;
@@ -9020,10 +9020,10 @@ export default function useIflytekSpeech() {
         filePath,
         name: "mp3",
         header: { "Content-Type": "multipart/form-data" }, // 设置请求头
-        success: res => {
+        success: (res) => {
           resolve(res);
         },
-        fail: err => {
+        fail: (err) => {
           console.log(err);
           reject(err);
         },
@@ -9035,10 +9035,10 @@ export default function useIflytekSpeech() {
     return new Promise((resolve, reject) => {
       uni.downloadFile({
         url: pcmPath,
-        success: res => {
+        success: (res) => {
           resolve(res);
         },
-        fail: err => {
+        fail: (err) => {
           console.log(err);
           reject(err);
         },
@@ -9417,7 +9417,7 @@ const searchoptions = {
   format: "PCM", //音频格式
   frameSize: 1, //指定帧大小，单位 KB
 };
-recorderManager.onFrameRecorded(res => {
+recorderManager.onFrameRecorded((res) => {
   //每帧触发
   const { frameBuffer } = res;
   const int16Arr = new Int8Array(res.frameBuffer);
@@ -10254,4 +10254,45 @@ onBeforeUnmount(() => {
 
 <style lang="scss"></style>
 
+```
+
+**509. mockjs 如果在生产环境会劫持 xml 对象，一定要关闭！**
+在生产环境，mockjs 会劫持 xml 对象，导致 axios 请求获取上传进度时出现报错，所以要关闭 mockjs
+
+````md
+好问题！让我检查一下为什么开发环境不会报错：
+
+[3 tools called]
+
+找到关键差异了！让我详细解释：
+
+[1 tool called]
+
+现在我明白了！让我给你详细解释为什么开发环境不会报错：
+
+## 开发环境 vs 生产环境的 Mock 机制差异
+
+### 1. **开发环境（Development）**
+
+```typescript
+localEnabled: !isBuild,  // 开发环境时为 true
+```
+````
+
+**工作原理**：
+
+- 使用 `vite-plugin-mock` 的**开发服务器中间件模式**
+- 通过 **Vite Dev Server 的中间件拦截 HTTP 请求**
+- 在**服务器端**返回模拟数据
+- **不会劫持浏览器的 XMLHttpRequest**
+- 请求流程：浏览器 → Vite Dev Server → Mock 中间件 → 返回数据
+
+```
+浏览器发起请求
+    ↓
+Vite Dev Server 拦截
+    ↓
+vite-plugin-mock 中间件处理
+    ↓
+返回 mock 数据
 ```
