@@ -10296,3 +10296,36 @@ vite-plugin-mock 中间件处理
     ↓
 返回 mock 数据
 ```
+
+✅ **XMLHttpRequest 保持原生状态，不受影响**
+✅ **upload 事件正常工作**
+
+### 2. **生产环境（Production）**
+
+```typescript
+prodEnabled: true,  // 之前的配置，现在改为 false
+injectCode: `
+  import { setupProdMockServer } from '../mock/_createProductionServer';
+  setupProdMockServer();
+`,
+```
+
+**工作原理**：
+
+- 使用 `mockjs` 的**客户端劫持模式**
+- 在打包后的代码中**注入 mock 服务器代码**
+- `createProdMockServer` 会调用 `mockjs`
+- **mockjs 重写浏览器的 XMLHttpRequest 构造函数**
+- 在客户端拦截所有请求
+
+```
+浏览器发起请求
+    ↓
+mockjs 劫持 XMLHttpRequest
+    ↓
+返回 mock 数据（不发送真实请求）
+```
+
+❌ **XMLHttpRequest 被重写**
+❌ **upload 对象被破坏或缺失**
+❌ **addEventListener 失效**
