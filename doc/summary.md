@@ -10329,3 +10329,20 @@ mockjs 劫持 XMLHttpRequest
 ❌ **XMLHttpRequest 被重写**
 ❌ **upload 对象被破坏或缺失**
 ❌ **addEventListener 失效**
+
+### 3. **mockjs 的劫持问题**
+
+查看 mockjs 源码，它会这样重写 XMLHttpRequest：
+
+```javascript
+// mockjs 内部实现（简化版）
+const _XMLHttpRequest = window.XMLHttpRequest;
+
+window.XMLHttpRequest = function () {
+  const xhr = new _XMLHttpRequest();
+  // mockjs 重写了很多方法和属性
+  // 但是 upload 对象的处理不完善
+  // 导致 xhr.upload 是 undefined 或者不是标准的 XMLHttpRequestUpload 对象
+  return xhr;
+};
+```
