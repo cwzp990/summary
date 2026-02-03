@@ -10346,3 +10346,32 @@ window.XMLHttpRequest = function () {
   return xhr;
 };
 ```
+
+**问题根源**：mockjs 在劫持时，**没有正确模拟 `XMLHttpRequest.upload` 属性**，导致：
+
+- `xhr.upload` 可能是 `undefined`
+- 或者是一个不完整的对象，没有 `addEventListener` 方法
+
+### 4. **为什么添加 onUploadProgress 后才出问题？**
+
+```javascript
+// 没有 onUploadProgress 时
+axios({
+  url: '/api/upload',
+  data: formData,
+  // 没有监听上传进度，axios 不会访问 xhr.upload
+});
+
+// 有 onUploadProgress 时
+axios({
+  url: '/api/upload',
+  data: formData,
+  onUploadProgress: (e) => { ... },  // axios 会尝试 xhr.upload.addEventListener
+});
+```
+
+当你添加 `onUploadProgress` 后：
+
+1. axios 内部会执行：`xhr.upload.addEventListener('progress', callback)`
+2. 但 mockjs 劫持后的 `xhr.upload` 不完整
+3. 导致 `xhr.upload.addEventListener is not a function` 错误
