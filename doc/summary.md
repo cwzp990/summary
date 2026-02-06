@@ -10375,3 +10375,18 @@ axios({
 1. axios 内部会执行：`xhr.upload.addEventListener('progress', callback)`
 2. 但 mockjs 劫持后的 `xhr.upload` 不完整
 3. 导致 `xhr.upload.addEventListener is not a function` 错误
+
+## 总结
+
+| 环境     | Mock 方式                 | XMLHttpRequest | upload 事件 | 结果    |
+| -------- | ------------------------- | -------------- | ----------- | ------- |
+| **开发** | Vite 中间件拦截（服务端） | ✅ 原生对象    | ✅ 正常工作 | ✅ 正常 |
+| **生产** | mockjs 劫持（客户端）     | ❌ 被重写      | ❌ 对象异常 | ❌ 报错 |
+
+**解决方案**：
+
+- ✅ 已禁用生产环境的 mock（`.env.production` 和 `mock.ts`）
+- ✅ 生产环境使用真实 API，不劫持 XMLHttpRequest
+- ✅ 开发环境继续使用 Vite 中间件模式的 mock
+
+现在重新构建就完全正常了！
