@@ -9936,10 +9936,9 @@ $(document).ready(function () {
 
 6. 我用的 nodebb 的镜像`ghcr.io/nodebb`， 通过 `docker exec -u 0 -it 容器名称或id /bin/bash` 进入镜像容器，这个镜像中没有 git，所以我将我开发的插件压缩成`.gz`的包，通过`docker cp nodebb-plugin.tar.gz 容器名称或id:/usr/src/app`拷贝到了容器中 在容器中进行解压，在通过`npm link` 集成到了 nodebb 服务中，集成后在 nodebb 后台管理的插件列表中能看到已安装该插件
 
-**508.讯飞语音合成实时推流**
+**508. 讯飞语音合成实时推流**
 
-```js
-
+```ts
 import CryptoJS from "crypto-es";
 import { Base64 } from "js-base64";
 
@@ -10024,11 +10023,11 @@ export const textToSpeech = (
   return new Promise((resolve, reject) => {
     // const audios: string[] = [];
     let websocketInstance = getWebsocketInstance(getURL());
-    websocketInstance.onopen = e => {
+    websocketInstance.onopen = (e) => {
       console.log("链接成功，开始发送");
       send();
     };
-    websocketInstance.onmessage = res => {
+    websocketInstance.onmessage = (res) => {
       let result = JSON.parse(res.data);
       if (result.code == 0) {
         let audio = result.data.audio;
@@ -10040,11 +10039,11 @@ export const textToSpeech = (
         }
       }
     };
-    websocketInstance.onerror = e => {
+    websocketInstance.onerror = (e) => {
       console.error("出错了", e);
       reject(e);
     };
-    websocketInstance.onclose = e => {
+    websocketInstance.onclose = (e) => {
       console.log("closele ", e);
     };
 
@@ -10077,7 +10076,7 @@ export const textToSpeech = (
 function concatenateBase64(base64Datas: string[]): string {
   // 合并 ArrayBuffer
   const combinedArrayBuffer = concatenateArrayBuffers(
-    ...base64Datas.map(item => base64ToArrayBuffer(item))
+    ...base64Datas.map((item) => base64ToArrayBuffer(item))
   );
 
   const blob = new Blob([combinedArrayBuffer], { type: "audio/mpeg" });
@@ -10115,7 +10114,9 @@ function concatenateArrayBuffers(...buffers: ArrayBuffer[]): ArrayBuffer {
 
   return result.buffer;
 }
+```
 
+```vue
 <template>
   <button
     class="flex items-center justify-center border-none bg-transparent cursor-pointer transition-all color-[#50596e] hover:color-[#0050f0]"
@@ -10187,7 +10188,7 @@ const handlePlayVoice = () => {
     return;
   }
   loading.value = true;
-  textToSpeech(props.content, arrayBuffer => {
+  textToSpeech(props.content, (arrayBuffer) => {
     appendBuffer(arrayBuffer);
     if (!playing.value) {
       audio.play();
@@ -10253,7 +10254,6 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss"></style>
-
 ```
 
 **509. mockjs 如果在生产环境会劫持 xml 对象，一定要关闭！**
@@ -10390,3 +10390,7 @@ axios({
 - ✅ 开发环境继续使用 Vite 中间件模式的 mock
 
 现在重新构建就完全正常了！
+
+```
+
+```
